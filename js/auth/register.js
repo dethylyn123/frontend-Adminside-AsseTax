@@ -1,4 +1,5 @@
-const url = "http://webapp-tax-advisor.test";
+// Backend URL
+import { url, successNotification, errorNotification} from "../utils/utils.js";
 
 // Form Register
 const form_register = document.getElementById("form_register");
@@ -52,25 +53,3 @@ form_register.onsubmit = async (e) => {
 //   document.querySelector("#form_register button").innerHTML = "Submit";
 document.querySelector("#form_register button").innerHTML = 'Create Account';
 };
-
-function successNotification(message, seconds){
-    document.querySelector(".alert-success").classList.remove('d-none');
-    document.querySelector(".alert-success").classList.add('d-block');
-    document.querySelector(".alert-success").innerHTML = message;
-
-    setTimeout(function () {
-        document.querySelector(".alert-success").classList.remove('d-block');
-        document.querySelector(".alert-success").classList.add('d-none');
-    }, seconds * 1000);
-}
-
-function errorNotification(message, seconds){
-    document.querySelector(".alert-danger").classList.remove('d-none');
-    document.querySelector(".alert-danger").classList.add('d-block');
-    document.querySelector(".alert-danger").innerHTML = message;
-
-    setTimeout(function () {
-        document.querySelector(".alert-danger").classList.remove('d-block');
-        document.querySelector(".alert-danger").classList.add('d-none');
-    }, seconds * 1000);
-}
