@@ -1,0 +1,22 @@
+function setRouter() {
+    switch (window.location.pathname) {
+        case "/login.html":
+        case "/register.html":
+            if (localStorage.getItem("token")) {
+                window.location.pathname = "/dashboard.html"
+            }
+            break;
+        case "/index.html":
+        case "/":
+            if (!localStorage.getItem("token")) {
+                window.location.pathname = "/login.html";
+            }
+            break;
+
+        default:
+            break;
+
+    }
+}
+
+export {setRouter};
