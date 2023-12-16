@@ -9,6 +9,8 @@
         <title>Register - SB Admin</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <script src="js/auth/register.js" type="module"></script> 
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -20,41 +22,54 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <!-- Notification -->
+                                        <div class="alert alert-danger d-none" role="alert"></div>
+                                        <div class="alert alert-success d-none" role="alert"></div>
+                                        <!-- Registration Form -->
+                                        <form id="form_register">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
-                                                        <label for="inputFirstName">First name</label>
+                                                        <!-- First name field -->
+                                                        <input class="form-control" id="firstname" name="firstname" type="text" placeholder="First Name" required/>
+                                                        <label for="firstname">First Name</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
-                                                        <label for="inputLastName">Last name</label>
+                                                        <!-- Last name field -->
+                                                        <input class="form-control" id="lastname" name="lastname" type="text" placeholder="Last Name" required/>
+                                                        <label for="lastname">Last Name</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <!-- Email field -->
+                                                <input class="form-control" id="email" name="email" type="email" placeholder="Email Address" required/>
+                                                <label for="email">Email Address</label>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
-                                                        <label for="inputPassword">Password</label>
+                                                        <!-- Password field -->
+                                                        <input class="form-control" id="password" name="password" type="password" placeholder="Password" required/>
+                                                        <label for="password">Password</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                                                        <label for="inputPasswordConfirm">Confirm Password</label>
+                                                        <!-- Password Confirmation field -->
+                                                        <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" placeholder="Confirm Password" required/>
+                                                        <label for="password_confirmation">Confirm Password</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html">Create Account</a></div>
+                                                <div class="d-grid">
+                                                    <button class="btn btn-primary btn-block d-flex align-items-center justify-content-center">
+                                                        Create Account
+                                                    </button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -83,6 +98,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <!-- <script src="js/scripts.js"></script> -->
     </body>
 </html>
