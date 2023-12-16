@@ -1,6 +1,6 @@
 // To see errors in console using javascript
 "use strict";
-import { backendURL } from "../utils/utils.js";
+import { backendURL,successNotification, errorNotification } from "../utils/utils.js";
 
 const btn_logout = document.getElementById("btn_logout");
 
@@ -22,6 +22,8 @@ btn_logout.onclick = async () => {
         // Clear Tokens
         localStorage.clear();
 
+        successNotification("Logout Successfully.");
+
         // Redirect Page
         window.location.pathname = "/login.html"
     
@@ -30,7 +32,7 @@ btn_logout.onclick = async () => {
         else {
         const json = await response.json();
     
-        alert(json.message);
+        errorNotification(json.message, 10);
     
       }
     };
