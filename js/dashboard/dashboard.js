@@ -1,7 +1,11 @@
 // To see errors in console using javascript
 "use strict";
-import { backendURL,successNotification, errorNotification } from "../utils/utils.js";
+import { backendURL,successNotification, errorNotification, getLoggedUser, } from "../utils/utils.js";
 
+// calling function - important to execute the code inside the function
+getLoggedUser();
+
+// Logout Btn
 const btn_logout = document.getElementById("btn_logout");
 
 btn_logout.onclick = async () => {
@@ -35,5 +39,33 @@ btn_logout.onclick = async () => {
         errorNotification(json.message, 10);
     
       }
-    };
+};
+
+// async function getLoggedUser(){
+//   // Access User Profile API Endpoint
+//   const response = await fetch(
+//     backendURL + "/api/profile/show",
+//     {
+//       headers: {
+//         Accept: "application/json",
+//         Authorization: "Bearer " + localStorage.getItem("token"),
+//       },
+//     }
+//   );
+
+// // Get response if 200-299 status code
+//   if (response.ok) {
+//     const json = await response.json();
+
+//     document.getElementById("user_logged").innerHTML = 
+//       json.firstname + "" + json.lastname;
+//   }
+// // Get response if 400 or 500 status code
+//     else {
+//     const json = await response.json();
+
+//     errorNotification(json.message, 10);
+
+//   }
+// };
     
