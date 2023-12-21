@@ -6,18 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Tables - SB Admin</title>
+        <title>Real Property Owner</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script type="module" src="js/dashboard/owners.js"></script>
+        <script type="module" src="js/dashboard/dashboard.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="index.html">Asse<span class="text-danger">Tax</span></a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -32,10 +33,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <!-- <li><hr class="dropdown-divider" /></li>  -->
+                        <li><a class="dropdown-item" href="#" id="btn_logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -50,15 +49,26 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
+                            <div class="sb-sidenav-menu-heading">Pages</div>
+                            <!-- <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
+                            </a> -->
+                            <a class="nav-link" href="owners.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+                                Real Property Owners
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                            <a class="nav-link" href="declaration.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
+                                Declaration Form Calculator
                             </a>
+                            <!-- Admin Pages -->
+                            <div class="sb-sidenav-menu-heading">Admin Pages</div>
+                            <a class="nav-link" href="users.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                                Users
+                            </a>
+                            <!-- End of Admin Pages -->
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -69,10 +79,10 @@
             </div>
             <div id="layoutSidenav_content">
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Tables</h1>
+                    <h1 class="mt-4">Real Property Owners</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Tables</li>
+                        <li class="breadcrumb-item active">Property Owners</li>
                     </ol>
                     
                     <!-- Modal -->
@@ -87,8 +97,8 @@
                                 <form id="form_owners">
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <input type="hidden" />
-                                        <!-- Property Owner Field -->
+                                        <input type="hidden" name="user_id" id="user_id"/>
+                                        <!-- Property Owner Name Field -->
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
                                             <label for="">Property Owner Name:</label>
@@ -119,8 +129,8 @@
                                     <!-- End of Modal Body -->
 
                                     <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <div class="modal-footer d-flex align-items-center">
+                                        <button id="modal_close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         <button class="btn btn-primary w-25" type="submit">Submit</button>  
                                     </div>
                                     <!-- End of Modal Footer -->
@@ -145,7 +155,7 @@
                             </div>
                             <!-- Button trigger modal -->
                             <div class="col-sm-3 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_modal">
+                                <button id="modal_show" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_modal">
                                     Add Property Owners
                                 </button>
                             </div>
@@ -170,7 +180,16 @@
                             <b class="ms-2">Loading Data...</b>
                         </div>
                     </div>
+
+                    <!-- Pagination of All Data -->
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="get_pagination"></ul>
+                        </nav>
+                    </div>
                 </div>
+                <!-- End of Content -->
+                
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

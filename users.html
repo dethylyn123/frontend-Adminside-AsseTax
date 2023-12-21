@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Declaration Form Calculator</title>
+        <title>Users</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -33,6 +33,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="register.html"><i class="fa-solid fa-pen-to-square"></i> Register</a></li>
+                        <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#" id="btn_logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                     </ul>
                 </li>
@@ -79,72 +81,30 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Declaration Form Calculator</h1>
+                        <h1 class="mt-4">Users</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
-                            <li class="breadcrumb-item active">Declaration Form Calculator</li>
+                            <li class="breadcrumb-item"><a href="declaration.html">Declaration Form Calculator</a></li>
+                            <li class="breadcrumb-item active">Users</li>
                         </ol>
                         <!-- Notification -->
                         <div class="row">
                             <div class="alert alert-danger d-none" role="alert"></div>
                             <div class="alert alert-success d-none" role="alert"></div>
                         </div>
-
-                        <!-- form hidden; Added form data fro user_id display image in dashboard; Uncomment if necessary -->
-                        <!-- <form id="form_owners">
+                        <!-- Added form data fro user_id display image in dashboard -->
+                        <form id="form_owners">
                             
                                 <input type="hidden" name="user_id" class="user_id"/>
                             
-                        </form> -->
+                        </form>
                         
-                        
-                        <div class="container">
-                            <!-- Form Declaration -->
-                            <form id="form_declaration" class="row g-3 mt-5">
-                                <div class="col-md-6">
-                                    <label for="land_classification_name" class="form-label">Land Classification Name</label>
-                                    <input type="text" class="form-control" id="land_classification_name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="fair_market_value" class="form-label">Fair Market Value</label>
-                                    <input type="text" class="form-control" id="fair_market_value">
-                                </div>
-                                <div class="col-12">
-                                    <label for="assessment_level" class="form-label">Assessment Level</label>
-                                    <input type="text" class="form-control" id="assessment_level">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="area_type" class="form-label">Area Type</label>
-                                    <select id="area_type" class="form-select">
-                                        <option selected>Choose...</option>
-                                        <option>Province</option>
-                                        <option>City</option>
-                                        <option>Municipality within Metro Manila</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="basic_property_tax" class="form-label">Basic Property Tax</label>
-                                    <input type="text" class="form-control" id="basic_property_tax">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="special_education_fund" class="form-label">Special Education Fund</label>
-                                    <input type="text" class="form-control" id="special_education_fund">
-                                </div>
-                                <!-- <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                    </label>
-                                </div>
-                                </div> -->
-                                <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-primary mx-auto d-block col-4">Calculate</button>
-                                </div>
-                            </form>
-                            <!-- End of Form Declaration -->
-                        </div>
+                        <!-- Welcome Message -->
+                        <!-- <div class="welcome-container mt-5">
+                            <img id="profile_image" name="image" src="${backendURL}/storage/${element.image}" width="100%" height="225px" alt="User Profile Image">
+                            <h1>Welcome, <span id="user_logged"></span>!</h1>
+                        </div> -->
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

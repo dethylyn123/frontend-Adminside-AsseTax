@@ -4,9 +4,22 @@ import {setRouter} from "../router/router.js";
 // Set Router
 setRouter();
 
-const backendURL = "http://webapp-tax-advisor.test";
+// Ngrok; prevent brower to show warning
+// fetch(backendURL, {
+//   method: "get",
+//   headers: new Headers ({
+//       "ngrok-skip-browser-warning": "69420",
+// }),
+// })
+// .then((response) => response.json())
+// .then((data) => console.log(data))
+// .catch((err) => console.log(err));
 
-// Get Logged User Profile
+const backendURL = "http://webapp-tax-advisor.test";
+//Old URL from laravel
+//http://webapp-tax-advisor.test
+
+// Get Logged User Profile Name
 async function getLoggedUser(){
     // Access User Profile API Endpoint
     const response = await fetch(
@@ -23,17 +36,24 @@ async function getLoggedUser(){
     if (response.ok) {
       const json = await response.json();
   
-      document.getElementById("user_logged").innerHTML = 
+      document.getElementById("user_logged_name").innerHTML = 
         json.firstname + "" + json.lastname;
+        document.getElementById("user_logged_image").src = backendURL + "/" + json.image;
+
+      // Sets value to the input field with id "user_id"
+      if (document.getElementById("user_id")) {
+        document.getElementById("user_id").value = json.id;
+      }
     }
+
   // Get response if 400 or 500 status code
-      else {
+    else {
       const json = await response.json();
   
       errorNotification(json.message, 10);
   
     }
-  };
+};
 
 // Notifications
 function successNotification(message, seconds = 0){
