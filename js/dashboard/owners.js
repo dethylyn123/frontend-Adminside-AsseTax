@@ -1,10 +1,12 @@
-import { backendURL,successNotification, errorNotification, getLoggedUser, } from "../utils/utils.js";
+import { backendURL, showNavAdminPages, successNotification, errorNotification, getLoggedUser, } from "../utils/utils.js";
 
 // calling function - important to execute the code inside the function
 getLoggedUser();
 
 // Get All Data
 getData();
+
+showNavAdminPages();
 
 async function getData(url = "", keyword = "") {
   // Add Loading if pagination or search is used; Remove if its not needed
@@ -30,6 +32,7 @@ async function getData(url = "", keyword = "") {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
     }
   );
@@ -176,6 +179,7 @@ form_owners.onsubmit = async (e) => {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
       body: formData,
     }
@@ -195,6 +199,7 @@ form_owners.onsubmit = async (e) => {
         headers: {
           Accept: "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
+          "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
         },
         // Uncomment body below; If with Image Upload
         // body: formData,
@@ -273,6 +278,7 @@ const deleteAction = async (e) => {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
     });
 
@@ -333,6 +339,7 @@ const showData = async (id) => {
     headers: {
       Accept: "application/json",
       Authorization: "Bearer " + localStorage.getItem("token"),
+      "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
     },
   });
 
@@ -370,3 +377,5 @@ const pageAction = async (e) => {
   // Refresh card list
   getData(url);
 }
+
+export {getData};

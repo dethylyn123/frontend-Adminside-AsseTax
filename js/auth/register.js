@@ -25,6 +25,7 @@ form_register.onsubmit = async (e) => {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
       body:formData,
     }

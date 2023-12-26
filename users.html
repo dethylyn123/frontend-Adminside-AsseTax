@@ -10,7 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script type="module" src="js/dashboard/dashboard.js"></script>
+        <script type="module" src="js/dashboard/users.js"></script>
         <script type="module" src="js/utils/utils.js"></script>
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
@@ -63,18 +63,20 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
                                 Declaration Form Calculator
                             </a>
-                            <!-- Admin Pages -->
-                            <div class="sb-sidenav-menu-heading">Admin Pages</div>
+                            <!-- Bav Admin Pages -->
+
+                            <div id="nav_admin_pages"></div>
+                            <!-- <div class="sb-sidenav-menu-heading">Admin Pages</div>
                             <a class="nav-link" href="users.html">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Users
-                            </a>
-                            <!-- End of Admin Pages -->
+                            </a> -->
+                            <!-- End of Nav Admin Pages -->
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <span id="user_logged"></span>
+                        <span id="user_logged_name"></span>
                     </div>
                 </nav>
             </div>
@@ -88,24 +90,207 @@
                             <li class="breadcrumb-item"><a href="declaration.html">Declaration Form Calculator</a></li>
                             <li class="breadcrumb-item active">Users</li>
                         </ol>
-                        <!-- Notification -->
+
                         <div class="row">
-                            <div class="alert alert-danger d-none" role="alert"></div>
-                            <div class="alert alert-success d-none" role="alert"></div>
+                            <!-- Modal Btn and Form -->
+                            <div class="col-sm-12">
+                        <!-- Modal -->
+                        <div
+                        class="modal fade"
+                        id="form_modal"
+                        data-bs-backdrop="static"
+                        data-bs-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabel"
+                        aria-hidden="true"
+                        >
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                Users Form
+                                </h1>
+                                <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                ></button>
+                            </div>
+                            <!-- Users Form -->
+                            <form id="form_users">
+                                <!-- Modal Body -->
+                                <div class="modal-body">
+                                <!-- User Id Field -->
+                                <input type="hidden" name="id" id="id" />
+                                <!-- User lastname Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        name="lastname"
+                                        id="lastname"
+                                        placeholder="Last Name"
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <!-- User firstname Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <input
+                                        class="form-control"
+                                        name="firstname"
+                                        id="firstname"
+                                        placeholder="First Name"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- User email Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <input
+                                        class="form-control"
+                                        name="email"
+                                        id="email"
+                                        type="email"
+                                        placeholder="Email Address"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- User role Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <input
+                                        class="form-control"
+                                        name="role"
+                                        id="role"
+                                        placeholder="Role"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- Image File Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <input
+                                        class="form-control"
+                                        type="file"
+                                        name="image"
+                                        accept="image/*"
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <!-- Password field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <!-- Password field -->
+                                    <input 
+                                        class="form-control" 
+                                        id="password" 
+                                        name="password" 
+                                        type="password" 
+                                        placeholder="Password" 
+                                        required/>
+                                    </div>
+                                </div>
+                                <!-- Password Confirmation field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                    <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" placeholder="Confirm Password" required/>
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- Modal Footer -->
+                                <div class="modal-footer">
+                                <button
+                                    id="modal_close"
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    class="btn btn-primary w-25 d-flex align-items-center justify-content-center"
+                                    type="submit"
+                                >
+                                    Submit
+                                </button>
+                                </div>
+                            </form>
+                            <!-- End Slides Form -->
+                            </div>
                         </div>
-                        <!-- Added form data fro user_id display image in dashboard -->
-                        <form id="form_owners">
-                            
-                                <input type="hidden" name="user_id" class="user_id"/>
-                            
+                        </div>
+                        <!-- End Modal -->
+        
+                        <!-- Search Form -->
+                        <form id="form_search">
+                        <div class="row">
+                            <div class="col-sm-8 mb-1">
+                            <input
+                                class="form-control"
+                                type="text"
+                                name="keyword"
+                                placeholder="Search Keyword"
+                            />
+                            </div>
+                            <div class="col-sm-2 d-flex justify-content-center mb-1">
+                            <button class="btn btn-primary w-100" type="submit">
+                                Search
+                            </button>
+                            </div>
+                            <div class="col-sm-2 d-flex justify-content-center mb-1">
+                            <!-- Button trigger modal -->
+                            <button
+                                id="modal_show"
+                                type="button"
+                                class="btn btn-primary w-100"
+                                data-bs-toggle="modal"
+                                data-bs-target="#form_modal"
+                            >
+                                Add User
+                            </button>
+                            <!-- End Button trigger modal  -->
+                            </div>
+                        </div>
                         </form>
-                        
-                        <!-- Welcome Message -->
-                        <!-- <div class="welcome-container mt-5">
-                            <img id="profile_image" name="image" src="${backendURL}/storage/${element.image}" width="100%" height="225px" alt="User Profile Image">
-                            <h1>Welcome, <span id="user_logged"></span>!</h1>
-                        </div> -->
+        
+                        <hr />
                     </div>
+                    </div>
+        
+                    <br />
+        
+                    <!-- Notifications -->
+                    <div class="alert alert-success d-none" role="alert"></div>
+                    <div class="alert alert-danger d-none" role="alert"></div>
+        
+                    <!-- Get All Data -->
+                    <div class="row pb-5" id="get_data">
+                    <div
+                        class="col-sm-12 d-flex justify-content-center align-items-center"
+                    >
+                        <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <b class="ms-2">Loading Data...</b>
+                    </div>
+                    </div>
+        
+                    <!-- Pagination of All Data -->
+                    <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="get_pagination"></ul>
+                    </nav>
+                    </div>
+                </div>
+                <!-- End of Content -->
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

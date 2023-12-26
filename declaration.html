@@ -10,8 +10,8 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script type="module" src="js/dashboard/dashboard.js"></script>
-        <script type="module" src="js/utils/utils.js"></script>
+        <script type="module" src="js/dashboard/declaration.js"></script>
+        <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
     </head>
@@ -62,17 +62,13 @@
                                 Declaration Form Calculator
                             </a>
                             <!-- Admin Pages -->
-                            <div class="sb-sidenav-menu-heading">Admin Pages</div>
-                            <a class="nav-link" href="users.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                                Users
-                            </a>
+                            <div id="nav_admin_pages"></div>
                             <!-- End of Admin Pages -->
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <span id="user_logged"></span>
+                        <span id="user_logged_name"></span>
                     </div>
                 </nav>
             </div>
@@ -102,21 +98,34 @@
                         <div class="container">
                             <!-- Form Declaration -->
                             <form id="form_declaration" class="row g-3 mt-5">
+                                <!-- <input type="hidden" name="property_id" id="property_id"/>
+                                <input type="hidden" name="property_owner_id" id="property_owner_id"/> -->
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="property_id" class="form-label">Property ID</label>
+                                        <input type="text" class="form-control" name="property_id" id="property_id" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="property_id" class="form-label">Property Owner ID</label>
+                                        <input type="text" class="form-control" name="property_owner_id" id="property_owner_id" required>
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="col-md-6">
                                     <label for="land_classification_name" class="form-label">Land Classification Name</label>
-                                    <input type="text" class="form-control" id="land_classification_name">
+                                    <input type="text" class="form-control" name="land_classification_name" id="land_classification_name" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="fair_market_value" class="form-label">Fair Market Value</label>
-                                    <input type="text" class="form-control" id="fair_market_value">
+                                    <input type="text" class="form-control" id="fair_market_value" name="fair_market_value" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="assessment_level" class="form-label">Assessment Level</label>
-                                    <input type="text" class="form-control" id="assessment_level">
+                                    <input type="text" class="form-control" id="assessment_level" name="assessment_level" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="area_type" class="form-label">Area Type</label>
-                                    <select id="area_type" class="form-select">
+                                    <select id="area_type" class="form-select" name="area_type" required>
                                         <option selected>Choose...</option>
                                         <option>Province</option>
                                         <option>City</option>
@@ -125,11 +134,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="basic_property_tax" class="form-label">Basic Property Tax</label>
-                                    <input type="text" class="form-control" id="basic_property_tax">
+                                    <input type="text" class="form-control" id="basic_property_tax" name="basic_property_tax" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="special_education_fund" class="form-label">Special Education Fund</label>
-                                    <input type="text" class="form-control" id="special_education_fund">
+                                    <input type="text" class="form-control" id="special_education_fund" name="special_education_fund" required>
                                 </div>
                                 <!-- <div class="col-12">
                                 <div class="form-check">

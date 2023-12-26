@@ -15,12 +15,19 @@ setRouter();
 // .then((data) => console.log(data))
 // .catch((err) => console.log(err));
 
-const backendURL = "http://webapp-tax-advisor.test";
+const backendURL = "https://986e-143-44-193-92.ngrok-free.app/webapp-tax-advisor/public";
 //Old URL from laravel
 //http://webapp-tax-advisor.test
 
 // Get Logged User Profile Name
 async function getLoggedUser(){
+  // const ngrokBypassHeader = new Headers({
+  //   "ngrok-skip-browser-warning": "69420",
+  // });
+    // Ngrok bypass code
+    // const ngrokBypassHeader = new Headers({
+    // "ngrok-skip-browser-warning": "69420",
+    // });
     // Access User Profile API Endpoint
     const response = await fetch(
       backendURL + "/api/profile/show",
@@ -28,6 +35,7 @@ async function getLoggedUser(){
         headers: {
           Accept: "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
+          "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
         },
       }
     );
@@ -37,13 +45,17 @@ async function getLoggedUser(){
       const json = await response.json();
   
       document.getElementById("user_logged_name").innerHTML = 
-        json.firstname + "" + json.lastname;
-        document.getElementById("user_logged_image").src = backendURL + "/" + json.image;
+        json.firstname + " " + json.lastname;
+
+       // Display user's image
+      const imagePath = backendURL + "/storage/" + json.image;
+      document.getElementById("user_logged_image").src = imagePath;
 
       // Sets value to the input field with id "user_id"
       if (document.getElementById("user_id")) {
         document.getElementById("user_id").value = json.id;
       }
+
     }
 
   // Get response if 400 or 500 status code
@@ -54,6 +66,42 @@ async function getLoggedUser(){
   
     }
 };
+
+// Show Admin Pages
+function showNavAdminPages() {
+  if (localStorage.getItem("role") == "Admin") {
+   document.getElementById("nav_admin_pages").innerHTML = 
+    `<div class="sb-sidenav-menu-heading">Admin Pages</div>
+    <a class="nav-link" href="users.html">
+        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+        Users
+    </a>`;
+  }
+}
+
+// // Calendar
+// function updateDate() {
+//   var currentDate = new Date();
+//   var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+//   var formattedDate = currentDate.toLocaleDateString('en-US', options);
+//   document.getElementById('currentDate').textContent = 'Date: ' + formattedDate;
+// }
+
+// // Initial call to set the date when the page loads
+// updateDate();
+
+// // Update the date every second
+// setInterval(updateDate, 1000);
+
+// // Here ends js code i personally added
+
+// // Date and time picker
+// $('.date').datetimepicker({
+//   format: 'L'
+// });
+// $('.time').datetimepicker({
+//   format: 'LT'
+// });
 
 // Notifications
 function successNotification(message, seconds = 0){
@@ -82,4 +130,4 @@ function errorNotification(message, seconds = 0){
     }
 }
 
-export { backendURL, successNotification, errorNotification, getLoggedUser};
+export { backendURL, showNavAdminPages, successNotification, errorNotification, getLoggedUser};

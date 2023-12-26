@@ -11,13 +11,15 @@ function setRouter() {
         case "/":
         case "/owners.html":
         case "/declaration.html":
-        case "/users.html":
         case "/register.html":
             if (!localStorage.getItem("token")) {
                 window.location.pathname = "/login.html";
             }
             break;
-
+        case "/users.html":
+            if (localStorage.getItem("role") != "Admin") {
+                window.location.pathname = "/index.html";
+            }
         default:
             break;
 

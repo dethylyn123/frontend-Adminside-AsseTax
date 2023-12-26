@@ -1,9 +1,13 @@
 // To see errors in console using javascript
 // "use strict";
-import { backendURL,successNotification, errorNotification, getLoggedUser} from "../utils/utils.js";
+import { backendURL, showNavAdminPages, successNotification, errorNotification, getLoggedUser} from "../utils/utils.js";
 
 // calling function - important to execute the code inside the function
 getLoggedUser();
+
+// call the function showAdminUser from utils js file
+// Get admin pages
+showNavAdminPages();
 
 // Logout Btn
 const btn_logout = document.getElementById("btn_logout");
@@ -17,6 +21,7 @@ btn_logout.onclick = async () => {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
     }
   );
