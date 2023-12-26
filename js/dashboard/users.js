@@ -58,7 +58,7 @@ import {
   
                               <div class="row">
                                   <div class="col-sm-4 d-flex align-items-center">
-                                      <img src="${backendURL}/storage/${element.image}" width="100%" height="270px">
+                                      <img class="rounded" src="${backendURL}/storage/${element.image}" width="100%" height="270px">
                                   </div>
   
                                   <div class="col-sm-8">
