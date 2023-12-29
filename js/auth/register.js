@@ -24,6 +24,8 @@ form_register.onsubmit = async (e) => {
       method: 'POST',
       headers: {
         Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
       body:formData,
     }
@@ -33,11 +35,11 @@ form_register.onsubmit = async (e) => {
   if (response.ok) {
     form_register.reset();
 
-    successNotification("Successfully registered account.");
+    successNotification("Successfully registered account.", 5);
   }
 
 // Get response if 422 status code
-    else if (response.status == 422) {
+  else if (response.status == 422) {
     const json = await response.json();
 
     errorNotification(json.message, 5);

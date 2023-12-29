@@ -17,13 +17,14 @@ form_login.onsubmit = async (e) => {
 //   Get values of form (input, textarea, select) put it as form-data
   const formData = new FormData(form_login);
 
-//   fetch API user register endpoint
+//   fetch API user login endpoint
   const response = await fetch(
     backendURL + "/api/login",
     {
       method: 'POST',
       headers: {
         Accept: "application/json",
+        "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
       },
       body:formData,
     }
@@ -34,7 +35,14 @@ form_login.onsubmit = async (e) => {
     const json = await response.json();
     console.log(json);
 
+    // store token
     localStorage.setItem("token", json.token);
+
+    // Store role
+    localStorage.setItem("role", json.user.role);
+
+    // Store role
+    localStorage.setItem("image", json.user.image);
 
     form_login.reset();
     
