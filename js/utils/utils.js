@@ -15,7 +15,7 @@ setRouter();
 // .then((data) => console.log(data))
 // .catch((err) => console.log(err));
 
-const backendURL = "https://810e-143-44-193-12.ngrok-free.app/webapp-tax-advisor/public";
+const backendURL = "http://webapp-tax-advisor.test";
 //Old URL from laravel
 //http://webapp-tax-advisor.test
 
