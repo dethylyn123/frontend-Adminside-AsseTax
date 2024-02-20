@@ -126,7 +126,7 @@ h6 {
   line-height: 1;
   font-weight: 500;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  /* text-transform: cap; */
 }
 
 #header .logo a {
@@ -411,6 +411,7 @@ h6 {
   font-size: 48px;
   font-weight: 700;
   line-height: 56px;
+  text-transform: capitalize;
   color: #000;
 }
 
@@ -541,7 +542,7 @@ section {
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
@@ -1188,7 +1189,7 @@ section {
 }
 
 .services .icon-box:hover h4 a {
-  color: #003049;
+  color: #780000;
 }
 /*--------------------------------------------------------------
 # Cta
@@ -1435,7 +1436,7 @@ section {
   font-weight: 700;
   margin-bottom: 5px;
   font-size: 20px;
-  color: #37517e;
+  color: #780000;
 }
 
 .team .member span {
@@ -1454,7 +1455,7 @@ section {
   height: 1px;
   background: #cbd6e9;
   bottom: 0;
-  left: 0;
+  left: 80px;
 }
 
 .team .member p {
@@ -1482,13 +1483,13 @@ section {
 }
 
 .team .member .social a i {
-  color: #37517e;
+  color: #780000;
   font-size: 16px;
   margin: 0 2px;
 }
 
 .team .member .social a:hover {
-  background: #47b2e4;
+  background: #b30101;
 }
 
 .team .member .social a:hover i {
@@ -1519,12 +1520,12 @@ section {
   font-weight: 500;
   margin-bottom: 15px;
   font-size: 20px;
-  color: #37517e;
+  color: #780000;
 }
 
 .pricing h4 {
   font-size: 48px;
-  color: #37517e;
+  color: #780000;
   font-weight: 400;
   font-family: "Inter", "Rubik", "Jost", sans-serif;
   margin-bottom: 25px;
@@ -2072,13 +2073,13 @@ section {
 
 #footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #47b2e4;
+  color: #ff0000;
 }
 
 #footer .footer-top .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #47b2e4;
+  background: #780000;
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -2091,7 +2092,7 @@ section {
 }
 
 #footer .footer-top .social-links a:hover {
-  background: #209dd8;
+  background: #ff0000;
   color: #fff;
   text-decoration: none;
 }
