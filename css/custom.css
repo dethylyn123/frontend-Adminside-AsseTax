@@ -12,3 +12,80 @@ text-align: center;
 padding: 50px;
 color: white; /* Optional: Set the text color */
 }
+
+/* Report Section- Nice Admin Template*/
+/*--------------------------------------------------------------
+# Dashboard
+--------------------------------------------------------------*/
+/* Filter dropdown */
+.filter {
+position: absolute;
+right: 0px;
+top: 15px;
+}
+
+.filter .icon {
+color: #aab7cf;
+padding-right: 20px;
+padding-bottom: 5px;
+transition: 0.3s;
+font-size: 16px;
+}
+
+.filter .icon:hover,
+.filter .icon:focus {
+color: #4154f1;
+}
+
+.filter .dropdown-header {
+padding: 8px 15px;
+}
+
+.filter .dropdown-header h6 {
+text-transform: uppercase;
+font-size: 14px;
+font-weight: 600;
+letter-spacing: 1px;
+color: #aab7cf;
+margin-bottom: 0;
+padding: 0;
+}
+
+.filter .dropdown-item {
+padding: 8px 15px;
+}
+
+/* Info Cards */
+
+.info-card {
+padding-bottom: 10px;
+}
+
+.info-card h6 {
+font-size: 28px;
+color: #012970;
+font-weight: 700;
+margin: 0;
+padding: 0;
+}
+
+.card-icon {
+font-size: 32px;
+line-height: 0;
+width: 64px;
+height: 64px;
+flex-shrink: 0;
+flex-grow: 0;
+}
+
+.land-classification-card .card-icon {
+color: #007fff;
+background: #f1f0f0;
+}
+
+.property-owner-card .card-icon {
+color: #007fff;
+background: #f1f0f0;
+}
+
+/* End of Report Section- Nice Admin Template*/

@@ -55,7 +55,6 @@ async function getLoggedUser(){
       if (document.getElementById("user_id")) {
         document.getElementById("user_id").value = json.id;
       }
-
     }
 
   // Get response if 400 or 500 status code
