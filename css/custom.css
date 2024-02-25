@@ -59,6 +59,7 @@ padding: 8px 15px;
 
 .info-card {
 padding-bottom: 10px;
+box-shadow: 0px 0px 5px #aab7cf;
 }
 
 .info-card h6 {
@@ -88,4 +89,11 @@ color: #007fff;
 background: #f1f0f0;
 }
 
+.bg-pink {
+    background-color: #780302;
+}
+
+.bg-gray {
+    background-color: #f2f2f2;
+}
 /* End of Report Section- Nice Admin Template*/

@@ -23,9 +23,9 @@
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Asse<span class="text-danger">Tax</span></a>
+            <a class="navbar-brand" href="dashboard.html"><img src="assets/img/assetax-logo.png" width="80" height="70" alt="">Asse<span class="text-danger">Tax</span></a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -38,74 +38,25 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown pe-3">
-
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                      <img id="user_logged_image" height="35px" width="35px" src="" alt="Profile" class="rounded-circle">
-                      <span class="d-none d-md-block dropdown-toggle ps-2" id="user_logged_name"></span>
-                    </a><!-- End Profile Iamge Icon -->
-          
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                      <li class="dropdown-header">
-                        <h6></h6>
-                        <span>Web Designer</span>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                          <i class="bi bi-person"></i>
-                          <span>My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                          <i class="bi bi-gear"></i>
-                          <span>Account Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                          <i class="bi bi-question-circle"></i>
-                          <span>Need Help?</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                          <i class="bi bi-box-arrow-right"></i>
-                          <span>Sign Out</span>
-                        </a>
-                      </li>
-          
-                    </ul><!-- End Profile Dropdown Items -->
-                  </li><!-- End Profile Nav -->
-            </ul>
+              <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <div class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img id="user_logged_image" height="35px" width="35px" src="" alt="Profile" class="rounded-circle border border-danger">
+                    <span class="d-none d-md-block ps-2" id="user_logged_name"></span>
+                  </div><!-- End Profile Image Icon -->
+            </ul><!-- End Profile Nav -->
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
+                      <!-- <a class="d-flex justify-content-center" href=""><img src="assets/img/assetax-logo.png" width="150" height="100" alt=""></a> -->
                         <div class="nav text">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <div class="sb-sidenav-menu-heading">Pages</div>
+                            <a class="nav-link" href="dashboard.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Pages</div>
+                            <!-- <div class="sb-sidenav-menu-heading">Pages</div> -->
                             <!-- <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
@@ -123,10 +74,28 @@
                             <!-- End of Admin Pages -->
                         </div>
                     </div>
-                    <!-- <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        <span id="user_logged"></span>
-                    </div> -->
+                    <!-- My Profile -->
+                    <div class="sb-sidenav-footer">
+                      <a class="dropdown-item my-profile d-flex align-items-center mb-2" href="users-profile.html">
+                        <i class="fa-solid fa-user "></i>
+                        &nbsp;&nbsp;My Profile
+                      </a>
+                      <!-- End My Profile -->
+
+                      <!-- Need Help -->
+                      <a class="dropdown-item need-help d-flex align-items-center mb-2" href="users-profile.html">
+                        <i class="bi bi-question-circle-fill"></i>
+                        &nbsp;&nbsp;Need Help?
+                      </a>
+                      <!-- End Need Help -->
+
+                      <!-- Logout -->
+                      <a id="btn_logout" class="dropdown-item logout d-flex align-items-center" href="#">
+                        <i class="bi bi-box-arrow-right"></i>
+                        &nbsp;&nbsp;Logout
+                      </a>
+                      <!-- End Logout -->
+                    </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -212,7 +181,7 @@
                           </div><!-- End Land CLassification Card -->
                           <div class="row">
                             <div class="col-xl-10 ms-2">
-                                <div class="card mt-3">
+                                <div class="info-card card mt-3">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
                                         Land Classification

@@ -9,6 +9,7 @@
         <title>Real Property Owner</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/custom.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
@@ -16,28 +17,24 @@
         <script type="module" src="js/dashboard/dashboard.js"></script>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Asse<span class="text-danger">Tax</span></a>
+            <a class="navbar-brand ps-3" href="dashboard.html">Asse<span class="text-danger">Tax</span></a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form id="form_search" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
+                    <input class="form-control" name="keyword" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-danger me-5" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <!-- UNCOMMENT RA NAKO NI -->
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><hr class="dropdown-divider" /></li> 
-                        <li><a class="dropdown-item" href="#" id="btn_logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-                    </ul>
-                </li> -->
+                <div class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img id="user_logged_image" height="35px" width="35px" src="" alt="Profile" class="rounded-circle border border-danger">
+                    <span class="d-none d-md-block ps-2" id="user_logged_name"></span>
+                </div><!-- End Profile Image Icon -->
             </ul>
         </nav>
         <div id="layoutSidenav">
@@ -45,12 +42,11 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <div class="sb-sidenav-menu-heading">Pages</div>
+                            <a class="nav-link" href="dashboard.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Pages</div>
                             <!-- <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
@@ -78,7 +74,7 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Real Property Owners</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                         <li class="breadcrumb-item active">Property Owners</li>
                     </ol>
                     
@@ -141,23 +137,22 @@
                     <!-- Search Form -->
                     <form id="form_search">
                         <div class="row">
-                            <div class="col-sm-1">
-                                <label for="">Search:</label>
-                            </div>
-                            <div class="col-sm-6">
-                                <input class="form-control" type="text" name="keyword" id="address" placeholder="Search Keyword">
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-primary" type="submit">Search</button>
-                            </div>
+                            <div class="col-sm-12 mb-1">
+                            <div class="float-end col-sm-2 d-flex justify-content-center mb-1">
                             <!-- Button trigger modal -->
-                            <div class="col-sm-3 d-flex justify-content-end">
-                                <button id="modal_show" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form_modal">
-                                    Add Property Owners
-                                </button>
+                            <button
+                                id="modal_show"
+                                type="button"
+                                class="btn btn-primary w-100"
+                                data-bs-toggle="modal"
+                                data-bs-target="#form_modal"
+                            >
+                                Add Property Owner
+                            </button>
+                            <!-- End Button trigger modal  -->
                             </div>
                         </div>
-                    </form>
+                        </form>
                     <!-- End of Search Form -->
 
                         <hr />

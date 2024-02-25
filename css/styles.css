@@ -593,6 +593,7 @@ progress {
   font-size: 0.875em;
   color: #6c757d;
 }
+
 .blockquote-footer::before {
   content: "— ";
 }
@@ -3640,7 +3641,7 @@ textarea.form-control-lg {
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);
-  color: var(--bs-nav-link-color);
+  color: var(--bs-gray-400);
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -3649,7 +3650,7 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.nav-link:hover, .nav-link:focus {
+.nav-link:focus {
   color: var(--bs-nav-link-hover-color);
 }
 .nav-link.disabled {
@@ -10966,7 +10967,7 @@ body {
   margin: 0;
 }
 .sb-topnav.navbar-dark #sidebarToggle {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--bs-gray-400);
 }
 .sb-topnav.navbar-light #sidebarToggle {
   color: #212529;
@@ -11019,32 +11020,38 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #212529;
-  color: rgba(255, 255, 255, 0.5);
+  background-color: #780302;
+  color: var(--bs-gray-800);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: rgba(255, 255, 255, 0.25);
+  color: gray;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--bs-gray-400);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--bs-gray-400);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
-  color: rgba(255, 255, 255, 0.25);
+  color: var(--bs-gray-400);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
   color: #fff;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
   color: #fff;
+  background-color: white;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
   color: #fff;
 }
+
 .sb-sidenav-dark .sb-sidenav-footer {
-  background-color: #343a40;
+  color: var(--bs-gray-400);
+}
+
+.sb-sidenav-footer .my-profile:hover, .sb-sidenav-footer .need-help:hover, .sb-sidenav-footer .logout:hover {
+  color: #fff;
 }
 
 .sb-sidenav-light {
