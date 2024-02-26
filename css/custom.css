@@ -80,12 +80,12 @@ flex-grow: 0;
 }
 
 .land-classification-card .card-icon {
-color: #007fff;
+color: #607fab;
 background: #f1f0f0;
 }
 
 .property-owner-card .card-icon {
-color: #007fff;
+color: #607fab;
 background: #f1f0f0;
 }
 
@@ -95,5 +95,25 @@ background: #f1f0f0;
 
 .bg-gray {
     background-color: #f2f2f2;
+}
+
+.btn-cyan {
+    background-color: #60AB9A;
+}
+
+#form_search .btn-cyan:hover {
+    background-color: #72c6b1;
+}
+
+#form_search .btn-cyan:active {
+    border: #72c6b1;
+}
+
+#form_declaration .btn-cyan:hover {
+    background-color: #72c6b1;
+}
+
+#form_declaration .btn-cyan:active {
+    border: #72c6b1;
 }
 /* End of Report Section- Nice Admin Template*/

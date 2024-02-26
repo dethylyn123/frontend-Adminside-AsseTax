@@ -3,11 +3,11 @@ function setRouter() {
         // If you are logged in you cant access outside pages
         case "/login.html":
             if (localStorage.getItem("token")) {
-                window.location.pathname = "/index.html"
+                window.location.pathname = "/dashboard.html"
             }
             break;
         // If you are not logged in you cant access dashboard pages
-        case "/index.html":
+        case "/dashboard.html":
         case "/":
         case "/owners.html":
         case "/declaration.html":
@@ -18,7 +18,7 @@ function setRouter() {
             break;
         case "/users.html":
             if (localStorage.getItem("role") != "Admin") {
-                window.location.pathname = "/index.html";
+                window.location.pathname = "/dashboard.html";
             }
         default:
             break;

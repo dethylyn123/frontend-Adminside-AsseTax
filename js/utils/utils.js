@@ -123,8 +123,8 @@ function errorNotification(message, seconds = 0){
 
     if (seconds != 0) {
         setTimeout(function () {
-            document.querySelector(".alert-success").classList.remove('d-block');
-            document.querySelector(".alert-success").classList.add('d-none');
+            document.querySelector(".alert-danger").classList.remove('d-block');
+            document.querySelector(".alert-danger").classList.add('d-none');
         }, seconds * 1000);
     }
 }

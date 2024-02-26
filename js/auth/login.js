@@ -48,7 +48,7 @@ form_login.onsubmit = async (e) => {
     
     successNotification("Successfully login account.");
 
-    window.location.pathname = "/index.html"
+    window.location.pathname = "/dashboard.html"
 
   }
 // Get response if 422 status code

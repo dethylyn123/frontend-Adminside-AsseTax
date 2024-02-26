@@ -11,6 +11,7 @@
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/custom.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <script type="module" src="js/dashboard/declaration.js"></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
@@ -19,7 +20,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="dashboard.html">Asse<span class="text-danger">Tax</span></a>
+            <a class="navbar-brand" href="dashboard.html"><img src="assets/img/assetax-logo.png" width="80" height="70" alt="">Asse<span class="text-danger">Tax</span></a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -66,8 +67,28 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        <span id="user_logged_name"></span>
+                        <!-- My Profile -->
+                    <div class="sb-sidenav-footer">
+                        <a class="dropdown-item my-profile d-flex align-items-center mb-2" href="my-profile.html">
+                          <i class="fa-solid fa-user "></i>
+                          &nbsp;&nbsp;My Profile
+                        </a>
+                        <!-- End My Profile -->
+  
+                        <!-- Need Help -->
+                        <a class="dropdown-item need-help d-flex align-items-center mb-2" href="pages-fqa.html">
+                          <i class="bi bi-question-circle-fill"></i>
+                          &nbsp;&nbsp;Need Help?
+                        </a>
+                        <!-- End Need Help -->
+  
+                        <!-- Logout -->
+                        <a id="btn_logout" class="dropdown-item logout d-flex align-items-center" href="#">
+                          <i class="bi bi-box-arrow-right"></i>
+                          &nbsp;&nbsp;Logout
+                        </a>
+                        <!-- End Logout -->
+                      </div>
                     </div>
                 </nav>
             </div>
@@ -148,7 +169,7 @@
                                 </div>
                                 </div> -->
                                 <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-primary mx-auto d-block col-4">Calculate</button>
+                                    <button type="submit" class="btn btn-cyan mx-auto d-block col-4">Calculate</button>
                                 </div>
 
                                 <!-- Assessed Value and Real Property Tax -->
