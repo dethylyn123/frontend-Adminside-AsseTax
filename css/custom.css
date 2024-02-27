@@ -13,6 +13,14 @@ padding: 50px;
 color: white; /* Optional: Set the text color */
 }
 
+.header-row {
+    background-color: #CFCFEA;
+}
+
+tbody tr:hover {
+    color: #de0400;
+}
+
 /* Report Section- Nice Admin Template*/
 /*--------------------------------------------------------------
 # Dashboard
@@ -99,10 +107,12 @@ background: #f1f0f0;
 
 .btn-cyan {
     background-color: #60AB9A;
+    color: white;
 }
 
 #form_search .btn-cyan:hover {
     background-color: #72c6b1;
+    color: white;
 }
 
 #form_search .btn-cyan:active {
@@ -111,6 +121,7 @@ background: #f1f0f0;
 
 #form_declaration .btn-cyan:hover {
     background-color: #72c6b1;
+    color: white;
 }
 
 #form_declaration .btn-cyan:active {
