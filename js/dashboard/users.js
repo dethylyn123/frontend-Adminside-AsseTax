@@ -68,10 +68,10 @@ import {
                                               <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                               <ul class="dropdown-menu">
                                                   <li>
-                                                      <a class="dropdown-item" href="#" id="btn_edit" data-id="${element.id}">Edit</a>
+                                                      <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                                   </li>
                                                   <li>
-                                                      <a class="dropdown-item" href="#" id="btn_delete" data-id="${element.id}">Delete</a>
+                                                      <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
                                                   </li>
                                               </ul>
                                           </div>
