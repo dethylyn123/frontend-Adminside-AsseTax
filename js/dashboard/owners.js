@@ -346,11 +346,11 @@ let for_update_id = "";
 // Show Functionality
 const showData = async (id) => {
 
-  // Background Yellow the card you want to delete
+  // Background lightblue the card you want to edit
   document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
     "lightBlue";
 
-  // Fetch API property owner delete endpoint
+  // Fetch API property owner edit endpoint
   const response = await fetch(
     backendURL + "/api/owner/" + id,  {
     headers: {

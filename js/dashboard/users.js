@@ -53,44 +53,39 @@ import {
       json.data.forEach((element) => {
         const date = new Date(element.created_at).toLocaleString();
   
-        container += `<div class="col-sm-12">
-                          <div class="card w-100 mt-3" data-id="${element.id}">
-  
-                              <div class="row">
-                                  <div class="col-sm-4 d-flex align-items-center">
-                                      <img class="rounded" src="${backendURL}/storage/${element.image}" width="100%" height="270px">
-                                  </div>
-  
-                                  <div class="col-sm-8">
-                                      <div class="card-body">
-                                  
-                                          <div class="dropdown float-end">
-                                              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                              <ul class="dropdown-menu">
-                                                  <li>
-                                                      <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                                  </li>
-                                                  <li>
-                                                      <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
-                                                  </li>
-                                              </ul>
-                                          </div>
-                                      
-                                          <small>First Name</small><h5 class="card-title">${element.firstname}</h5>
-                                          <small>Last Name</small><h5 class="card-title">${element.lastname}</h5>                                         
-                                          <small>Role</small><h5 class="card-title">${element.role}</h5>
-                                          <small>Email</small><h5 class="card-title">${element.email}</h5
-                                          <small>Password</small><h5 class="card-title">${element.password}</h5>
-                                          <h6 class="card-subtitle mb-2 text-body-secondary">
-                                              <small>${date}</small>
-                                          </h6>
-  
-                                      </div>
-                                  </div>
-                              </div>
-                          
-                          </div>
-                      </div>`;
+        container += `<div class="col-sm-6">
+        <div class="card w-100 mt-3" data-id="${element.id}">
+            <div class="row">
+                <div class="col-sm-5 d-flex align-items-center">
+                    <img class="rounded" src="${backendURL}/storage/${element.image}" width="100%" height="270px">
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <div class="dropdown float-end">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h6 class="card-title"><b>Last Name:</b> ${element.lastname}</h6>
+                            <h6 class="card-text"><b>First Name:</b> ${element.firstname}</h6>
+                            <h6 class="card-text"><b>Role:</b> ${element.role}</h6>
+                            <h6 class="card-title"><b>Email:</b> ${element.email}</h6>
+                        </div>
+                        <h6 class="card-subtitle text-body-secondary mt-4">
+                            <small><b>Date created:</b> ${date}</small>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
       });
       // Use the container to display the fetch data
       document.getElementById("get_data").innerHTML = container;
@@ -246,8 +241,11 @@ import {
       const id = e.target.getAttribute("data-id");
   
       // Background red the card that you want to delete
-      document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
-        "red";
+      document.querySelector(`.card[data-id="${id}"]`).style.border =
+        "lightRed";
+
+      // Use JS Confirm to ask for confirmation; You can use bootstrap modal instead of this
+      if (confirm("Are you sure you want to delete?")) {
   
       // Fetch API User Item Delete Endpoint
       const response = await fetch(backendURL + "/api/user/" + id, {
@@ -258,9 +256,6 @@ import {
           "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
         },
       });
-
-      // Use JS Confirm to ask for confirmation; You can use bootstrap modal instead of this
-      if (confirm("Are you sure you want to delete?")) {
   
       // Get response if 200-299 status code
       if (response.ok) {
@@ -278,7 +273,7 @@ import {
         errorNotification("Unable to delete!", 10);
   
         // Background white the card if unable to delete
-        document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
+        document.querySelector(`.card[data-id="${id}"]`).style.border =
           "white";
       }
     }
@@ -302,8 +297,8 @@ import {
   // Show Functionality
   const showData = async (id) => {
     // Background yellow the card that you want to show
-    document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
-      "yellow";
+    document.querySelector(`.card[data-id="${id}"]`).style.border =
+      "blue";
   
     // Fetch API User Item Show Endpoint
     const response = await fetch(backendURL + "/api/user/" + id, {
@@ -339,7 +334,7 @@ import {
       errorNotification("Unable to show!", 10);
   
       // Background white the card if unable to show
-      document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
+      document.querySelector(`.card[data-id="${id}"]`).style.border =
         "white";
     }
   };

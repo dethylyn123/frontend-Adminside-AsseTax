@@ -14,11 +14,11 @@ color: white; /* Optional: Set the text color */
 }
 
 .header-row {
-    background-color: #CFCFEA;
+    background-color: #faa7a6;
 }
 
 tbody tr:hover {
-    color: #de0400;
+    background-color: #e3e2e2;
 }
 
 /* Report Section- Nice Admin Template*/
@@ -133,7 +133,7 @@ color: #a36a6a;
 .profile .profile-card h2 {
     font-size: 24px;
     font-weight: 700;
-    color: #2c384e;
+    color: #4e2c2c;
     margin: 10px 0 0 0;
 }
 
@@ -144,14 +144,14 @@ font-size: 18px;
 .profile .profile-card .social-links a {
     font-size: 20px;
     display: inline-block;
-    color: rgba(1, 41, 112, 0.5);
+    color: rgba(112, 1, 1, 0.5);
     line-height: 0;
     margin-right: 10px;
     transition: 0.3s;
 }
 
 .profile .profile-card .social-links a:hover {
-    color: #012970;
+    color: #700101;
 }
 
 .profile .profile-overview .row {
@@ -160,17 +160,17 @@ font-size: 18px;
 }
 
 .profile .profile-overview .card-title {
-    color: #012970;
+    color: #700101;
 }
 
 .profile .profile-overview .label {
     font-weight: 600;
-    color: rgba(1, 41, 112, 0.6);
+    color: rgba(112, 1, 1, 0.6);
 }
 
 .profile .profile-edit label {
     font-weight: 600;
-    color: rgba(1, 41, 112, 0.6);
+    color: rgba(112, 1, 1, 0.6);
 }
 
 .profile .profile-edit img {

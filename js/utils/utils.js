@@ -4,30 +4,13 @@ import {setRouter} from "../router/router.js";
 // Set Router
 setRouter();
 
-// Ngrok; prevent brower to show warning
-// fetch(backendURL, {
-//   method: "get",
-//   headers: new Headers ({
-//       "ngrok-skip-browser-warning": "69420",
-// }),
-// })
-// .then((response) => response.json())
-// .then((data) => console.log(data))
-// .catch((err) => console.log(err));
-
 const backendURL = "http://webapp-tax-advisor.test";
-//Old URL from laravel
-//http://webapp-tax-advisor.test
+
+let userId;
 
 // Get Logged User Profile Name
 async function getLoggedUser(){
-  // const ngrokBypassHeader = new Headers({
-  //   "ngrok-skip-browser-warning": "69420",
-  // });
-    // Ngrok bypass code
-    // const ngrokBypassHeader = new Headers({
-    // "ngrok-skip-browser-warning": "69420",
-    // });
+
     // Access User Profile API Endpoint
     const response = await fetch(
       backendURL + "/api/profile/show",
@@ -43,18 +26,88 @@ async function getLoggedUser(){
   // Get response if 200-299 status code
     if (response.ok) {
       const json = await response.json();
-  
-      document.getElementById("user_logged_name").innerHTML = 
-        json.firstname + " " + json.lastname;
+      console.log(json);
+      
 
-       // Display user's image
+      //  Show user profile name on the page using getElementById Method
+      // document.getElementById("user_logged_name").innerHTML = 
+      //   json.firstname + " " + json.lastname;
+
+      //  // Display user's image
+      // const imagePath = backendURL + "/storage/" + json.image;
+      // document.getElementById("user_logged_image").src = imagePath;
+
+      // FULL NAME
+      // Using getElementsByClassName instead of getElementById
+      const userLoggedNameElements = document.getElementsByClassName("user_logged_name");
+
+      // Loop through all elements with the given class
+      for (let i = 0; i < userLoggedNameElements.length; i++) {
+          userLoggedNameElements[i].innerHTML = json.firstname + " " + json.lastname;
+      }
+
+      // Display user's image
       const imagePath = backendURL + "/storage/" + json.image;
-      document.getElementById("user_logged_image").src = imagePath;
+      // Using getElementsByClassName instead of getElementById
+      const userLoggedImageElements = document.getElementsByClassName("user_logged_image");
 
+      // Loop through all elements with the given class
+      for (let i = 0; i < userLoggedImageElements.length; i++) {
+          userLoggedImageElements[i].src = imagePath;
+      }
+
+      // ROLE
+      // Using getElementsByClassName instead of getElementById
+      const userLoggedRoleElements = document.getElementsByClassName("user_logged_role");
+
+      // Loop through all elements with the given class
+      for (let i = 0; i < userLoggedRoleElements.length; i++) {
+        const element = userLoggedRoleElements[i];
+        element.innerHTML = element.value = json.role;
+      }
+
+      // FIRSTNAME
+      // Using getElementsByClassName instead of getElementById
+      const userLoggedFirstNameElements = document.getElementsByClassName("user_logged_firstname");
+
+      // Loop through all elements with the given class
+      for (let i = 0; i < userLoggedFirstNameElements.length; i++) {
+        const element = userLoggedFirstNameElements[i];
+        element.innerHTML = element.value = json.firstname;
+      }
+
+      // LASTNAME
+      // Using getElementsByClassName instead of getElementById
+      const userLoggedLastNameElements = document.getElementsByClassName("user_logged_lastname");
+
+      // Loop through all elements with the given class
+      for (let i = 0; i < userLoggedLastNameElements.length; i++) {
+        const element = userLoggedLastNameElements[i];
+        element.innerHTML = element.value = json.lastname;
+      }
+
+      // EMAIL
+      // Using getElementsByClassName instead of getElementById
+      const userLoggedEmailElements = document.getElementsByClassName("user_logged_email");
+
+      // Loop through all elements with the given class
+      for (let i = 0; i < userLoggedEmailElements.length; i++) {
+        const element = userLoggedEmailElements[i];
+        element.innerHTML = element.value = json.email;
+      }
+
+      // USER ID
       // Sets value to the input field with id "user_id"
       if (document.getElementById("user_id")) {
         document.getElementById("user_id").value = json.id;
       }
+
+      userId = json.id;
+      return userId;
+      console.log(userId);
+      // Uncomment if necessary; Used when getELementById
+      // user_id = document.getElementById("user_logged_id").innerHTML = json.id;
+      
     }
 
   // Get response if 400 or 500 status code
@@ -129,4 +182,11 @@ function errorNotification(message, seconds = 0){
     }
 }
 
-export { backendURL, showNavAdminPages, successNotification, errorNotification, getLoggedUser};
+// Assuming you have obtained the user_id from some source, e.g., after a successful login
+// const userId = "2"; // Replace "123" with the actual user_id
+
+// Store user_id in local storage
+// localStorage.setItem("id", userId);
+
+export { backendURL, showNavAdminPages, successNotification, errorNotification, getLoggedUser, userId
+};
