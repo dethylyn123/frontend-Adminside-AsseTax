@@ -20,6 +20,19 @@ async function getData(url = "", keyword = "") {
     </div>`;
   }
 
+//   document.addEventListener("DOMContentLoaded", () => {
+//   console.log("DOMContentLoaded event fired");
+//   const viewButtons = document.querySelectorAll("#btn_view");
+//   console.log(`Found ${viewButtons.length} view buttons`);
+//   viewButtons.forEach((element) => {
+//     element.addEventListener("click", (e) => {
+//       e.preventDefault();
+//       alert("View Property button clicked!");
+//       viewAction(e);
+//     });
+//   });
+// });
+
   // To cater pagination and search feature
   let queryParams = "?" + 
   (url != "" ? new URL(url).searchParams + "&" : "") + //Remove this line if not using pagination
@@ -60,7 +73,8 @@ async function getData(url = "", keyword = "") {
     
     if (json.data && json.data.length > 0) {
 
-      container = `<table class="table table-bordered mt-3">
+      container = `<div class="table-responsive">
+      <table class="table table-bordered mt-3">
       <thead class="header-row">
         <tr>
           <th>Property Owner Name</th>
@@ -83,7 +97,12 @@ async function getData(url = "", keyword = "") {
       <td>${date}</td>
       <td>
           <div class="dropdown text-center">
-              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <a href="#" id="btn_view" title="View Property" data-id="${element.id}">
+                <i class="bi bi-eye-fill"></i>
+            </a>
+
+            
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle my-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
               <ul class="dropdown-menu">
                   <li>
                       <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
@@ -94,13 +113,14 @@ async function getData(url = "", keyword = "") {
               </ul>
           </div>
       </td>
-  </tr>`;
+  </tr>
+  </div>`;
     });
 
     container += `</tbody></table>`;
 
   }else {
-      container = `<p class="text-center">No results found.</p>`;
+      container = `<p class="text-center mt-4">No results found.</p>`;
     }
 
     // Use the container to display the fetch data
@@ -114,6 +134,11 @@ async function getData(url = "", keyword = "") {
     // Assign click event on Delete Btns
     document.querySelectorAll("#btn_delete").forEach((element) => {
       element.addEventListener("click", deleteAction);
+    });
+
+    // Assign click event on Delete Btns
+    document.querySelectorAll("#btn_view").forEach((element) => {
+      element.addEventListener("click", viewAction);
     });
 
     // Get Each Json Elements and merge with Html elements and put it into a container
@@ -276,6 +301,22 @@ form_owners.onsubmit = async (e) => {
   document.querySelector("#form_owners button[type='submit']").disabled = false;
   document.querySelector("#form_owners button[type='submit']").innerHTML = "Submit";
 };
+
+const viewAction = async (e) => {
+    // e.preventDefault();
+
+    // Get property_owner_id from data-id attribute within the btn_view anchor tag
+    const propertyOwnerId = e.target.getAttribute("data-id");
+
+    // Set propertyOwnerId in local storage
+    localStorage.setItem("propertyOwnerId", propertyOwnerId);
+
+    // Redirect to the new page
+    window.location.href = "property.html";
+};
+
+
+
 
 // Delete Functionality
 const deleteAction = async (e) => {

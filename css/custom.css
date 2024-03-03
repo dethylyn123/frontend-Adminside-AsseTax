@@ -18,9 +18,32 @@ color: white; /* Optional: Set the text color */
 }
 
 tbody tr:hover {
-    background-color: #e3e2e2;
+    background-color: #edededd7;
 }
 
+#form_modal .modal-header .btn-close{
+    background-color: #6c757d;
+    color: #fff;
+}
+
+a button.icon-secondary:hover i {
+    color: white !important; /* Change the color to white when hovered */
+}
+
+#btn_view {
+    color: #6c757d;
+    border: 1px solid #6c757d;
+    padding: 5px;
+    padding-left: 6px;
+    margin-right: 5px;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+#btn_view:hover {
+    color: #fff;
+    background-color: #6c757d;
+}
 /* Report Section- Nice Admin Template*/
 /*--------------------------------------------------------------
 # Dashboard
@@ -224,7 +247,7 @@ font-size: 20px;
 
 /* Close Button */
 .btn-close {
-background-size: 25%;
+background-size: 30%;
 }
 
 .btn-close:focus {

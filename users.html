@@ -59,7 +59,7 @@
                             </a>
                             <a class="nav-link" href="declaration.html">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
-                                Declaration Form Calculator
+                                Tax Declaration Form
                             </a>
                             <!-- Bav Admin Pages -->
 
@@ -105,7 +105,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
-                            <li class="breadcrumb-item"><a href="declaration.html">Declaration Form Calculator</a></li>
+                            <li class="breadcrumb-item"><a href="declaration.html">Tax Declaration Form</a></li>
                             <li class="breadcrumb-item active">Users</li>
                         </ol>
 
@@ -129,6 +129,7 @@
                                 Users Form
                                 </h1>
                                 <button
+                                id="modal_close"
                                 type="button"
                                 class="btn-close"
                                 data-bs-dismiss="modal"
@@ -226,6 +227,7 @@
                                         id="password" 
                                         name="password" 
                                         type="password" 
+                                        autocomplete=""
                                         />
                                     </div>
                                 </div>
@@ -235,7 +237,7 @@
                                         <label for="password_confirmation">Confirm Password</label>
                                     </div>
                                     <div class="col-sm-9">
-                                    <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" />
+                                    <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" autocomplete=""/>
                                     </div>
                                 </div>
                                 </div>
@@ -263,8 +265,7 @@
                         </div>
                         <!-- End Modal -->
         
-                        <!-- Search Form -->
-                        <form id="form_search">
+                        
                         <div class="row">
                             <div class="col-sm-12 mb-1">
                             <div class="float-end col-sm-1 d-flex justify-content-center mb-1">
@@ -281,7 +282,8 @@
                             <!-- End Button trigger modal  -->
                             </div>
                         </div>
-                        </form>
+                        </div>
+                        
         
                         <hr />
                     </div>

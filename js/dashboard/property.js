@@ -12,6 +12,22 @@ import {
   // Get Admin Pages
   showNavAdminPages();
   
+  // Retrieve propertyOwnerId from local storage
+  const propertyOwnerId = localStorage.getItem("propertyOwnerId");
+
+  // Check if propertyOwnerId is not null or undefined before using it
+  if (propertyOwnerId) {
+      // Do something with propertyOwnerId
+      console.log("Property Owner ID:", propertyOwnerId);
+  } else {
+      console.error("Property Owner ID not found in local storage.");
+  }
+
+  // Sets value to the input field with id "user_id"
+  if (document.getElementById("property_owner_id")) {
+    document.getElementById("property_owner_id").value = propertyOwnerId;
+  }
+
   // Get All Data
   getData();
   
@@ -35,7 +51,7 @@ import {
       (keyword != "" ? "keyword=" + keyword : "");
   
     // Get Carousel API Endpoint; Caters search
-    const response = await fetch(backendURL + "/api/user" + queryParams, {
+    const response = await fetch(backendURL + "/api/owner/property/" + propertyOwnerId + queryParams, {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -45,16 +61,18 @@ import {
   
     // Get response if 200-299 status code
     if (response.ok) {
+      try {
       const json = await response.json();
+      console.log("json response:",json);
 
-      // Check if json.data is an array before iterating
-      if (Array.isArray(json.data) && json.data.length > 0) {
-
-      // Get Each Json Elements and merge with Html element and put it into a container
+     // Check if json.property.data is an array before iterating
+     if (Array.isArray(json.property.data)) {
       let container = "";
-      // Now caters pagination; You can use "json.data" if using pagination or "json" only if no pagination
-      json.data.forEach((element) => {
+
+      if (json.property.data.length > 0) {
+        json.property.data.forEach((element) => {
         const date = new Date(element.created_at).toLocaleString();
+
   
         container += `<div class="col-sm-6">
         <div class="card w-100 mt-3" data-id="${element.id}">
@@ -75,14 +93,12 @@ import {
                                 </li>
                             </ul>
                         </div>
-                        <div class="pt-4">
-                            <h6 class="card-text"><b>Last Name:</b> ${element.lastname}</h6>
-                            <h6 class="card-text"><b>First Name:</b> ${element.firstname}</h6>
-                            <h6 class="card-text"><b>Role:</b> ${element.role}</h6>
-                            <h6 class="card-text"><b>Email:</b> ${element.email}</h6>
+                        <div class="pt-5">
+                            <h6 class="card-text"><b>Property:</b> ${element.property_name}</h6>
+                            <h6 class="card-text"><b>Property Address:</b> ${element.complete_address}</h6>
                         </div>
                         <h6 class="card-subtitle text-body-secondary mt-5 pt-5">
-                            <small></b> ${date}</small>
+                            <small><b>Date created:</b> ${date}</small>
                         </h6>
                     </div>
                 </div>
@@ -90,15 +106,9 @@ import {
         </div>
     </div>`;
       });
+
       // Use the container to display the fetch data
       document.getElementById("get_data").innerHTML = container;
-
-    } else {
-      // Display a message when no results are found
-      document.getElementById("get_data").innerHTML = `
-          <span class="text-center">No results found.</span>
-        `;
-    }
   
       // Assign click event on Edit Btns
       document.querySelectorAll("#btn_edit").forEach((element) => {
@@ -109,20 +119,28 @@ import {
       document.querySelectorAll("#btn_delete").forEach((element) => {
         element.addEventListener("click", deleteAction);
       });
+
+    } else {
+      // Display a message when no results are found
+      document.getElementById("get_data").innerHTML = `<div class="text-center mt-4">
+          <p>No results found.</p>
+        </div>`;
+    }
   
-      // Get Each Json Elements and merge with Html element and put it into a container
-      let pagination = "";
-      // Now caters pagination; Remove below if no pagination
-      json.links.forEach((element) => {
-        pagination += `<li class="page-item">
-                          <a class="page-link
-                          ${element.url == null ? " disabled" : ""}
-                          ${element.active ? " active" : ""}
-                          " href="#" id="btn_paginate" data-url="${element.url}">
-                              ${element.label}
-                          </a>
-                      </li>`;
-      });
+      // Check if json.property.links are defined before iterating
+      if (json.property.links) {
+        let pagination = "";
+        json.property.links.forEach((element) => {
+          pagination += `<li class="page-item">
+            <a class="page-link
+              ${element.url == null ? " disabled" : ""}
+              ${element.active ? " active" : ""}
+              " href="#" id="btn_paginate" data-url="${element.url}">
+              ${element.label}
+            </a>
+          </li>`;
+        });
+
       // Use the container to display the fetch data
       document.getElementById("get_pagination").innerHTML = pagination;
   
@@ -130,12 +148,19 @@ import {
       document.querySelectorAll("#btn_paginate").forEach((element) => {
         element.addEventListener("click", pageAction);
       });
+    } else {
+      console.error("Pagination links not found in the API response.");
     }
-    // Get response if 400+ or 500+ status code
-    else {
-      errorNotification("HTTP-Error: " + response.status);
-    }
+  } else {
+    console.error("Data is not an array in the API response.");
   }
+} catch (error) {
+  console.error("Error parsing JSON in the API response:", error);
+}
+} else {
+errorNotification("HTTP-Error: " + response.status);
+}
+}
   
   // Search Form
   const form_search = document.getElementById("form_search");
@@ -148,21 +173,21 @@ import {
   };
   
   // Submit Form Functionality; This is for Create and Update
-  const form_users = document.getElementById("form_users");
+  const form_property = document.getElementById("form_property");
   
-  form_users.onsubmit = async (e) => {
+  form_property.onsubmit = async (e) => {
     e.preventDefault();
   
     // Disable Button
-    document.querySelector("#form_users button[type='submit']").disabled = true;
+    document.querySelector("#form_property button[type='submit']").disabled = true;
     document.querySelector(
-      "#form_users button[type='submit']"
+      "#form_property button[type='submit']"
     ).innerHTML = `<div class="spinner-border me-2" role="status">
                         </div>
                         <span>Loading...</span>`;
   
     // Get Values of Form (input, textarea, select) set it as form-data
-    const formData = new FormData(form_users);
+    const formData = new FormData(form_property);
   
     // Check key/value pairs of FormData; Uncomment to debug
     // for (let [name, value] of formData) {
@@ -173,7 +198,7 @@ import {
     // Check if for_update_id is empty, if empty then it's create, else it's update
     if (for_update_id == "") {
       // Fetch API User Item Store Endpoint
-      response = await fetch(backendURL + "/api/user", {
+      response = await fetch(backendURL + "/api/property", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -188,7 +213,7 @@ import {
       // Add Method Spoofing to cater Image upload coz you are using FormData; Comment if no Image upload
       formData.append("_method", "PUT");
       // Fetch API User Item Update Endpoint
-      response = await fetch(backendURL + "/api/user/" + for_update_id, {
+      response = await fetch(backendURL + "/api/property/" + for_update_id, {
         method: "POST", // Change to PUT/PATCH if no Image Upload
         headers: {
           Accept: "application/json",
@@ -209,12 +234,12 @@ import {
       // console.log(json);
   
       // Reset Form
-      form_users.reset();
+      form_property.reset();
   
       successNotification(
         "Successfully " +
           (for_update_id == "" ? "created" : "updated") +
-          " user.",
+          " property.",
         10
       );
   
@@ -237,8 +262,8 @@ import {
     // Always reset for_update_id to empty string
     for_update_id = "";
   
-    document.querySelector("#form_users button[type='submit']").disabled = false;
-    document.querySelector("#form_users button[type='submit']").innerHTML =
+    document.querySelector("#form_property button[type='submit']").disabled = false;
+    document.querySelector("#form_property button[type='submit']").innerHTML =
       "Submit";
   };
   
@@ -258,7 +283,7 @@ import {
       if (confirm("Are you sure you want to delete?")) {
   
       // Fetch API User Item Delete Endpoint
-      const response = await fetch(backendURL + "/api/user/" + id, {
+      const response = await fetch(backendURL + "/api/property/" + id, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -311,7 +336,7 @@ import {
       "blue";
   
     // Fetch API User Item Show Endpoint
-    const response = await fetch(backendURL + "/api/user/" + id, {
+    const response = await fetch(backendURL + "/api/property/" + id, {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -328,15 +353,15 @@ import {
       for_update_id = json.id;
   
       // Display json response to Form tags; make sure to set id attrbute on tags (input, textarea, select)
-      document.getElementById("lastname").value = json.lastname;
-      document.getElementById("firstname").value = json.firstname;
-      document.getElementById("email").value = json.email;
-      document.getElementById("role").value = json.role;
+      document.getElementById("property_name").value = json.property_name;
+      document.getElementById("complete_address").value = json.complete_address;
+      // document.getElementById("email").value = json.email;
+      // document.getElementById("role").value = json.role;
       // document.getElementById("image").value = json.image;
       // document.getElementById("password").value = json.password;
   
       // Change Button Text using textContent; either innerHTML or textContent is fine here
-      document.querySelector("#form_users button[type='submit']").innerHTML =
+      document.querySelector("#form_property button[type='submit']").innerHTML =
         "Update Info";
     }
     // Get response if 400+ or 500+
