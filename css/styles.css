@@ -1965,6 +1965,12 @@ progress {
   margin-bottom: 0.5rem;
 }
 
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* optional: align items vertically in the center */
+}
+
 .col-form-label {
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
