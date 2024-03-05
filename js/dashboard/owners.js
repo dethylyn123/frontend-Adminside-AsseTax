@@ -20,6 +20,19 @@ async function getData(url = "", keyword = "") {
     </div>`;
   }
 
+//   document.addEventListener("DOMContentLoaded", () => {
+//   console.log("DOMContentLoaded event fired");
+//   const viewButtons = document.querySelectorAll("#btn_view");
+//   console.log(`Found ${viewButtons.length} view buttons`);
+//   viewButtons.forEach((element) => {
+//     element.addEventListener("click", (e) => {
+//       e.preventDefault();
+//       alert("View Property button clicked!");
+//       viewAction(e);
+//     });
+//   });
+// });
+
   // To cater pagination and search feature
   let queryParams = "?" + 
   (url != "" ? new URL(url).searchParams + "&" : "") + //Remove this line if not using pagination
@@ -57,35 +70,58 @@ async function getData(url = "", keyword = "") {
     // Get Each Json Elements and merge with HTML element and put it into a container 
     let container = "";
     // Now caters pagination; You can use "json.data" if using pagination or "json" only if no pagination
+    
+    if (json.data && json.data.length > 0) {
+
+      container = `<div class="table-responsive">
+      <table class="table table-bordered mt-3">
+      <thead class="header-row">
+        <tr>
+          <th>Property Owner Name</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Date created</th>
+          <th colspan="2">Action</th>
+        </tr>
+      </thead>
+      <tbody>`;
+    // Now caters pagination; You can use "json.data" if using pagination or "json" only if no pagination
     json.data.forEach((element) => {
       const date = new Date(element.created_at).toLocaleString();
 
-      container += `<div class="col-sm-12">
-                    <div class="card w-100 mt-3" data-id="${element.id}">
-                      <div class="card-body">
-                        <div class="dropdown float-end">
-                          <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                          <ul class="dropdown-menu">
-                            <li>
-                            <a class="dropdown-item" href="#" id="btn_edit" data-id="${element.id}">Edit</a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" href="#" id="btn_delete" data-id="${element.id}">Delete</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h6 class="card-title"><b>Name:</b>     ${element.property_owner_name}</h5>
-                          <h6 class="card-text"><b>Address:</b>     ${element.address}</h6>
-                          <h6 class="card-text"><b>Email:</b>     ${element.email}</h6>
-                        </div>
-                        <span class="card-subtitle text-body-secondary mt-5">
-                          <small><b>Date created:</b>     ${date}</small>
-                        </span>
-                      </div>
-                    </div>
-                  </div>`;
+      container += `
+      <tr data-id="${element.id}">
+      <td>${element.property_owner_name}</td>
+      <td>${element.address}</td>
+      <td>${element.email}</td>
+      <td>${date}</td>
+      <td>
+          <div class="dropdown text-center">
+            <a href="#" id="btn_view" title="View Property" data-id="${element.id}">
+                <i class="bi bi-eye-fill"></i>
+            </a>
+
+            
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle my-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+              <ul class="dropdown-menu">
+                  <li>
+                      <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                  </li>
+                  <li>
+                      <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
+                  </li>
+              </ul>
+          </div>
+      </td>
+  </tr>
+  </div>`;
     });
+
+    container += `</tbody></table>`;
+
+  }else {
+      container = `<p class="text-center mt-4">No results found.</p>`;
+    }
 
     // Use the container to display the fetch data
     document.getElementById("get_data").innerHTML = container;
@@ -98,6 +134,11 @@ async function getData(url = "", keyword = "") {
     // Assign click event on Delete Btns
     document.querySelectorAll("#btn_delete").forEach((element) => {
       element.addEventListener("click", deleteAction);
+    });
+
+    // Assign click event on Delete Btns
+    document.querySelectorAll("#btn_view").forEach((element) => {
+      element.addEventListener("click", viewAction);
     });
 
     // Get Each Json Elements and merge with Html elements and put it into a container
@@ -120,7 +161,8 @@ async function getData(url = "", keyword = "") {
     document.querySelectorAll("#btn_paginate").forEach((element) => {
       element.addEventListener("click", pageAction);
     });
-  } 
+  }
+
   // Get response if 400+ or 500+ status code
   else {
     errorNotification("HTTP-Error: " + response.status);
@@ -260,6 +302,22 @@ form_owners.onsubmit = async (e) => {
   document.querySelector("#form_owners button[type='submit']").innerHTML = "Submit";
 };
 
+const viewAction = async (e) => {
+    // e.preventDefault();
+
+    // Get property_owner_id from data-id attribute within the btn_view anchor tag
+    const propertyOwnerId = e.target.getAttribute("data-id");
+
+    // Set propertyOwnerId in local storage
+    localStorage.setItem("propertyOwnerId", propertyOwnerId);
+
+    // Redirect to the new page
+    window.location.href = "property.html";
+};
+
+
+
+
 // Delete Functionality
 const deleteAction = async (e) => {
 
@@ -267,8 +325,11 @@ const deleteAction = async (e) => {
   const id = e.target.getAttribute("data-id");
 
   // Background red the card that you want to delete
-  document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
-    "red";
+  document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
+    "tomato";
+
+    // Use JS confirm to ask for confirmation; You can use bootstrap modal instead of this
+    if (confirm("Are you sure you want to delete?")) {
 
     //   fetch API property owner delete endpoint
     const response = await fetch(
@@ -282,9 +343,6 @@ const deleteAction = async (e) => {
       },
     });
 
-    // Use JS confirm to ask for confirmation; You can use bootstrap modal instead of this
-    if (confirm("Are you sure you want to delete?")) {
-
     // Get response if 200-299 status code
     if (response.ok) {
 
@@ -295,7 +353,7 @@ const deleteAction = async (e) => {
       successNotification("Successfully deleted property owner", 10);
 
       // Remove the card from the list 
-      document.querySelector(`.card[data-id="${id}"]`).remove();
+      document.querySelector(`tr[data-id="${id}"]`).remove();
 
     } 
     
@@ -304,7 +362,7 @@ const deleteAction = async (e) => {
       errorNotification("Unable to delete!", 10);
 
       // Background white the card if unable to delete
-      document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
+      document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
       "white"; 
     } 
   }
@@ -329,11 +387,11 @@ let for_update_id = "";
 // Show Functionality
 const showData = async (id) => {
 
-  // Background Yellow the card you want to delete
-  document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
-    "yellow";
+  // Background lightblue the card you want to edit
+  document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
+    "lightBlue";
 
-  // Fetch API property owner delete endpoint
+  // Fetch API property owner edit endpoint
   const response = await fetch(
     backendURL + "/api/owner/" + id,  {
     headers: {
@@ -364,7 +422,7 @@ const showData = async (id) => {
     errorNotification("Unable to show!", 10);
 
     // Background white the card if unable to show
-    document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
+    document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
       "white";
   }
 };

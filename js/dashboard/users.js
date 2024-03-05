@@ -46,54 +46,59 @@ import {
     // Get response if 200-299 status code
     if (response.ok) {
       const json = await response.json();
-  
+
+      // Check if json.data is an array before iterating
+      if (Array.isArray(json.data) && json.data.length > 0) {
+
       // Get Each Json Elements and merge with Html element and put it into a container
       let container = "";
       // Now caters pagination; You can use "json.data" if using pagination or "json" only if no pagination
       json.data.forEach((element) => {
         const date = new Date(element.created_at).toLocaleString();
   
-        container += `<div class="col-sm-12">
-                          <div class="card w-100 mt-3" data-id="${element.id}">
-  
-                              <div class="row">
-                                  <div class="col-sm-4 d-flex align-items-center">
-                                      <img class="rounded" src="${backendURL}/storage/${element.image}" width="100%" height="270px">
-                                  </div>
-  
-                                  <div class="col-sm-8">
-                                      <div class="card-body">
-                                  
-                                          <div class="dropdown float-end">
-                                              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                              <ul class="dropdown-menu">
-                                                  <li>
-                                                      <a class="dropdown-item" href="#" id="btn_edit" data-id="${element.id}">Edit</a>
-                                                  </li>
-                                                  <li>
-                                                      <a class="dropdown-item" href="#" id="btn_delete" data-id="${element.id}">Delete</a>
-                                                  </li>
-                                              </ul>
-                                          </div>
-                                      
-                                          <small>First Name</small><h5 class="card-title">${element.firstname}</h5>
-                                          <small>Last Name</small><h5 class="card-title">${element.lastname}</h5>                                         
-                                          <small>Role</small><h5 class="card-title">${element.role}</h5>
-                                          <small>Email</small><h5 class="card-title">${element.email}</h5
-                                          <small>Password</small><h5 class="card-title">${element.password}</h5>
-                                          <h6 class="card-subtitle mb-2 text-body-secondary">
-                                              <small>${date}</small>
-                                          </h6>
-  
-                                      </div>
-                                  </div>
-                              </div>
-                          
-                          </div>
-                      </div>`;
+        container += `<div class="col-sm-6">
+        <div class="card w-100 mt-3" data-id="${element.id}">
+            <div class="row">
+                <div class="col-sm-5 d-flex align-items-center">
+                    <img class="rounded" src="${backendURL}/storage/${element.image}" width="100%" height="270px">
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <div class="dropdown float-end">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-4">
+                            <h6 class="card-text"><b>Last Name:</b> ${element.lastname}</h6>
+                            <h6 class="card-text"><b>First Name:</b> ${element.firstname}</h6>
+                            <h6 class="card-text"><b>Role:</b> ${element.role}</h6>
+                            <h6 class="card-text"><b>Email:</b> ${element.email}</h6>
+                        </div>
+                        <h6 class="card-subtitle text-body-secondary mt-5 pt-5">
+                            <small></b> ${date}</small>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
       });
       // Use the container to display the fetch data
       document.getElementById("get_data").innerHTML = container;
+
+    } else {
+      // Display a message when no results are found
+      document.getElementById("get_data").innerHTML = `
+          <span class="text-center">No results found.</span>
+        `;
+    }
   
       // Assign click event on Edit Btns
       document.querySelectorAll("#btn_edit").forEach((element) => {
@@ -246,8 +251,11 @@ import {
       const id = e.target.getAttribute("data-id");
   
       // Background red the card that you want to delete
-      document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
-        "red";
+      document.querySelector(`.card[data-id="${id}"]`).style.border =
+        "lightRed";
+
+      // Use JS Confirm to ask for confirmation; You can use bootstrap modal instead of this
+      if (confirm("Are you sure you want to delete?")) {
   
       // Fetch API User Item Delete Endpoint
       const response = await fetch(backendURL + "/api/user/" + id, {
@@ -258,9 +266,6 @@ import {
           "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
         },
       });
-
-      // Use JS Confirm to ask for confirmation; You can use bootstrap modal instead of this
-      if (confirm("Are you sure you want to delete?")) {
   
       // Get response if 200-299 status code
       if (response.ok) {
@@ -278,7 +283,7 @@ import {
         errorNotification("Unable to delete!", 10);
   
         // Background white the card if unable to delete
-        document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
+        document.querySelector(`.card[data-id="${id}"]`).style.border =
           "white";
       }
     }
@@ -302,8 +307,8 @@ import {
   // Show Functionality
   const showData = async (id) => {
     // Background yellow the card that you want to show
-    document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
-      "yellow";
+    document.querySelector(`.card[data-id="${id}"]`).style.border =
+      "blue";
   
     // Fetch API User Item Show Endpoint
     const response = await fetch(backendURL + "/api/user/" + id, {
@@ -327,11 +332,11 @@ import {
       document.getElementById("firstname").value = json.firstname;
       document.getElementById("email").value = json.email;
       document.getElementById("role").value = json.role;
-      document.getElementById("image").value = json.image;
-      document.getElementById("password").value = json.password;
+      // document.getElementById("image").value = json.image;
+      // document.getElementById("password").value = json.password;
   
       // Change Button Text using textContent; either innerHTML or textContent is fine here
-      document.querySelector("#form_users button[type='submit']").textContent =
+      document.querySelector("#form_users button[type='submit']").innerHTML =
         "Update Info";
     }
     // Get response if 400+ or 500+
@@ -339,7 +344,7 @@ import {
       errorNotification("Unable to show!", 10);
   
       // Background white the card if unable to show
-      document.querySelector(`.card[data-id="${id}"]`).style.backgroundColor =
+      document.querySelector(`.card[data-id="${id}"]`).style.border =
         "white";
     }
   };

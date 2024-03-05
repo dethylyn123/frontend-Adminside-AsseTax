@@ -11,7 +11,7 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script type="module" src="js/auth/login.js"></script>
     </head>
-    <body class="bg-primary">
+    <body>
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -19,7 +19,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header">
+                                        <div class="d-flex justify-content-center">
+                                        <a href="index.html"><img src="assets/img/assetax-logo.png" width="100" width="100" alt=""></a>
+                                        </div>
+                                        <h3 class="text-center font-weight-light mb-4 mt-0">Login</h3>
+                                    </div>
                                     <div class="card-body">
                                         <!-- Notification -->
                                         <div class="alert alert-danger d-none" role="alert"></div>
@@ -37,7 +42,11 @@
                                                 <label for="password">Password</label>
                                             </div>
                                             <div class="d-grid mt-4 mb-0">
-                                                <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit">Login</button>
+                                                <div class="form-check mb-4">
+                                                <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                                </div>
+                                                <button class="btn btn-danger d-flex align-items-center justify-content-center" type="submit">Login</button>
                                             </div>
                                         </form>
                                     </div>

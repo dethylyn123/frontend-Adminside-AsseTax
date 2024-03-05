@@ -12,3 +12,268 @@ text-align: center;
 padding: 50px;
 color: white; /* Optional: Set the text color */
 }
+
+.header-row {
+    background-color: #faa7a6;
+}
+
+tbody tr:hover {
+    background-color: #edededd7;
+}
+
+#form_modal .modal-header .btn-close{
+    background-color: #6c757d;
+    color: #fff;
+}
+
+a button.icon-secondary:hover i {
+    color: white !important; /* Change the color to white when hovered */
+}
+
+#btn_view {
+    color: #6c757d;
+    border: 1px solid #6c757d;
+    padding: 5px;
+    padding-left: 6px;
+    margin-right: 5px;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+#btn_view:hover {
+    color: #fff;
+    background-color: #6c757d;
+}
+/* Report Section- Nice Admin Template*/
+/*--------------------------------------------------------------
+# Dashboard
+--------------------------------------------------------------*/
+/* Filter dropdown */
+.filter {
+position: absolute;
+right: 0px;
+top: 15px;
+}
+
+.filter .icon {
+color: #aab7cf;
+padding-right: 20px;
+padding-bottom: 5px;
+transition: 0.3s;
+font-size: 16px;
+}
+
+.filter .icon:hover,
+.filter .icon:focus {
+color: #4154f1;
+}
+
+.filter .dropdown-header {
+padding: 8px 15px;
+}
+
+.filter .dropdown-header h6 {
+text-transform: uppercase;
+font-size: 14px;
+font-weight: 600;
+letter-spacing: 1px;
+color: #aab7cf;
+margin-bottom: 0;
+padding: 0;
+}
+
+.filter .dropdown-item {
+padding: 8px 15px;
+}
+
+/* Info Cards */
+
+.info-card {
+padding-bottom: 10px;
+box-shadow: 0px 0px 5px #aab7cf;
+}
+
+.info-card h6 {
+font-size: 28px;
+color: #012970;
+font-weight: 700;
+margin: 0;
+padding: 0;
+}
+
+.card-icon {
+font-size: 32px;
+line-height: 0;
+width: 64px;
+height: 64px;
+flex-shrink: 0;
+flex-grow: 0;
+}
+
+.land-classification-card .card-icon {
+color: #607fab;
+background: #f1f0f0;
+}
+
+.property-owner-card .card-icon {
+color: #607fab;
+background: #f1f0f0;
+}
+
+.bg-pink {
+    background-color: #780302;
+}
+
+.bg-gray {
+    background-color: #f2f2f2;
+}
+
+/* Land Classification Header Text COlor */
+.info-card .text-darkRed {
+    color: #700101;
+}
+
+/*--------------------------------------------------------------
+# F.A.Q Page
+--------------------------------------------------------------*/
+.faq .basic h6 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #dc3545;
+}
+
+.faq .basic p {
+color: #a36a6a;
+}
+
+/*--------------------------------------------------------------
+# Profie Page
+--------------------------------------------------------------*/
+.profile .profile-card img {
+    max-width: 120px;
+}
+
+.profile .profile-card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4e2c2c;
+    margin: 10px 0 0 0;
+}
+
+.profile .profile-card h3 {
+font-size: 18px;
+}
+
+.profile .profile-card .social-links a {
+    font-size: 20px;
+    display: inline-block;
+    color: rgba(112, 1, 1, 0.5);
+    line-height: 0;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.profile .profile-card .social-links a:hover {
+    color: #700101;
+}
+
+.profile .profile-overview .row {
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.profile .profile-overview .card-title {
+    color: #700101;
+}
+
+.profile .profile-overview .label {
+    font-weight: 600;
+    color: rgba(112, 1, 1, 0.6);
+}
+
+.profile .profile-edit label {
+    font-weight: 600;
+    color: rgba(112, 1, 1, 0.6);
+}
+
+.profile .profile-edit img {
+    max-width: 120px;
+}
+
+/* Card */
+.card {
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0 30px rgba(112, 5, 1, 0.1);
+}
+
+.card-header,
+.card-footer {
+border-color: #ebeef4;
+background-color: #fff;
+color: #bd8989;
+padding: 15px;
+}
+
+.card-title {
+padding: 20px 0 15px 0;
+font-size: 18px;
+font-weight: 500;
+color: #700101;
+font-family: "Poppins", sans-serif;
+}
+
+.card-title span {
+color: #bd8989;
+font-size: 14px;
+font-weight: 400;
+}
+
+.card-body {
+padding: 0 20px 20px 20px;
+}
+
+.card-img-overlay {
+background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Alerts */
+.alert-heading {
+font-weight: 500;
+font-family: "Poppins", sans-serif;
+font-size: 20px;
+}
+
+/* Close Button */
+.btn-close {
+background-size: 30%;
+}
+
+.btn-close:focus {
+outline: 0;
+box-shadow: none;
+}
+
+/* Bordered Tabs */
+.nav-tabs-bordered {
+border-bottom: 2px solid #ebeef4;
+}
+
+.nav-tabs-bordered .nav-link {
+margin-bottom: -2px;
+border: none;
+color: #4e2c2c;
+}
+
+.nav-tabs-bordered .nav-link:hover,
+.nav-tabs-bordered .nav-link:focus {
+color: #f14141;
+}
+
+.nav-tabs-bordered .nav-link.active {
+background-color: #fff;
+color: #f14141;
+border-bottom: 2px solid #f14141;
+}
+/* End of Report Section- Nice Admin Template*/
