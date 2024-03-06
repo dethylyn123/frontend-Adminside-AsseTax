@@ -44,6 +44,19 @@ a button.icon-secondary:hover i {
     color: #fff;
     background-color: #6c757d;
 }
+
+.custom-hr {
+    height: 2px; /* Adjust the height of the line */
+    background-color: #000000; /* Set the color of the line */
+    margin: 20px 0; /* Adjust the margin above and below the line */
+}
+
+.small-label {
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
+
 /* Report Section- Nice Admin Template*/
 /*--------------------------------------------------------------
 # Dashboard
