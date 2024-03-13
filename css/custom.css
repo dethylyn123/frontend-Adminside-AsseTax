@@ -69,6 +69,12 @@ a button.icon-secondary:hover i {
     padding: 0;
 }
 
+/* Design button in dashboard page */
+#button {
+    border: 1px solid black;
+    margin: 10px 0px;
+}
+
 /* Report Section- Nice Admin Template*/
 /*--------------------------------------------------------------
 # Dashboard
