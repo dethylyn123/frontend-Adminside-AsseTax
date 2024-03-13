@@ -96,11 +96,10 @@ async function getData(url = "", keyword = "") {
       <td>${element.email}</td>
       <td>${date}</td>
       <td>
-          <div class="dropdown text-center">
-            <a href="#" id="btn_view" title="View Property" data-id="${element.id}">
-                <i class="bi bi-eye-fill"></i>
-            </a>
-
+          <div class="text-center">
+            <button id="btn_view" title="View Property" data-id="${element.id}">
+                <i class="bi bi-eye-fill"></i> view property
+            </button>
             
               <button class="btn btn-outline-secondary btn-sm dropdown-toggle my-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
               <ul class="dropdown-menu">
@@ -303,7 +302,7 @@ form_owners.onsubmit = async (e) => {
 };
 
 const viewAction = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     // Get property_owner_id from data-id attribute within the btn_view anchor tag
     const propertyOwnerId = e.target.getAttribute("data-id");
