@@ -7,6 +7,11 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Real Property Owner - AsseTax</title>
+        
+        <!-- Favicons -->
+        <link href="assets/img/assetax-logo.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/custom.css">
@@ -16,6 +21,46 @@
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script type="module" src="js/dashboard/owners.js"></script>
         <script type="module" src="js/dashboard/dashboard.js"></script>
+        <style>
+            .form-control, .datatable-input {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.0;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+                -moz-appearance: none;
+                    appearance: none;
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+            @media (prefers-reduced-motion: reduce) {
+            .form-control, .datatable-input {
+            transition: none;
+            }
+            }
+            .form-control[type=file], [type=file].datatable-input {
+            overflow: hidden;
+            }
+            .form-control[type=file]:not(:disabled):not([readonly]), [type=file].datatable-input:not(:disabled):not([readonly]) {
+            cursor: pointer;
+            }
+            .form-control:focus, .datatable-input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #fe8686;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(253, 97, 13, 0.25);
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
@@ -178,7 +223,7 @@
 
                         <hr />
                 
-                        <br />
+                        
                     
                     <!-- Notification -->
                     <div class="alert alert-danger d-none mb-2" role="alert"></div>
@@ -206,7 +251,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div class="text-muted">Copyright &copy; AsseTax 2024</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

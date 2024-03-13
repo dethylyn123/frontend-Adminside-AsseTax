@@ -7,18 +7,57 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Tax Declaration Form - AsseTax</title>
+
+        <!-- Favicons -->
+        <link href="assets/img/assetax-logo.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/custom.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <script type="module" src="js/dashboard/declaration.js"></script>
+        <script type="module" src="js/dashboard/tax-declaration.js"></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
+        <!-- Add a new style block for print-specific styles -->
+        <style>
+            @media print {
+                /* Hide the button when printing */
+                button {
+                    display: none;
+                }
+
+                #layoutSidenav_nav {
+                    display: none;
+                }
+
+                #hide2 {
+                    display: none;
+                }
+
+                #hide {
+                  display: none;
+                }
+
+                footer {
+                    display: none;
+                }
+
+                /* Adjust styles for printing, if necessary */
+                /* For example, you might want to increase font size for better readability on paper */
+                /* body {
+                    font-size: 12px;
+                    margin: minimum;
+                } */
+
+                /* Add more print-specific styles as needed */
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
+        <nav id="hide2" class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
             <!-- Navbar Brand-->
             <a class="navbar-brand" href="dashboard.html"><img src="assets/img/assetax-logo.png" width="80" height="70" alt="">Asse<span class="text-danger">Tax</span></a>
             <!-- Sidebar Toggle-->
@@ -92,9 +131,11 @@
                     </div>
                 </nav>
             </div>
+          
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
+                      <div id="hide">
                         <h1 class="mt-4">Diri sa mag edit</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
@@ -106,6 +147,7 @@
                             <div class="alert alert-danger d-none" role="alert"></div>
                             <div class="alert alert-success d-none" role="alert"></div>
                         </div>
+                      </div>
 
                         <!-- form hidden; Added form data fro user_id display image in dashboard; Uncomment if necessary -->
                         <!-- <form id="form_owners">
@@ -117,296 +159,458 @@
                         
                         <div class="text-dark">
                             <!-- Form Declaration -->
-                            <form id="form_declaration" class="row g-3">
-                                <div class="col-sm-12 text-center mb-4">
-                                    <h3>TAX DECLARATION OF REAL PROPERTY</h3>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-7 form-group">
-                                      <label for="td-no" class="form-label">TD&nbsp;No.&nbsp;: </label>
+                            <form id="form_declaration" class="row">
+                              <div class="col-sm-12 text-center">
+                                  <h3>TAX DECLARATION OF REAL PROPERTY</h3>
+                              </div>
+                          
+                              <!-- TD No. and Property Index No. -->
+                              <div class="row">
+                                  <div class="col-sm-7 form-group">
+                                      <label for="td-no" class="form-label">TD&nbsp;No.: </label>
                                       <input type="text" class="form-control" id="td-no" name="">
-                                    </div>
-                                    <div class="col-sm-5 form-group">
-                                      <label for="property-index-no" class="form-label">Property&nbsp;Index&nbsp;No&nbsp;: 
-                                      </label>
+                                  </div>
+                                  <div class="col-sm-5 form-group">
+                                      <label for="property-index-no" class="form-label">Property&nbsp;Index&nbsp;No.: </label>
                                       <input type="text" class="form-control" id="property-index-no" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">Owner&nbsp;: </label>
+                                  </div>
+                              </div>
+                          
+                              <!-- Owner and TIN -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="owner" class="form-label">Owner: </label>
                                       <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">TIN&nbsp;:</label>
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="TIN" class="form-label">TIN: </label>
                                       <input type="text" class="form-control" id="TIN" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Address and Telephone No. -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="address" class="form-label">Address: </label>
+                                      <input type="text" class="form-control" id="address" name="">
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="telephone" class="form-label">Telephone&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="telephone" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Administrator/Beneficial User and TIN -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="administrator" class="form-label">Administrator&nbsp;/&nbsp;Beneficial&nbsp;User: </label>
+                                      <input type="text" class="form-control" id="administrator" name="">
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="admin-TIN" class="form-label">TIN: </label>
+                                      <input type="text" class="form-control" id="admin-TIN" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Address and Telephone No. (Admin/Beneficial User) -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="admin-address" class="form-label">Address: </label>
+                                      <input type="text" class="form-control" id="admin-address" name="">
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="admin-telephone" class="form-label">Telephone&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="admin-telephone" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Location of Property -->
+                              <div class="row">
+                                  <div class="col-sm-12 form-group">
+                                      <label for="property-location" class="form-label">Location&nbsp;of&nbsp;Property: </label>
+                                      <input type="text" class="form-control" id="property-location" name="">
+                                  </div>
+                              </div>
+                              <div class="row italic">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-3">(Number & Street)</div>
+                                <div class="col-sm-3">(Barangay / District)</div>
+                                <div class="col-sm-3">(City / Province)</div>
+                              </div>
+                          
+                              <!-- OCT/TCT/CLOA No. and Lot No. -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="oct-tct-cloa" class="form-label">OCT/TCT/CLOA&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="oct-tct-cloa" name="">
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="lot-no" class="form-label">Lot&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="lot-no" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- CCT No. and Block No. -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="cct-no" class="form-label">CCT&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="cct-no" name="">
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="block-no" class="form-label">Block&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="block-no" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Dated and Survey No. -->
+                              <div class="row">
+                                  <div class="col-sm-8 form-group">
+                                      <label for="dated" class="form-label">Dated: </label>
+                                      <input type="text" class="form-control" id="dated" name="">
+                                  </div>
+                                  <div class="col-sm-4 form-group">
+                                      <label for="survey-no" class="form-label">Survey&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="survey-no" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Boundaries -->
+                              <div class="m-1 mb-2">
+                                  <h6><strong>BOUNDARIES</strong></h6>
+                                  <div class="row">
+                                      <div class="col-sm-1"></div>
+                                      <div class="col-sm-6 form-group">
+                                          <label for="north" class="form-label">North: </label>
+                                          <input type="text" class="form-control" id="north" name="">
+                                      </div>
+                                      <div class="col-sm-5 form-group">
+                                          <label for="south" class="form-label">South: </label>
+                                          <input type="text" class="form-control" id="south" name="">
+                                      </div>
+                                  </div>
+                          
+                                  <div class="row">
+                                      <div class="col-sm-1"></div>
+                                      <div class="col-sm-6 form-group">
+                                          <label for="east" class="form-label">East: </label>
+                                          <input type="text" class="form-control" id="east" name="">
+                                      </div>
+                                      <div class="col-sm-5 form-group">
+                                          <label for="west" class="form-label">West: </label>
+                                          <input type="text" class="form-control" id="west" name="">
+                                      </div>
+                                  </div>
+                              </div>
+                          
+                              <!-- <hr style="color: #272626; 
+                              background-color: #272626; 
+                              height: 2px; 
+                              border: none; 
+                              margin-bottom: 0px;"> -->
+                              <hr>
+                          
+                              <!-- Kind of Property Assessed -->
+                              <div class="row align-items-center m-0">
+                                  <div class="col-sm-6">
+                                      <h6><strong>KIND OF PROPERTY ASSESSED</strong></h6>
+                                  </div>
+                                  <div class="col-sm-6">
+                                    <div class="input-group">
+                                      <label><strong>TRANSACTION CODE: </strong></label>
+                                      <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="transaction-code" name="">
+                                      </div>
                                     </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">Address&nbsp;: </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">Telephone&nbsp;No.&nbsp;:</label>
-                                      <input type="text" class="form-control" id="TIN" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">Administrator&nbsp;/&nbsp;Beneficial&nbsp;User&nbsp;: </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">TIN&nbsp;:</label>
-                                      <input type="text" class="form-control" id="TIN" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">Address&nbsp;: </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">Telephone&nbsp;No.&nbsp;:</label>
-                                      <input type="text" class="form-control" id="TIN" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-12 form-group">
-                                      <label for="owner" class="form-label">Location&nbsp;of&nbsp;Property&nbsp;: </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">OCT/TCT/CLOA&nbsp;No.&nbsp;: </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">Lot&nbsp;No.&nbsp;:</label>
-                                      <input type="text" class="form-control" id="TIN" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">CCT&nbsp;No.&nbsp;: </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">Block&nbsp;No.&nbsp;:</label>
-                                      <input type="text" class="form-control" id="TIN" name="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-8 form-group">
-                                      <label for="owner" class="form-label">Dated&nbsp;:&nbsp; </label>
-                                      <input type="text" class="form-control" id="owner" name="">
-                                    </div>
-                                    <div class="col-sm-4 form-group">
-                                      <label for="TIN" class="form-label">Survey&nbsp;No.&nbsp;:</label>
-                                      <input type="text" class="form-control" id="TIN" name="">
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <h6><strong>BOUNDARIES</strong></h6>
-                                    <div class="row mt-3">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-6 form-group">
-                                          <label for="owner" class="form-label">North&nbsp;:&nbsp; </label>
-                                          <input type="text" class="form-control" id="owner" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Radio Buttons (Land, Machinery, Building, Others) -->
+                              <div class="row">
+                                  <div class="col-sm-1"></div>
+                          
+                                  <div class="col-sm-6">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="propertyType" id="landRadio">
+                                          <label class="form-check-label" for="landRadio"><strong>LAND</strong></label>
+                                      </div>
+                                      
+                                      <div class="form-check mt-4">
+                                        <input class="form-check-input" type="radio" name="propertyType" id="buildingRadio">
+                                        <label class="form-check-label" for="buildingRadio">BUILDING</label>
+                                        <div class="form-group row">
+                                            <label for="buildingStoreys" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;No. of Storeys:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="text" id="buildingStoreys">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-5 form-group">
-                                          <label for="TIN" class="form-label">South&nbsp;:</label>
-                                          <input type="text" class="form-control" id="TIN" name="">
-                                        </div>
                                     </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-6 form-group">
-                                          <label for="owner" class="form-label">East&nbsp;:&nbsp; </label>
-                                          <input type="text" class="form-control" id="owner" name="">
-                                        </div>
-                                        <div class="col-sm-5 form-group">
-                                          <label for="TIN" class="form-label">West&nbsp;:</label>
-                                          <input type="text" class="form-control" id="TIN" name="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr class="custom-hr">
-
-                                <div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                        <h6><strong>KIND OF PROPERTY ASSESSED</strong></h6>
-                                        </div>
-                                        <div class="col-sm-6">
-                                        <h6><strong>TRANSACTION CODE:&nbsp;</strong></h6>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-sm-1"></div>
-                                        
-                                        <div class="col-sm-6">
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1"><strong>LAND</strong></label>
+                                  </div>
+                          
+                                  <div class="col-sm-5">
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="propertyType" id="machineryRadio">
+                                          <label class="form-check-label" for="machineryRadio">MACHINERY</label>
+                                          <div class="form-group row mt-0">
+                                              <label for="machineryDesc" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;Brief&nbsp;Description:</label>
+                                              <div class="col-sm-8">
+                                                  <input class="form-control" type="text" id="machineryDesc">
+                                              </div>
                                           </div>
                                         </div>
-                                      
-                                        <div class="col-sm-5">
-                                            <div class="form-check">
-                                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                              <label class="form-check-label" for="flexRadioDefault2">MACHINERY</label>
-                                              
-                                              <div class="form-group row">
-                                                <label for="" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;Brief Description:</label>
+                          
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="propertyType" id="othersRadio">
+                                            <label class="form-check-label" for="othersRadio">OTHERS:</label>
+                                            <div class="form-group row">
+                                                <label for="othersDesc" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;Specify:</label>
                                                 <div class="col-sm-8">
-                                                  <input class="form-control" type="text">
+                                                    <input class="form-control" type="text" id="othersDesc">
                                                 </div>
-                                              </div>
                                             </div>
+                                        </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-sm-12 form-group">
+                                      <label for="buildingDesc" class="col-sm-2 small-label form-labe" style="margin-left: 10em;">Brief&nbsp;Description:</label>
+                                          <div class="col-sm-8">
+                                              <input class="form-control" type="text" id="buildingDesc">
                                           </div>
                                     </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-sm-1"></div>
-                                        
-                                        <div class="col-sm-6">
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">BUILDING</label>
-                                          </div>
-
-                                          <div class="form-group row">
-                                            <label for="" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;&emsp;No. of Storeys:</label>
-                                            <div class="col-sm-8 mb-2">
-                                              <input class="form-control" type="text">
-                                            </div>
-                                            <label for="" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;&emsp;Brief Description:</label>
-                                            <div class="col-sm-8">
-                                              <input class="form-control" type="text">
-                                            </div>
-                                          </div>
-                                        </div>
-                                      
-                                        <div class="col-sm-5">
-                                          <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">OTHERS:</label>
-                                          </div>
-
-                                          <div class="form-group row">
-                                            <label for="" class="col-sm-4 small-label form-label">&emsp;&emsp;&emsp;&emsp;&emsp;Specify:</label>
-                                            <div class="col-sm-8">
-                                              <input class="form-control" type="text">
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Classification Row -->
-                                    <div class="row mt-4">
+                                  </div>
+                              </div>
+                          
+                              <!-- Classification, Area, Market Value, Actual Use, Assessment Level, Assessed Value -->
+                              <div class="row mt-2">
+                                  <div class="col-sm-2 me-2">
+                                      <div class="form-group row">
+                                          <label for="classification" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Classification</strong></label>
+                                          <input class="form-control" type="text" id="classification">
+                                          <input class="form-control" type="text" id="classification">
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-1 me-2">
+                                      <div class="form-group row">
+                                          <label for="area" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Area</strong></label>
+                                          <input class="form-control" type="text" id="area">
+                                          <input class="form-control" type="text" id="area">
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-2 me-2">
+                                      <div class="form-group row">
+                                          <label for="market-value" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Market Value</strong></label>
+                                          <input class="form-control" type="text" id="market-value">
+                                          <input class="form-control" type="text" id="market-value">
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-2 me-2">
+                                      <div class="form-group row">
+                                          <label for="actual-use" class="form-label text-center " style="border-bottom: 1px solid black;"><strong>Actual Use</strong></label>
+                                          <input class="form-control" type="text" id="actual-use">
+                                          <input class="form-control" type="text" id="actual-use">
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-2 me-2">
+                                      <div class="form-group row">
+                                          <label for="assessment-level" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Assessment&nbsp;Level</strong></label>
+                                          <input class="form-control" type="text" id="assessment-level">
+                                          <input class="form-control" type="text" id="assessment-level">
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-2">
+                                      <div class="form-group row">
+                                          <label for="assessed-value" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Assessed Value</strong></label>
+                                          <input class="form-control" type="text" id="assessed-value">
+                                          <input class="form-control" type="text" id="assessed-value">
+                                      </div>
+                                  </div>
+                              </div>
+                          
+                              <!-- Total Assessed Value Row -->
+                              <div class="row">
+                                  <div class="col-sm-2"></div>
+                                  <div class="col-sm-1">
+                                      Total
+                                  </div>
+                          
+                                  <div class="form-group col-sm-6">
+                                      <label for="total-assessed-value" class="col-sm-1 small-label form-label">Php</label>
+                                      <div class="col-sm-4">
+                                          <input class="form-control" type="text" id="total-assessed-value">
+                                      </div>
+                                      <div class="col-sm-7"></div>
+                                      <label for="total-assessed-value-words" class="form-label text-center col-sm-1 ms-1">Php</label>
+                                      <div class="col-sm-4">
+                                          <input class="form-control" type="text" id="total-assessed-value-words">
+                                      </div>
+                                  </div>
+                              </div>
+                          
+                              <!-- Declaration Note -->
+                              <div class="row mt-2">
+                                  <div class="col-sm-12 form-group">
+                                      <label for="declaration-note" class="form-label"><strong>TOTAL&nbsp;ASSESSED&nbsp;VALUE: </strong></label>
+                                      <input type="text" class="form-control" id="declaration-note" name="">
+                                  </div>
+                              </div>
+                          
+                              <div class="row">
+                                  <div class="col-sm-6"></div>
+                                  <div class="col-sm-6 form-group">
+                                      <label for="amount-in-words" class="form-label italic">(Amount in Words)</label>
+                                  </div>
+                              </div>
+                          
+                              <!-- Taxable/Exempt and Effectivity of Assessment -->
+                              <div class="row mb-0">
+                                  <div class="col-sm-1 ms-5">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="tax-status" id="taxableRadio">
+                                          <label class="form-check-label" for="taxableRadio">Taxable</label>
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-4 ms-3">
+                                      <div class="form-check">
+                                          <input class="form-check-input" type="radio" name="tax-status" id="exemptRadio" checked>
+                                          <label class="form-check-label" for="exemptRadio">Exempt</label>
+                                      </div>
+                                  </div>
+                          
+                                  <div class="col-sm-6">
+                                      <div class="d-flex align-items-center">
+                                          <label class="form-label">Effectivity of Assessment/Reassessment</label>
+                                          <input class="form-control ms-2" type="text" style="width: 10%;" id="assessmentQuarter">
+                                          <input class="form-control ms-2" type="text" style="width: 10%;" id="assessmentYear">
+                                      </div>
+                                      <div style="margin-left: 313px;">Qtr. <span class="ms-3">Year</span></div>
+                                  </div>
+                              </div>
+                          
+                              <!-- Recommending Approval -->
+                              <div class="row mt-0">
+                                  <div class="col-sm-8">
+                                      <div class="d-flex align-items-center">
+                                          <label class="form-label">RECOMMENDING&nbsp;APPROVAL: </label>
+                                          <input class="form-control ms-2" type="text" style="width: 60%;" id="recommendApproval">
+                                          <input class="form-control ms-2" type="date" style="width: 20%;" id="recommendApprovalDate" placeholder="Date">
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm-10"></div>
                                         <div class="col-sm-2">
-                                            <div class="form-group row">
-                                                <label for="" class="form-label text-center"><strong>Classification</strong></label>
-                                                  <input class="form-control" type="text">
-                                                  <input class="form-control" type="text">
-                                              </div>
+                                            <div >Date</div>
                                         </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          
+                              <!-- Approved By -->
+                              <div class="row">
+                                  <div class="col-sm-12 mb-0">
+                                      <div class="d-flex align-items-center">
+                                          <label class="form-label">APPROVED&nbsp;BY: </label>
+                                          <input class="form-control ms-2" type="text" style="width: 45%;" id="approvedBy">
+                                          <input class="form-control ms-2" type="text" style="width: 20%;" id="approvedByDate">
+                                          <input class="form-control ms-2" type="date" style="width: 10%;" id="approvedByActingHead" placeholder="Date">
+                                      </div>
+                                      <div class="row">
+                                        <div style="margin-left: 23em;">Acting Department Head <span style="margin-left: 20em;">Date</span></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          
+                              <!-- Declaration Cancellation -->
+                              <div class="row">
+                                  <div class="col-sm-7 form-group">
+                                      <label for="declaration-cancellation" class="form-label">This&nbsp;declaration&nbsp;cancels&nbsp;TD&nbsp;No.: </label>
+                                      <input type="text" class="form-control" id="declaration-cancellation" name="">
+                                  </div>
+                                  <div class="col-sm-5 form-group">
+                                      <label for="previous-pin" class="form-label">Previous&nbsp;PIN: </label>
+                                      <input type="text" class="form-control" id="previous-pin" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Owner -->
+                              <div class="row">
+                                  <div class="col-sm-12 form-group">
+                                      <label for="owner" class="form-label">Owner: </label>
+                                      <input type="text" class="form-control" id="owner" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Previous Area and Previous A.V. Php -->
+                              <div class="row">
+                                  <div class="col-sm-7 form-group">
+                                      <label for="previous-area" class="form-label">Previous&nbsp;Area: </label>
+                                      <input type="text" class="form-control" id="previous-area" name="">
+                                  </div>
+                                  <div class="col-sm-5 form-group">
+                                      <label for="previous-av" class="form-label">Previous&nbsp;A.V&nbsp;Php: </label>
+                                      <input type="text" class="form-control" id="previous-av" name="">
+                                  </div>
+                              </div>
+                          
+                              <!-- Memoranda -->
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <label for="memoranda" class="form-label"><strong>MEMORANDA :</strong></label>
+                                  </div>
+                                  <textarea class="ps-5" name="memoranda" id="memoranda" cols="100%" rows="7"></textarea>
+                              </div>
+                          
+                              <!-- Document Statement No. and Date Received -->
+                              <div class="row">
+                                  <div class="col-sm-5 form-group">
+                                      <label for="doc-statement-no" class="form-label">Sworn&nbsp;Statement&nbsp;No. </label>
+                                      <input type="text" class="form-control" id="doc-statement-no" name="">
+                                  </div>
+                                  <div class="col-sm-2"></div>
+                                  <div class="col-sm-5 form-group">
+                                      <label for="date-received" class="form-label">Date&nbsp;Received: </label>
+                                      <input type="date" class="form-control" id="date-received" name="date-received" placeholder="Date Received">
+                                  </div>
+                              </div>
+                          
+                              <!-- Document/Reference File No. -->
+                              <div class="row">
+                                  <div class="col-sm-5 form-group mb-2">
+                                      <label for="doc-ref-file-no" class="form-label">Document/Reference&nbsp;File&nbsp;No. </label>
+                                      <input type="text" class="form-control" id="doc-ref-file-no" name="">
+                                  </div>
+                              </div>
+                          
+                              <hr>
+                          
+                              <!-- Note -->
+                              <p class="text-justify"><strong>Note *</strong> This declaration is for real property taxation purposes only, and the valuation indicated herein is based on the Schedule of Unit Market Values prepared for the purpose and duly enacted into an Ordinance by the Sangguniang Panglungsod under <input type="text" class="form-control" style="width: 10em; display: inline;">. It does not and cannot, by itself alone, confer any ownership or legal title to the property.</p>
 
-                                        <div class="col-sm-2">
-                                            <div class="form-group row">
-                                                <label for="" class="form-label text-center"><strong>Area</strong></label>
-                                                  <input class="form-control" type="text">
-                                                  <input class="form-control" type="text">
-                                              </div>
-                                        </div>
+                              <!-- Button to trigger printing -->
+                              <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-2">
+                                  <button type="button" onclick="printForm()">Send Email</button>  
+                                </div>
+                                <div class="col-sm-2">
+                                <button type="button" onclick="printForm()">Print Form</button>
+                                </div>
+                                <div class="col-sm-2">
+                                <button type="submit">Calculate Tax</button>
+                              </div>        
+                              </div>
+                          </form>
+                          
 
-                                        <div class="col-sm-2">
-                                            <div class="form-group row">
-                                                <label for="" class="form-label text-center"><strong>Market Value</strong></label>
-                                                <input class="form-control" type="text">
-                                                <input class="form-control" type="text">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-sm-2">
-                                            <div class="form-group row">
-                                                <label for="" class="form-label text-center"><strong>Actual Use</strong></label>
-                                                <input class="form-control" type="text">
-                                                <input class="form-control" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            <div class="form-group row">
-                                                <label for="" class="form-label text-center"><strong>Assessment Level</strong></label>
-                                                  <input class="form-control" type="text">
-                                                  <input class="form-control" type="text">
-                                              </div>
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            <div class="form-group row">
-                                                <label for="" class="form-label text-center"><strong>Assessed Value</strong></label>
-                                                  <input class="form-control" type="text">
-                                                  <input class="form-control" type="text">
-                                              </div>
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="row mt-2">
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
-                                          Total
-                                        </div>
-                                      
-                                        <div class="form-group col-sm-6">
-                                          <label for="" class="col-sm-2 small-label form-label">Php</label>
-                                          <div class="col-sm-4">
-                                            <input class="form-control" type="text">
-                                          </div>
-                                      
-                                          <label for="" c lass="form-label text-center col-sm-2">Php</label>
-                                          <div class="col-sm-4">
-                                            <input class="form-control" type="text">
-                                          </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Toal Assessed Value Row -->
-                                    
-                                      
 
                                     <!-- End -->
-                                    <div class="row mt-3">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-6 form-group">
-                                          <label for="owner" class="form-label">East&nbsp;:&nbsp; </label>
-                                          <input type="text" class="form-control" id="owner" name="">
-                                        </div>
-                                        <div class="col-sm-5 form-group">
-                                          <label for="TIN" class="form-label">West&nbsp;:</label>
-                                          <input type="text" class="form-control" id="TIN" name="">
-                                        </div>
-                                    </div>
 
-                                    <div class="row mt-3">
+                                    <!-- <div class="row mt-3">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-6 form-group">
+                                        <div class="col-sm-6 form-group" style="margin-top: 300px;">
                                           <label for="owner" class="form-label">East&nbsp;:&nbsp; </label>
                                           <input type="text" class="form-control" id="owner" name="">
                                         </div>
@@ -415,11 +619,11 @@
                                           <input type="text" class="form-control" id="TIN" name="">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                   
                                 <!-- <input type="hidden" name="property_id" id="property_id"/>
                                 <input type="hidden" name="property_owner_id" id="property_owner_id"/> -->
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-md-3">
                                         <label for="property_id" class="form-label">Property ID</label>
                                         <input type="text" class="form-control" name="property_id" id="property_id" required>
@@ -454,11 +658,11 @@
                                 <div class="col-md-4">
                                     <label for="basic_property_tax" class="form-label">Basic Property Tax</label>
                                     <input type="text" class="form-control" id="basic_property_tax" name="basic_property_tax" required>
-                                </div>
-                                <div class="col-md-4">
+                                </div> -->
+                                <!-- <div class="col-md-4">
                                     <label for="special_education_fund" class="form-label">Special Education Fund</label>
                                     <input type="text" class="form-control" id="special_education_fund" name="special_education_fund" required>
-                                </div>
+                                </div> -->
                                 <!-- <div class="col-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -467,16 +671,16 @@
                                     </label>
                                 </div>
                                 </div> -->
-                                <div class="col-12 mt-4">
+                                <!-- <div class="col-12 mt-4">
                                     <button type="submit" class="btn btn-cyan mx-auto d-block col-4">Calculate</button>
-                                </div>
+                                </div> -->
 
                                 <!-- Assessed Value and Real Property Tax -->
-                                <div class="text-center">
+                                <!-- <div class="text-center">
                                     <p id="assessed_value_output"></p>
                                     <p id="real_property_tax_output"></p>                     
                                 </div>
-                            </form>
+                            </form> -->
                             <!-- End of Form Declaration -->
                         </div>
                     </div>
@@ -484,7 +688,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div class="text-muted">Copyright &copy; AsseTax 2024</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -501,5 +705,10 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script> -->
+        <script>
+          function printForm() {
+              window.print();
+          }
+      </script>
     </body>
 </html>
