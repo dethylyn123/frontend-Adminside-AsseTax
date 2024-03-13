@@ -33,7 +33,7 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 3, // Adjust the max value based on your data = 3
+          max: 6, // Adjust the max value based on your data = 3
           maxTicksLimit: 5
         },
         gridLines: {
