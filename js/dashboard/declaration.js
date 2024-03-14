@@ -105,9 +105,9 @@ form_declaration.onsubmit = async (e) => {
     const assessedValue = fairMarketValue * assessmentLevel;
 
     // Calculate real property tax
-    const basicPropertyTax = parseFloat(formData.get('basic_property_tax'));
-    const specialEducationFund = parseFloat(formData.get('special_education_fund')) * 1000;
-    const realPropertyTax = assessedValue * basicPropertyTax;
+    const basicPropertyTax = parseFloat(formData.get('basic_property_tax')) / 100;
+    const specialEducationFund = parseFloat(formData.get('special_education_fund')) / 100;
+    const realPropertyTax = assessedValue * (basicPropertyTax + specialEducationFund);
 
     // Display assessed value and real property tax in console
     // console.log("Assessed Value: ", assessedValue);
