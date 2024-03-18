@@ -15,8 +15,8 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/custom.css">
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script type="module" src="js/dashboard/tax-declaration.js"></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
@@ -25,7 +25,7 @@
         <style>
             @media print {
                 /* Hide the button when printing */
-                #button {
+                .rounded-pill {
                     display: none;
                 }
 
@@ -97,6 +97,10 @@
                                 Real Property Owners
                             </a>
                             <a class="nav-link" href="declaration.html">
+                                <div class="sb-nav-link-icon"><i class="bi bi-calculator"></i></div>
+                                RPT Calculator
+                            </a>
+                            <a class="nav-link" href="tax-declaration.html">
                                 <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
                                 Tax Declaration Form
                             </a>
@@ -136,10 +140,11 @@
                 <main>
                     <div class="container-fluid px-4">
                       <div id="hide">
-                        <h1 class="mt-4">Diri sa mag edit</h1>
+                        <h1 class="mt-4">Tax Declaration Form</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
+                            <li class="breadcrumb-item"><a href="declaration.html">RPT Calculator</a></li>
                             <li class="breadcrumb-item active">Tax Declaration Form</li>
                         </ol>
                         <!-- Notification -->
@@ -381,89 +386,90 @@
                           
                               <!-- Classification, Area, Market Value, Actual Use, Assessment Level, Assessed Value -->
                               <div class="row mt-2">
-                                  <div class="col-sm-2 me-2">
-                                      <div class="form-group row">
-                                          <label for="classification" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Classification</strong></label>
-                                          <input class="form-control" type="text" id="classification">
-                                          <input class="form-control" type="text" id="classification">
-                                      </div>
-                                  </div>
-                          
-                                  <div class="col-sm-1 me-2">
-                                      <div class="form-group row">
-                                          <label for="area" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Area</strong></label>
-                                          <input class="form-control" type="text" id="area">
-                                          <input class="form-control" type="text" id="area">
-                                      </div>
-                                  </div>
-                          
-                                  <div class="col-sm-2 me-2">
-                                      <div class="form-group row">
-                                          <label for="market-value" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Market Value</strong></label>
-                                          <input class="form-control" type="text" id="market-value">
-                                          <input class="form-control" type="text" id="market-value">
-                                      </div>
-                                  </div>
-                          
-                                  <div class="col-sm-2 me-2">
-                                      <div class="form-group row">
-                                          <label for="actual-use" class="form-label text-center " style="border-bottom: 1px solid black;"><strong>Actual Use</strong></label>
-                                          <input class="form-control" type="text" id="actual-use">
-                                          <input class="form-control" type="text" id="actual-use">
-                                      </div>
-                                  </div>
-                          
-                                  <div class="col-sm-2 me-2">
-                                      <div class="form-group row">
-                                          <label for="assessment-level" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Assessment&nbsp;Level</strong></label>
-                                          <input class="form-control" type="text" id="assessment-level">
-                                          <input class="form-control" type="text" id="assessment-level">
-                                      </div>
-                                  </div>
-                          
-                                  <div class="col-sm-2">
-                                      <div class="form-group row">
-                                          <label for="assessed-value" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Assessed Value</strong></label>
-                                          <input class="form-control" type="text" id="assessed-value">
-                                          <input class="form-control" type="text" id="assessed-value">
-                                      </div>
-                                  </div>
-                              </div>
-                          
-                              <!-- Total Assessed Value Row -->
-                              <div class="row">
-                                  <div class="col-sm-2"></div>
-                                  <div class="col-sm-1">
-                                      Total
-                                  </div>
-                          
-                                  <div class="form-group col-sm-6">
-                                      <label for="total-assessed-value" class="col-sm-1 small-label form-label">Php</label>
-                                      <div class="col-sm-4">
-                                          <input class="form-control" type="text" id="total-assessed-value">
-                                      </div>
-                                      <div class="col-sm-7"></div>
-                                      <label for="total-assessed-value-words" class="form-label text-center col-sm-1 ms-1">Php</label>
-                                      <div class="col-sm-4">
-                                          <input class="form-control" type="text" id="total-assessed-value-words">
-                                      </div>
-                                  </div>
-                              </div>
-                          
-                              <!-- Declaration Note -->
-                              <div class="row mt-2">
-                                  <div class="col-sm-12 form-group">
-                                      <label for="declaration-note" class="form-label"><strong>TOTAL&nbsp;ASSESSED&nbsp;VALUE: </strong></label>
-                                      <input type="text" class="form-control" id="declaration-note" name="">
-                                  </div>
-                              </div>
-                          
-                              <div class="row">
-                                  <div class="col-sm-6"></div>
-                                  <div class="col-sm-6 form-group">
-                                      <label for="amount-in-words" class="form-label italic">(Amount in Words)</label>
-                                  </div>
-                              </div>
+                                <div class="col-sm-2 me-2">
+                                    <div class="form-group row">
+                                        <label for="classification" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Classification</strong></label>
+                                        <input class="form-control classification-input" type="text">
+                                        <input class="form-control classification-input" type="text">
+                                    </div>
+                                </div>
+                        
+                                <div class="col-sm-1 me-2">
+                                    <div class="form-group row">
+                                        <label for="area" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Area</strong></label>
+                                        <input class="form-control" type="text" id="area">
+                                        <input class="form-control" type="text" id="area">
+                                    </div>
+                                </div>
+                        
+                                <div class="col-sm-2 me-2">
+                                    <div class="form-group row">
+                                        <label for="market-value" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Market Value</strong></label>
+                                        <input class="form-control market-value-input" type="text">
+                                        <input class="form-control market-value-input" type="text">
+                                    </div>
+                                </div>
+                        
+                                <div class="col-sm-2 me-2">
+                                    <div class="form-group row">
+                                        <label for="actual-use" class="form-label text-center " style="border-bottom: 1px solid black;"><strong>Actual Use</strong></label>
+                                        <input class="form-control" type="text" id="actual-use">
+                                        <input class="form-control" type="text" id="actual-use">
+                                    </div>
+                                </div>
+                        
+                                <div class="col-sm-2 me-2">
+                                    <div class="form-group row">
+                                        <label for="assessment-level" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Assessment&nbsp;Level</strong></label>
+                                        <input class="form-control assessment-level-input" type="text">
+                                        <input class="form-control assessment-level-input" type="text">
+                                    </div>
+                                </div>
+                        
+                                <div class="col-sm-2">
+                                    <div class="form-group row">
+                                        <label for="assessed-value" class="form-label text-center" style="border-bottom: 1px solid black;"><strong>Assessed Value</strong></label>
+                                        <input class="form-control assessed-value-input" type="text">
+                                        <input class="form-control assessed-value-input" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- Total Assessed Value Row -->
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-1">
+                                    Total
+                                </div>
+                        
+                                <div class="form-group col-sm-6">
+                                    <label for="total-market-value" class="col-sm-1 small-label form-label">Php</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" id="total-market-value" readonly>
+                                    </div>
+                                    <div class="col-sm-7"></div>
+                                    <label for="total-assessed-value" class="form-label text-center col-sm-1 ms-1">Php</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" id="total-assessed-value" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- Declaration Note -->
+                            <div class="row mt-2">
+                                <div class="col-sm-12 form-group">
+                                    <label for="total-assessed-value-words" class="form-label"><strong>TOTAL&nbsp;ASSESSED&nbsp;VALUE: </strong></label>
+                                    <input type="text" class="form-control" id="total-assessed-value-words" name="total-assessed-value-words" readonly>
+                                </div>
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6 form-group">
+                                    <label for="amount-in-words" class="form-label italic">(Amount in Words)</label>
+                                    <!-- <input class="form-control" type="text" id="total-assessed-v" readonly> -->
+                                </div>
+                            </div>
                           
                               <!-- Taxable/Exempt and Effectivity of Assessment -->
                               <div class="row mb-0">
@@ -497,12 +503,16 @@
                                       <div class="d-flex align-items-center">
                                           <label class="form-label">RECOMMENDING&nbsp;APPROVAL: </label>
                                           <input class="form-control ms-2" type="text" style="width: 60%;" id="recommendApproval">
+                                          <!-- <textarea class="form-control ms-2" id="recommendApproval" style="width: 60%; height: 100px;"></textarea> -->
                                           <input class="form-control ms-2" type="date" style="width: 20%;" id="recommendApprovalDate" placeholder="Date">
                                       </div>
                                       <div class="row">
-                                        <div class="col-sm-10"></div>
-                                        <div class="col-sm-2">
-                                            <div >Date</div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-5 ">
+                                            <input class="form-control no-line" type="text">
+                                        </div>
+                                        <div class="col-sm-2 ms-5 ps-5">
+                                            <div>Date</div>
                                         </div>
                                       </div>
                                   </div>
@@ -588,95 +598,43 @@
                           
                               <!-- Note -->
                               <p class="text-justify"><strong>Note *</strong> This declaration is for real property taxation purposes only, and the valuation indicated herein is based on the Schedule of Unit Market Values prepared for the purpose and duly enacted into an Ordinance by the Sangguniang Panglungsod under <input type="text" class="form-control" style="width: 10em; display: inline;">. It does not and cannot, by itself alone, confer any ownership or legal title to the property.</p>
-
                               <!-- Button to trigger printing -->
                               <div class="row">
                                 <div class="col-sm-12 d-flex justify-content-end">
-                                    <button type="button" id="button" class="btn btn-danger rounded-pill me-1" onclick="printForm()">Send Email</button>  
-                                    <button type="button" id="button" class="btn btn-danger rounded-pill me-1" onclick="printForm()">Print Form</button>
-                                    <button type="submit" id="button" class="btn btn-danger rounded-pill">Calculate Tax</button>
+                                    <!-- <button type="submit" class="btn btn-danger rounded-pill me-1">Calculate Tax</button> -->
+                                    <button id="print" type="button" class="btn btn-danger rounded-pill me-1">Print Form</button>
+                                    <button type="button" id="button" class="btn btn-outline-danger rounded-pill">Send Email</button>
                                   </div>    
                               </div>
                           </form>
-                          
 
-
-                                    <!-- End -->
-
-                                    <!-- <div class="row mt-3">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-6 form-group" style="margin-top: 300px;">
-                                          <label for="owner" class="form-label">East&nbsp;:&nbsp; </label>
-                                          <input type="text" class="form-control" id="owner" name="">
-                                        </div>
-                                        <div class="col-sm-5 form-group">
-                                          <label for="TIN" class="form-label">West&nbsp;:</label>
-                                          <input type="text" class="form-control" id="TIN" name="">
-                                        </div>
+                          <!-- Email Modal -->
+                          <form action="" id="form_email">
+                            <div class="modal" id="emailModal">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Enter Email Address</h4>
+                                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                                     </div>
-                                </div> -->
-                                  
-                                <!-- <input type="hidden" name="property_id" id="property_id"/>
-                                <input type="hidden" name="property_owner_id" id="property_owner_id"/> -->
-                                <!-- <div class="row">
-                                    <div class="col-md-3">
-                                        <label for="property_id" class="form-label">Property ID</label>
-                                        <input type="text" class="form-control" name="property_id" id="property_id" required>
+                                    
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                        <input type="email" id="emailInput" class="form-control" placeholder="example@gmail.com">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="property_id" class="form-label">Property Owner ID</label>
-                                        <input type="text" class="form-control" name="property_owner_id" id="property_owner_id" required>
+                                    
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-cyan">Send</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
+                                    
                                 </div>
-                                <hr>
-                                <div class="col-md-6">
-                                    <label for="land_classification_name" class="form-label">Land Classification Name</label>
-                                    <input type="text" class="form-control" name="land_classification_name" id="land_classification_name" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="fair_market_value" class="form-label">Fair Market Value</label>
-                                    <input type="text" class="form-control" id="fair_market_value" name="fair_market_value" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="assessment_level" class="form-label">Assessment Level</label>
-                                    <input type="text" class="form-control" id="assessment_level" name="assessment_level" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="area_type" class="form-label">Area Type</label>
-                                    <select id="area_type" class="form-select" name="area_type" required>
-                                        <option selected>Choose...</option>
-                                        <option>Province</option>
-                                        <option>City</option>
-                                        <option>Municipality within Metro Manila</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="basic_property_tax" class="form-label">Basic Property Tax</label>
-                                    <input type="text" class="form-control" id="basic_property_tax" name="basic_property_tax" required>
-                                </div> -->
-                                <!-- <div class="col-md-4">
-                                    <label for="special_education_fund" class="form-label">Special Education Fund</label>
-                                    <input type="text" class="form-control" id="special_education_fund" name="special_education_fund" required>
-                                </div> -->
-                                <!-- <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                    </label>
-                                </div>
-                                </div> -->
-                                <!-- <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-cyan mx-auto d-block col-4">Calculate</button>
-                                </div> -->
-
-                                <!-- Assessed Value and Real Property Tax -->
-                                <!-- <div class="text-center">
-                                    <p id="assessed_value_output"></p>
-                                    <p id="real_property_tax_output"></p>                     
-                                </div>
-                            </form> -->
-                            <!-- End of Form Declaration -->
+                            </div>
+                          </form>  
                         </div>
                     </div>
                 </main>

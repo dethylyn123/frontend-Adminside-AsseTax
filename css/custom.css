@@ -71,8 +71,25 @@ a button.icon-secondary:hover i {
 
 /* Design button in dashboard page */
 #button {
-    border: 1px solid black;
     margin: 10px 0px;
+}
+
+.rounded-pill {
+    margin: 10px 0px;
+}
+
+/* Real property tax output */
+
+#assessed_value_output, #real_property_tax_output {
+    background-color: #70c5b1;
+    color: white;
+    width: 50%;
+}
+
+/* No underline input field */
+.no-line {
+    border-bottom: none;
+    text-align: center;
 }
 
 /* Report Section- Nice Admin Template*/
