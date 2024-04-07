@@ -59,6 +59,33 @@ import {
       form_email.reset();
     });
   });
+
+    //   Send to Email Functionality
+    document.getElementById("sendEmailButton").addEventListener("click", function() {
+        var email = document.getElementById("emailInput").value;
+        var formData = new FormData(document.getElementById("form_declaration"));
+        formData.append("email", email);
+    
+        fetch("/send-form-email", { // Update the URL to match your Laravel route
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to send email");
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+            // Optionally, close the modal or do other actions after successful email sending
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Failed to send email");
+        });
+    });
+    
   
   // Print Form Functionality
   document.addEventListener("DOMContentLoaded", function() {
@@ -75,33 +102,57 @@ import {
 
   // Calculation of assesses value
   document.addEventListener('DOMContentLoaded', function() {
-    // Function to calculate the total assessed value
-    function calculateTotalAssessedValue() {
-        var totalMarketValue = 0;
-        var totalAssessedValue = 0;
-
-        // Get all market value and assessed value inputs
-        var marketValueInputs = document.querySelectorAll('.market-value-input');
-        var assessedValueInputs = document.querySelectorAll('.assessed-value-input');
-
-        // Calculate total market value and total assessed value
-        marketValueInputs.forEach(function(input) {
-            totalMarketValue += parseFloat(input.value) || 0;
-        });
-
-        assessedValueInputs.forEach(function(input) {
-            totalAssessedValue += parseFloat(input.value) || 0;
-        });
-
-        // Display the total market value
-        document.getElementById('total-market-value').value = totalMarketValue.toFixed(2);
-
-        // Display the total assessed value
-        document.getElementById('total-assessed-value').value = totalAssessedValue.toFixed(2);
-
-        // Update the total assessed value in words
-        document.getElementById('total-assessed-value-words').value = convertToWords(totalAssessedValue.toFixed(2));
+    // Function to format numbers with commas and cents (00 at the end)
+function formatNumberWithCents(number) {
+    // Convert number to integer if it's an integer
+    if (Number.isInteger(number)) {
+        return number.toLocaleString('en-US') + ".00";
     }
+    // Otherwise, format with commas and ".00"
+    return number.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+
+// Function to calculate the total assessed value
+function calculateTotalAssessedValue() {
+    var totalMarketValue = 0;
+    var totalAssessedValue = 0;
+
+    // Get all market value and assessed value inputs
+    var marketValueInputs = document.querySelectorAll('.market-value-input');
+    const formattedMarketValue = marketValueInputs.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+    var assessedValueInputs = document.querySelectorAll('.assessed-value-input');
+
+    // Calculate total market value and total assessed value
+    marketValueInputs.forEach(function(input) {
+        totalMarketValue += parseFloat(input.value) || 0;
+    });
+
+    assessedValueInputs.forEach(function(input) {
+        // Parse the input value as float and remove the decimal part if it's ".00"
+        var floatValue = parseFloat(input.value);
+        totalAssessedValue += floatValue || 0;
+        if (floatValue === parseInt(input.value)) {
+            input.value = floatValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); // Put the decimal part if it's ".00"
+        }
+    });
+
+    // Round down the total assessed value to the nearest whole number
+    totalAssessedValue = Math.floor(totalAssessedValue);
+
+    // Display the total market value with cents and commas
+    document.getElementById('total-market-value').value = formatNumberWithCents(totalMarketValue);
+
+    // Display the total assessed value with cents and commas
+    document.getElementById('total-assessed-value').value = formatNumberWithCents(totalAssessedValue);
+
+    // Update the total assessed value in words
+    document.getElementById('total-assessed-value-words').value = convertToWords(totalAssessedValue.toFixed(2));
+}
+
 
     // Add event listeners for market value inputs to calculate assessed value
     var marketValueInputs = document.querySelectorAll('.market-value-input');
@@ -111,6 +162,10 @@ import {
             var marketValue = parseFloat(input.value);
             var assessmentLevel = parseFloat(document.querySelectorAll('.assessment-level-input')[index].value) / 100;
             var assessedValue = marketValue * assessmentLevel;
+
+            // Round down the assessed value to the nearest whole number
+            assessedValue = Math.floor(assessedValue);
+
             document.querySelectorAll('.assessed-value-input')[index].value = assessedValue.toFixed(2);
             calculateTotalAssessedValue();
         });
@@ -135,7 +190,7 @@ import {
                 case 'COMMERCIAL':
                 case 'INDUSTRIAL':
                 case 'MINERAL':
-                    assessmentLevelInput.value = 30 + '%';
+                    assessmentLevelInput.value = 50 + '%';
                     break;
                 default:
                     assessmentLevelInput.value = '';
@@ -280,84 +335,66 @@ function convertToWords(number) {
   // };
   
   const form_declaration = document.getElementById("form_declaration");
-  
-  form_declaration.onsubmit = async (e) => {
+
+form_declaration.onsubmit = async (e) => {
     e.preventDefault();
-  
+
     // Disable Button
     const submitButton = document.querySelector("#form_declaration button[type='submit']");
     submitButton.disabled = true;
     submitButton.innerHTML = `<div class="d-flex justify-content-center align-items-center"> <div class="spinner-border me-2" role="status"></div><span>Loading...</span> </div>`;
-  
+
     try {
-      // Get Values of Form (input, textarea, select) set it as form-data
-      const formData = new FormData(form_declaration);
-  
-      // Calculate assessed value
-      const fairMarketValue = parseFloat(formData.get('fair_market_value'));
-      const assessmentLevel = parseFloat(formData.get('assessment_level')) / 100; // Convert to decimal
-      const assessedValue = fairMarketValue * assessmentLevel;
-  
-      // Calculate real property tax
-      const basicPropertyTax = parseFloat(formData.get('basic_property_tax')) * 1000;
-      const specialEducationFund = parseFloat(formData.get('special_education_fund')) * 1000;
-      const realPropertyTax = basicPropertyTax + specialEducationFund;
-  
-      // Display assessed value and real property tax in console
-      // console.log("Assessed Value: ", assessedValue);
-      // console.log("Real Property Tax: ", realPropertyTax);
-  
-      // Display assessed value and real property tax in HTML
-      document.getElementById('assessed_value_output').innerText = `Assessed Value: ${assessedValue}`;
-      document.getElementById('real_property_tax_output').innerText = `Real Property Tax: ${realPropertyTax}`;
-  
-      // Fetch API User Item Store Endpoint for /api/classification
-      const responseClassification = await fetch(backendURL + "/api/classification", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
-        },
-        body: formData,
-      });
-  
-      if (!responseClassification.ok) {
-        throw new Error(`HTTP error! Status: ${responseClassification.status}`);
-      }
-  
-      // Fetch API User Item Store Endpoint for /api/tax
-      const responseTax = await fetch(backendURL + "/api/tax", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
-        },
-        body: formData,
-      });
-  
-      if (!responseTax.ok) {
-        throw new Error(`HTTP error! Status: ${responseTax.status}`);
-      }
-  
-      // Reset Form
-      form_declaration.reset();
-  
-      // Handle success
-      successNotification("Successfully saved information.", 10);
-  
-      // Reload Page
-      // getData();
+        // Get Values of Form (input, textarea, select) set it as form-data
+        const formData = new FormData(form_declaration);
+
+        // Modify formData before sending it to the third API
+        formData.set("assessment_level", formData.get("assessment_level").replace('%', ''));
+
+        // Modify formData before sending it to the third API
+        let assessedValue = formData.get("assessed_value");
+
+        // Remove commas
+        assessedValue = assessedValue.replace(/,/g, '');
+
+        // Remove .00 at the end
+        if (assessedValue.endsWith('.00')) {
+            assessedValue = assessedValue.slice(0, -3);
+        }
+
+        // Update formData with the modified assessed_value
+        formData.set("assessed_value", assessedValue);
+
+        // Step 1: Submit data to /api/owner endpoint
+        const responseOwner = await fetch(backendURL + "/api/owner", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
+            },
+            body: formData,
+        });
+
+        if (!responseOwner.ok) {
+            errorNotification(responseOwner.message, 10);
+            return; // Exit early if the request fails
+        }
+
+        // Handle success
+        successNotification("Successfully saved information.", 10);
+
     } catch (error) {
-      console.error('Error:', error);
-  
-      // Handle error
-      errorNotification("Failed to save information", 10);
+        console.error('Error:', error);
+
+        // Handle error
+        errorNotification("Failed to save information", 10);
     } finally {
-      // Enable the submit button after the request is complete
-      submitButton.disabled = false;
-      submitButton.innerHTML = "Calculate Tax";
+        // Enable the submit button after the request is complete
+        submitButton.disabled = false;
+        submitButton.innerHTML = "Save";
     }
-  };
+};
+
+
   

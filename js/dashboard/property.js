@@ -75,27 +75,32 @@ import {
 
   
         container += `<div class="col-sm-6">
-        <div class="card w-100 mt-3" data-id="${element.id}">
+        <div class="card w-100 mt-3" data-id="${element.PIN}">
             <div class="row">
-                <div class="col-sm-5 d-flex align-items-center">
-                    <img class="rounded" src="${backendURL}/storage/${element.image}" width="100%" height="270px">
-                </div>
-                <div class="col-sm-7">
+                
+                <div class="col-sm-12">
                     <div class="card-body">
                         <div class="dropdown float-end">
                             <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                    <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.PIN}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
+                                    <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.PIN}"><i class="fa-solid fa-trash"></i> Delete</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="pt-5">
-                            <h6 class="card-text"><b>Property:</b> ${element.property_name}</h6>
+                            <h6 class="card-text"><b>PIN:</b> ${element.PIN}</h6>
+                            <h6 class="card-text"><b>Property:</b> ${element.kind_property}</h6>
                             <h6 class="card-text"><b>Property Address:</b> ${element.complete_address}</h6>
+                            <br>
+                            <h6 class="card-text"><b>Boundaries</b></h6>
+                            <small class="card-text">North:</b> ${element.north}</small><br/>
+                            <small class="card-text">South:</b> ${element.south}</small><br/>
+                            <small class="card-text">East:</b> ${element.east}</small><br/>
+                            <small class="card-text">West:</b> ${element.west}</small>
                         </div>
                         <h6 class="card-subtitle text-body-secondary mt-5 pt-5">
                             <small><b>Date created:</b> ${date}</small>
@@ -211,19 +216,19 @@ errorNotification("HTTP-Error: " + response.status);
     // for Update
     else {
       // Add Method Spoofing to cater Image upload coz you are using FormData; Comment if no Image upload
-      formData.append("_method", "PUT");
+      // formData.append("_method", "PUT");
       // Fetch API User Item Update Endpoint
       response = await fetch(backendURL + "/api/property/" + for_update_id, {
-        method: "POST", // Change to PUT/PATCH if no Image Upload
+        method: "PUT", // Change to PUT/PATCH if no Image Upload
         headers: {
           Accept: "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
           "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
         },
         // Comment body below; if with Image Upload; form-data equivalent
-        body: formData,
+        // body: formData,
         // Uncomment body below; if no Image Upload; form-urlencoded equivalent
-        // body: new URLSearchParams(formData)
+        body: new URLSearchParams(formData)
       });
     }
   
@@ -298,7 +303,7 @@ errorNotification("HTTP-Error: " + response.status);
         // const json = await response.json();
         // console.log(json);
   
-        successNotification("Successfully deleted user.", 10);
+        successNotification("Successfully deleted property.", 10);
   
         // Remove the Card from the list
         document.querySelector(`.card[data-id="${id}"]`).remove();
@@ -350,15 +355,16 @@ errorNotification("HTTP-Error: " + response.status);
       // console.log(json);
   
       // Store id to a variable; id will be utilize for update
-      for_update_id = json.id;
+      for_update_id = json.PIN;
   
       // Display json response to Form tags; make sure to set id attrbute on tags (input, textarea, select)
-      document.getElementById("property_name").value = json.property_name;
+      document.getElementById("PIN").value = json.PIN;
+      document.getElementById("kind_property").value = json.kind_property;
       document.getElementById("complete_address").value = json.complete_address;
-      // document.getElementById("email").value = json.email;
-      // document.getElementById("role").value = json.role;
-      // document.getElementById("image").value = json.image;
-      // document.getElementById("password").value = json.password;
+      document.getElementById("north").value = json.north;
+      document.getElementById("south").value = json.south;
+      document.getElementById("east").value = json.east;
+      document.getElementById("west").value = json.west;
   
       // Change Button Text using textContent; either innerHTML or textContent is fine here
       document.querySelector("#form_property button[type='submit']").innerHTML =

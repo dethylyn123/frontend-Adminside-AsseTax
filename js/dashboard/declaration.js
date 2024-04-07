@@ -32,7 +32,7 @@ document.getElementById("land_classification_name").addEventListener("change", f
       case "Commercial":
       case "Industrial":
       case "Mineral":
-          assessment_level.value = 30; //50
+          assessment_level.value = 50;
           break;
       default:
           assessment_level.value = "";
@@ -170,9 +170,14 @@ form_declaration.onsubmit = async (e) => {
     // console.log("Assessed Value: ", assessedValue);
     // console.log("Real Property Tax: ", realPropertyTax);
 
+    // Format assessed value and real property tax with commas and .00
+    const formattedAssessedValue = assessedValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const formattedRealPropertyTax = realPropertyTax.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+
     // Display assessed value and real property tax in HTML
-    document.getElementById('assessed_value_output').innerText = `Assessed Value: ${assessedValue}`;
-    document.getElementById('real_property_tax_output').innerText = `Real Property Tax: ${realPropertyTax}`;
+    document.getElementById('assessed_value_output').innerText = `Assessed Value: ${formattedAssessedValue}`;
+    document.getElementById('real_property_tax_output').innerText = `Real Property Tax: ${formattedRealPropertyTax}`;
 
     // Fetch API User Item Store Endpoint for /api/classification
   //   const responseClassification = await fetch(backendURL + "/api/classificatio", {
@@ -222,3 +227,5 @@ form_declaration.onsubmit = async (e) => {
     submitButton.disabled = false;
     submitButton.innerHTML = "Calculate";
   };
+
+  

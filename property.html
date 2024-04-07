@@ -185,17 +185,32 @@
                                 <!-- User Id Field -->
                                 <input type="hidden" name="id" id="id" />
                                 <input type="hidden" name="property_owner_id" id="property_owner_id">
-                                <!-- User lastname Field -->
+                                <!-- PIN Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="property_name">Property</label>
+                                        <label for="PIN">PIN</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
                                         type="text"
-                                        name="property_name"
-                                        id="property_name"
+                                        name="PIN"
+                                        id="PIN"
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <!--KInd of Property Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="kind_property">Property</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        name="kind_property"
+                                        id="kind_property"
                                         required
                                     />
                                     </div>
@@ -214,35 +229,64 @@
                                     ></input>
                                     </div>
                                 </div>
-                                <!-- User email Field -->
-                                <!-- <div class="row mb-3">
+                                <p>Boundaries:</p>
+                                <!-- north Field -->
+                                <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="email">Email</label>
+                                        <label for="north">North</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
-                                        name="email"
-                                        id="email"
-                                        type="email"
+                                        name="north"
+                                        id="north"
+                                        type="north"
                                         required
                                     ></input>
                                     </div>
-                                </div> -->
-                                <!-- User role Field -->
-                                <!-- <div class="row mb-3">
+                                </div>
+                                <!-- South Field -->
+                                <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="role">Role</label>
+                                        <label for="south">South</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
-                                        name="role"
-                                        id="role"
+                                        name="south"
+                                        id="south"
                                         required
                                     ></input>
                                     </div>
-                                </div> -->
+                                </div>
+                                <!-- East Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="east">East</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        name="east"
+                                        id="east"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- West Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="west">West</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        name="west"
+                                        id="west"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
                                 <!-- Image File Field -->
                                 <!-- <div class="row mb-3">
                                     <div class="col-sm-3">

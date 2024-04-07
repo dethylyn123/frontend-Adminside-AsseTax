@@ -11354,6 +11354,14 @@ body {
   position: relative;
 }
 
+/* Change background color of the autofill-selected - not working */
+input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: -internal-light-dark(rgb(225, 225, 225), rgba(225, 225, 225, 225)) !important;
+  color: fieldtext !important;
+}
+
 /* Dark overlay */
 /* body::after {
   content: "";

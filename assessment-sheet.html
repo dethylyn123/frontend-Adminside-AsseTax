@@ -20,6 +20,7 @@
         <script type="module" src="js/dashboard/tax-declaration.js"></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
+        <script type="module" src="js/dashboard/assessment-sheet.js"></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
         <!-- Add a new style block for print-specific styles -->
         <style>
@@ -109,10 +110,14 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Real Property Owners
                             </a>
-                            <a class="nav-link" href="declaration.html">
+                            <a class="nav-link" href="tax-calculator.html">
                                 <div class="sb-nav-link-icon"><i class="bi bi-calculator"></i></div>
                                 RPT Calculator
-                            </a>
+                              </a>
+                              <a class="nav-link" href="assessment-sheet.html">
+                                <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
+                                Assessment Sheet
+                              </a>
                             <a class="nav-link" href="tax-declaration.html">
                                 <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
                                 Tax Declaration Form
@@ -153,12 +158,12 @@
                 <main>
                     <div class="container-fluid px-4">
                       <div id="hide">
-                        <h1 class="mt-4">Tax Declaration Form</h1>
+                        <h1 class="mt-4">Assessment Sheet Form</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
-                            <li class="breadcrumb-item"><a href="declaration.html">RPT Calculator</a></li>
-                            <li class="breadcrumb-item active">Tax Declaration Form</li>
+                            <li class="breadcrumb-item"><a href="tax-calculator.html">RPT Calculator</a></li>
+                            <li class="breadcrumb-item active">Assessment Sheet Form</li>
                         </ol>
                         <!-- Notification -->
                         <div class="row">
@@ -194,10 +199,10 @@
                                         <tr>
                                             <td scope="row" colspan="2">
                                                 <div class="row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-4">
                                                         <label for="arp">TD&nbsp;/&nbsp;ARP&nbsp;No.</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-8">
                                                         <input type="text" class="form-control no-line" id="arp" name="arp">
                                                     </div>
                                                 </div>
@@ -278,7 +283,7 @@
                                                     <div class="col-sm-4">
                                                         <label for="dated2">Dated:</label>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-sm-8">
                                                         <input type="text" class="form-control no-line" id="dated2" name="dated2">
                                                     </div>
                                                 </div>
@@ -407,7 +412,7 @@
                                             
                                             <th>
                                                 <div class="row">
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-4">
                                                         <label for="municipality">Municipality:</label>
                                                     </div>
                                                     <div class="col-sm-8">
@@ -508,91 +513,336 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                         <!-- 1st row -->
                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="classification" id="classification">
+                                            <option value=""></option>
+                                            <option value="Residential">RESIDENTIAL</option>
+                                            <option value="Agricultural">AGRICULTURAL</option>
+                                            <option value="Commercial">COMMERCIAL</option>
+                                            <option value="Industrial">INDUSTRIAL</option>
+                                            <option value="Mineral">MINERAL</option>
+                                            <option value="Timberland">TIMBERLAND</option>
+                                        </select>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="sub-classification" id="sub-classification">
+                                            <option value=""></option>
+                                            <option value="R-1">R-1</option>
+                                            <option value="R-2">R-2</option>
+                                            <option value="R-3">R-3</option>
+                                            <option value="R-4">R-4</option>
+                                            <option value="C-1">C-1</option>
+                                            <option value="C-2">C-2</option>
+                                            <option value="C-3">C-3</option>
+                                            <option value="C-4">C-4</option>
+                                            <option value="I-1">I-1</option>
+                                            <option value="I-2">I-2</option>
+                                            <option value="I-3">I-3</option>
+                                            <option value="I-4">I-4</option>
+                                            <option value="UPLR-1">UPLR-1</option>
+                                            <option value="UPLR-2">UPLR-2</option>
+                                            <option value="UPLR-3">UPLR-3</option>
+                                            <option value="UPLR-4">UPLR-4</option>
+                                            <option value="COCO-1">COCO-1</option>
+                                            <option value="COCO-2">COCO-2</option>
+                                            <option value="COCO-3">COCO-3</option>
+                                            <option value="COCO-4">COCO-4</option>
+                                            <option value="CORN-1">CORN-1</option>
+                                            <option value="CORN-2">CORN-2</option>
+                                            <option value="CORN-3">CORN-3</option>
+                                            <option value="CORN-4">CORN-4</option>
+                                            <option value="COFE-1">COFE-1</option>
+                                            <option value="COFE-2">COFE-2</option>
+                                            <option value="COFE-3">COFE-3</option>
+                                            <option value="COFE-4">COFE-4</option>
+                                            <option value="ABA-1">ABA-1</option>
+                                            <option value="ABA-2">ABA-2</option>
+                                            <option value="ABA-3">ABA-3</option>
+                                            <option value="ABA-4">ABA-4</option>
+                                            <option value="OR-1">OR-1</option>
+                                            <option value="OR-2">OR-2</option>
+                                            <option value="OR-3">OR-3</option>
+                                            <option value="OR-4">OR-4</option>
+                                            <option value="BANA-1">BANA-1</option>
+                                            <option value="BANA-2">BANA-2</option>
+                                            <option value="BANA-3">BANA-3</option>
+                                            <option value="BANA-4">BANA-4</option>
+                                            <option value="CRC-1">CRC-1</option>
+                                            <option value="CRC-2">CRC-2</option>
+                                            <option value="CRC-3">CRC-3</option>
+                                            <option value="CRC-4">CRC-4</option>
+                                            <option value="CACAO-1">CACAO-1</option>
+                                            <option value="CACAO-2">CACAO-2</option>
+                                            <option value="CACAO-3">CACAO-3</option>
+                                            <option value="CACAO-4">CACAO-4</option>
+                                            <option value="RUB-1">RUB-1</option>
+                                            <option value="RUB-2">RUB-2</option>
+                                            <option value="RUB-3">RUB-3</option>
+                                            <option value="RUB-4">RUB-4</option>
+                                            <option value="PT">PT</option>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="area" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="unit-value-input" id="unit-value-input"/>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="base-market-value" id="base-market-value-1" />
                                             </td>
                                         </tr>
+                                        <!-- 2nd Row  -->
                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="classification" id="classification">
+                                            <option value=""></option>
+                                            <option value="Residential">RESIDENTIAL</option>
+                                            <option value="Agricultural">AGRICULTURAL</option>
+                                            <option value="Commercial">COMMERCIAL</option>
+                                            <option value="Industrial">INDUSTRIAL</option>
+                                            <option value="Mineral">MINERAL</option>
+                                            <option value="Timberland">TIMBERLAND</option>
+                                        </select>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="sub-classification" id="sub-classification">
+                                            <option value=""></option>
+                                            <option value="R-1">R-1</option>
+                                            <option value="R-2">R-2</option>
+                                            <option value="R-3">R-3</option>
+                                            <option value="R-4">R-4</option>
+                                            <option value="C-1">C-1</option>
+                                            <option value="C-2">C-2</option>
+                                            <option value="C-3">C-3</option>
+                                            <option value="C-4">C-4</option>
+                                            <option value="I-1">I-1</option>
+                                            <option value="I-2">I-2</option>
+                                            <option value="I-3">I-3</option>
+                                            <option value="I-4">I-4</option>
+                                            <option value="UPLR-1">UPLR-1</option>
+                                            <option value="UPLR-2">UPLR-2</option>
+                                            <option value="UPLR-3">UPLR-3</option>
+                                            <option value="UPLR-4">UPLR-4</option>
+                                            <option value="COCO-1">COCO-1</option>
+                                            <option value="COCO-2">COCO-2</option>
+                                            <option value="COCO-3">COCO-3</option>
+                                            <option value="COCO-4">COCO-4</option>
+                                            <option value="CORN-1">CORN-1</option>
+                                            <option value="CORN-2">CORN-2</option>
+                                            <option value="CORN-3">CORN-3</option>
+                                            <option value="CORN-4">CORN-4</option>
+                                            <option value="COFE-1">COFE-1</option>
+                                            <option value="COFE-2">COFE-2</option>
+                                            <option value="COFE-3">COFE-3</option>
+                                            <option value="COFE-4">COFE-4</option>
+                                            <option value="ABA-1">ABA-1</option>
+                                            <option value="ABA-2">ABA-2</option>
+                                            <option value="ABA-3">ABA-3</option>
+                                            <option value="ABA-4">ABA-4</option>
+                                            <option value="OR-1">OR-1</option>
+                                            <option value="OR-2">OR-2</option>
+                                            <option value="OR-3">OR-3</option>
+                                            <option value="OR-4">OR-4</option>
+                                            <option value="BANA-1">BANA-1</option>
+                                            <option value="BANA-2">BANA-2</option>
+                                            <option value="BANA-3">BANA-3</option>
+                                            <option value="BANA-4">BANA-4</option>
+                                            <option value="CRC-1">CRC-1</option>
+                                            <option value="CRC-2">CRC-2</option>
+                                            <option value="CRC-3">CRC-3</option>
+                                            <option value="CRC-4">CRC-4</option>
+                                            <option value="CACAO-1">CACAO-1</option>
+                                            <option value="CACAO-2">CACAO-2</option>
+                                            <option value="CACAO-3">CACAO-3</option>
+                                            <option value="CACAO-4">CACAO-4</option>
+                                            <option value="RUB-1">RUB-1</option>
+                                            <option value="RUB-2">RUB-2</option>
+                                            <option value="RUB-3">RUB-3</option>
+                                            <option value="RUB-4">RUB-4</option>
+                                            <option value="PT">PT</option>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="area" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="unit-value-input" id="unit-value-input"/>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="base-market-value" id="base-market-value-2" />
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!-- 3rd Row -->
+                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="classification" id="classification">
+                                            <option value=""></option>
+                                            <option value="Residential">RESIDENTIAL</option>
+                                            <option value="Agricultural">AGRICULTURAL</option>
+                                            <option value="Commercial">COMMERCIAL</option>
+                                            <option value="Industrial">INDUSTRIAL</option>
+                                            <option value="Mineral">MINERAL</option>
+                                            <option value="Timberland">TIMBERLAND</option>
+                                        </select>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="sub-classification" id="sub-classification">
+                                            <option value=""></option>
+                                            <option value="R-1">R-1</option>
+                                            <option value="R-2">R-2</option>
+                                            <option value="R-3">R-3</option>
+                                            <option value="R-4">R-4</option>
+                                            <option value="C-1">C-1</option>
+                                            <option value="C-2">C-2</option>
+                                            <option value="C-3">C-3</option>
+                                            <option value="C-4">C-4</option>
+                                            <option value="I-1">I-1</option>
+                                            <option value="I-2">I-2</option>
+                                            <option value="I-3">I-3</option>
+                                            <option value="I-4">I-4</option>
+                                            <option value="UPLR-1">UPLR-1</option>
+                                            <option value="UPLR-2">UPLR-2</option>
+                                            <option value="UPLR-3">UPLR-3</option>
+                                            <option value="UPLR-4">UPLR-4</option>
+                                            <option value="COCO-1">COCO-1</option>
+                                            <option value="COCO-2">COCO-2</option>
+                                            <option value="COCO-3">COCO-3</option>
+                                            <option value="COCO-4">COCO-4</option>
+                                            <option value="CORN-1">CORN-1</option>
+                                            <option value="CORN-2">CORN-2</option>
+                                            <option value="CORN-3">CORN-3</option>
+                                            <option value="CORN-4">CORN-4</option>
+                                            <option value="COFE-1">COFE-1</option>
+                                            <option value="COFE-2">COFE-2</option>
+                                            <option value="COFE-3">COFE-3</option>
+                                            <option value="COFE-4">COFE-4</option>
+                                            <option value="ABA-1">ABA-1</option>
+                                            <option value="ABA-2">ABA-2</option>
+                                            <option value="ABA-3">ABA-3</option>
+                                            <option value="ABA-4">ABA-4</option>
+                                            <option value="OR-1">OR-1</option>
+                                            <option value="OR-2">OR-2</option>
+                                            <option value="OR-3">OR-3</option>
+                                            <option value="OR-4">OR-4</option>
+                                            <option value="BANA-1">BANA-1</option>
+                                            <option value="BANA-2">BANA-2</option>
+                                            <option value="BANA-3">BANA-3</option>
+                                            <option value="BANA-4">BANA-4</option>
+                                            <option value="CRC-1">CRC-1</option>
+                                            <option value="CRC-2">CRC-2</option>
+                                            <option value="CRC-3">CRC-3</option>
+                                            <option value="CRC-4">CRC-4</option>
+                                            <option value="CACAO-1">CACAO-1</option>
+                                            <option value="CACAO-2">CACAO-2</option>
+                                            <option value="CACAO-3">CACAO-3</option>
+                                            <option value="CACAO-4">CACAO-4</option>
+                                            <option value="RUB-1">RUB-1</option>
+                                            <option value="RUB-2">RUB-2</option>
+                                            <option value="RUB-3">RUB-3</option>
+                                            <option value="RUB-4">RUB-4</option>
+                                            <option value="PT">PT</option>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="area" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="unit-value-input" id="unit-value-input"/>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="base-market-value" id="base-market-value-3" />
                                             </td>
                                         </tr>
+                                        <!-- 4th row  -->
                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="classification" id="classification">
+                                            <option value=""></option>
+                                            <option value="Residential">RESIDENTIAL</option>
+                                            <option value="Agricultural">AGRICULTURAL</option>
+                                            <option value="Commercial">COMMERCIAL</option>
+                                            <option value="Industrial">INDUSTRIAL</option>
+                                            <option value="Mineral">MINERAL</option>
+                                            <option value="Timberland">TIMBERLAND</option>
+                                        </select>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="sub-classification" id="sub-classification">
+                                            <option value=""></option>
+                                            <option value="R-1">R-1</option>
+                                            <option value="R-2">R-2</option>
+                                            <option value="R-3">R-3</option>
+                                            <option value="R-4">R-4</option>
+                                            <option value="C-1">C-1</option>
+                                            <option value="C-2">C-2</option>
+                                            <option value="C-3">C-3</option>
+                                            <option value="C-4">C-4</option>
+                                            <option value="I-1">I-1</option>
+                                            <option value="I-2">I-2</option>
+                                            <option value="I-3">I-3</option>
+                                            <option value="I-4">I-4</option>
+                                            <option value="UPLR-1">UPLR-1</option>
+                                            <option value="UPLR-2">UPLR-2</option>
+                                            <option value="UPLR-3">UPLR-3</option>
+                                            <option value="UPLR-4">UPLR-4</option>
+                                            <option value="COCO-1">COCO-1</option>
+                                            <option value="COCO-2">COCO-2</option>
+                                            <option value="COCO-3">COCO-3</option>
+                                            <option value="COCO-4">COCO-4</option>
+                                            <option value="CORN-1">CORN-1</option>
+                                            <option value="CORN-2">CORN-2</option>
+                                            <option value="CORN-3">CORN-3</option>
+                                            <option value="CORN-4">CORN-4</option>
+                                            <option value="COFE-1">COFE-1</option>
+                                            <option value="COFE-2">COFE-2</option>
+                                            <option value="COFE-3">COFE-3</option>
+                                            <option value="COFE-4">COFE-4</option>
+                                            <option value="ABA-1">ABA-1</option>
+                                            <option value="ABA-2">ABA-2</option>
+                                            <option value="ABA-3">ABA-3</option>
+                                            <option value="ABA-4">ABA-4</option>
+                                            <option value="OR-1">OR-1</option>
+                                            <option value="OR-2">OR-2</option>
+                                            <option value="OR-3">OR-3</option>
+                                            <option value="OR-4">OR-4</option>
+                                            <option value="BANA-1">BANA-1</option>
+                                            <option value="BANA-2">BANA-2</option>
+                                            <option value="BANA-3">BANA-3</option>
+                                            <option value="BANA-4">BANA-4</option>
+                                            <option value="CRC-1">CRC-1</option>
+                                            <option value="CRC-2">CRC-2</option>
+                                            <option value="CRC-3">CRC-3</option>
+                                            <option value="CRC-4">CRC-4</option>
+                                            <option value="CACAO-1">CACAO-1</option>
+                                            <option value="CACAO-2">CACAO-2</option>
+                                            <option value="CACAO-3">CACAO-3</option>
+                                            <option value="CACAO-4">CACAO-4</option>
+                                            <option value="RUB-1">RUB-1</option>
+                                            <option value="RUB-2">RUB-2</option>
+                                            <option value="RUB-3">RUB-3</option>
+                                            <option value="RUB-4">RUB-4</option>
+                                            <option value="PT">PT</option>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="area" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="unit-value-input" id="unit-value-input"/>
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" name="base-market-value" id="base-market-value-4" />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="text-end">Total</td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
+                                        <!-- 5th row TOTAL -->
+                                         <tr>
+                                            <td colspan="4" class="text-end">Total</td>
+                                            <td>    
+                                            <div class="total-base-market-value"></div>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
+                                    <!-- <div>Total Base Market Value: <span id="total-base-market-value">0.00</span></div> -->
                                     </div>
                                 </div>
                                 <!-- End Land Appraisal Table -->
@@ -635,7 +885,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line other-improv-base-market-value" placeholder="hi"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -655,7 +905,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line other-improv-base-market-value" placeholder="hi"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -675,7 +925,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line other-improv-base-market-value" placeholder="hi"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -695,7 +945,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line other-improv-base-market-value" placeholder="hi"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -715,7 +965,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line other-improv-base-market-value" placeholder="hi" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -733,7 +983,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line other-improv-base-market-value-total" placeholder="total"/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -762,36 +1012,19 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                             <div class="total-base-market-value"></div>
+                                            </td>
+                                            <td>
+                                            <input type="text" class="form-control no-line" name="adjustment-factor-input" id="adjustment-factor-input"/>
+                                            </td>
+                                            <td>
+                                            <input type="number" class="form-control no-line" name="adjustment" id="adjustment"/>
                                             </td>
                                             <td>
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line val-adjust-market-value" placeholder="hello" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -799,16 +1032,16 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="text" class="form-control no-line" name="adjustment-factor-input" id="adjustment-factor-input"/>
+                                            </td>
+                                            <td>
+                                            <input type="number" class="form-control no-line" name="adjustment" id="adjustment"/>
                                             </td>
                                             <td>
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line val-adjust-market-value" placeholder="hello"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -816,16 +1049,33 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="text" class="form-control no-line" name="adjustment-factor-input" id="adjustment-factor-input"/>
+                                            </td>
+                                            <td>
+                                            <input type="number" class="form-control no-line" name="adjustment" id="adjustment"/>
                                             </td>
                                             <td>
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
+                                            <input type="number" class="form-control no-line val-adjust-market-value" placeholder="hello"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
+                                            <input type="text" class="form-control no-line" name="adjustment-factor-input" id="adjustment-factor-input"/>
+                                            </td>
+                                            <td>
+                                            <input type="number" class="form-control no-line" name="adjustment" id="adjustment"/>
+                                            </td>
+                                            <td>
                                             <input type="number" class="form-control no-line" />
+                                            </td>
+                                            <td>
+                                            <input type="number" class="form-control no-line val-adjust-market-value" placeholder="hello"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -840,7 +1090,7 @@
                                             <input type="number" class="form-control no-line" />
                                             </td>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line val-adjust-market-value-total" placeholder="hello"/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -850,7 +1100,7 @@
                                 <!-- Table Value Adjustment end -->
                 
                                 <!-- Table Property Assessment-Start -->
-                                    <h6 class="text-start mb-2 p-0">
+                                <h6 class="text-start mb-2 p-0">
                                     <strong>PROPERTY ASSESSMENT</strong>
                                     </h6>
                                     <div class="table-responsive p-0">
@@ -864,9 +1114,66 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                            <!-- fist row  -->
                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line actual-use" name="actual-use" >
+                                            <option value=""></option>
+                                            <option value="residential">RESIDENTIAL</option>
+                                            <option value="agricultural">AGRICULTURAL</option>
+                                            <option value="commercial">COMMERCIAL</option>
+                                            <option value="industrial">INDUSTRIAL</option>
+                                            <option value="mineral">MINERAL</option>
+                                            <option value="timberland">TIMBERLAND</option>
+                                            </td>
+                                            <td>
+                                              <input type="number" class="form-control  adjustment-market-value no-line" placeholder="ex. 250000" />
+                                            </td>
+                                            <td>
+                                              <input
+                                                class="form-control assessment-level-input no-line"
+                                                type="number"/>
+                                            </td>
+                                            <td>
+                                                 <input type="number" class="form-control no-line" name="assessed-value-output" id="assessed-value-output"/>  
+
+                                            </td>
+                                        </tr>
+                                        <!-- 2nd Row -->
+                                        <tr>
+                                            <td>
+                                            <select class="form-control no-line actual-use" name="actual-use" >
+                                            <option value=""></option>
+                                            <option value="residential">RESIDENTIAL</option>
+                                            <option value="agricultural">AGRICULTURAL</option>
+                                            <option value="commercial">COMMERCIAL</option>
+                                            <option value="industrial">INDUSTRIAL</option>
+                                            <option value="mineral">MINERAL</option>
+                                            <option value="timberland">TIMBERLAND</option>
+                                            </td>
+                                            <td>
+                                              <input type="number" class="form-control  adjustment-market-value no-line" />
+                                            </td>
+                                            <td>
+                                              <input
+                                                class="form-control assessment-level-input no-line"
+                                                type="number"/>
+                                            </td>
+                                            <td>
+                                                 <input type="number" class="form-control no-line" name="assessed-value-output" id="assessed-value-output"/>  
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                           <select class="form-control no-line" name="classification" id="classification">
+                                            <option value=""></option>
+                                            <option value="Residential">RESIDENTIAL</option>
+                                            <option value="Agricultural">AGRICULTURAL</option>
+                                            <option value="Commercial">COMMERCIAL</option>
+                                            <option value="Industrial">INDUSTRIAL</option>
+                                            <option value="Mineral">MINERAL</option>
+                                            <option value="Timberland">TIMBERLAND</option>
                                             </td>
                                             <td>
                                             <input type="number" class="form-control no-line" />
@@ -880,35 +1187,14 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <select class="form-control no-line" name="classification" id="classification">
+                                            <option value=""></option>
+                                            <option value="Residential">RESIDENTIAL</option>
+                                            <option value="Agricultural">AGRICULTURAL</option>
+                                            <option value="Commercial">COMMERCIAL</option>
+                                            <option value="Industrial">INDUSTRIAL</option>
+                                            <option value="Mineral">MINERAL</option>
+                                            <option value="Timberland">TIMBERLAND</option>
                                             </td>
                                             <td>
                                             <input type="number" class="form-control no-line" />
@@ -930,7 +1216,7 @@
                                             </td>
                 
                                             <td>
-                                            <input type="number" class="form-control no-line" />
+                                            <input type="number" class="form-control no-line" id="total-assessed-value-output" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -1134,7 +1420,7 @@
                                                     <div class="col-sm-9">
                                                     <input
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control no-line"
                                                         id="pin"
                                                         name="pin"
                                                     />
@@ -1150,7 +1436,7 @@
                                                     <div class="col-sm-9">
                                                     <input
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control no-line"
                                                         id="pin"
                                                         name="pin"
                                                     />
@@ -1166,7 +1452,7 @@
                                                     <div class="col-sm-9">
                                                     <input
                                                         type="text"
-                                                        class="form-control"
+                                                        class="form-control no-line"
                                                         id="pin"
                                                         name="pin"
                                                     />
@@ -1263,7 +1549,7 @@
                                                     <div class="col-sm-12">
                                                         <input
                                                         type="text"
-                                                        class="form-control  text-start"
+                                                        class="form-control no-line text-start"
                                                         id="pin"
                                                         name="pin"
                                                         />
@@ -1279,7 +1565,7 @@
                                                     <div class="col-sm-8 ">
                                                         <input
                                                         type="text"
-                                                        class="form-control  text-start"
+                                                        class="form-control no-line text-start"
                                                         id="pin"
                                                         name="pin"
                                                         />
@@ -1290,11 +1576,18 @@
                                         
                                         </tbody>
                                     </table>
-                                </div>
-                
-                                <div class="row ms-1 pt-0">
-                                    <p class="fw-semibold">CONTINUATION OF MEMORANDA </p>
-                                </div>
+
+                                    <p class="fw-semibold ms-2">CONTINUATION OF MEMORANDA </p>
+
+                                    <!-- Button to trigger printing -->
+                                    <div class="row">
+                                        <div class="col-sm-12 d-flex justify-content-end me-5">
+                                            <!-- <button type="submit" class="btn btn-danger rounded-pill me-1">Calculate Tax</button> -->
+                                            <button id="print" type="button" class="btn btn-danger rounded-pill me-5">Print Form</button>
+                                            <!-- <button type="button" id="button" class="btn btn-outline-danger rounded-pill">Send Email</button> -->
+                                        </div>    
+                                    </div>
+                                </div>                
                                 
                             </form>
 
