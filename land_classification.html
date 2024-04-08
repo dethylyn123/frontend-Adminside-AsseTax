@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Property - AsseTax</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/custom.css">
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <script type="module" src="js/dashboard/land_classification.js"></script>
+        <script type="module" src="js/utils/utils.js"></script>
+        <script src="js/utils/scripts.js" defer></script>
+        <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
+        <style>
+            .form-control, .datatable-input {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.0;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+                -moz-appearance: none;
+                    appearance: none;
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+            @media (prefers-reduced-motion: reduce) {
+            .form-control, .datatable-input {
+            transition: none;
+            }
+            }
+            .form-control[type=file], [type=file].datatable-input {
+            overflow: hidden;
+            }
+            .form-control[type=file]:not(:disabled):not([readonly]), [type=file].datatable-input:not(:disabled):not([readonly]) {
+            cursor: pointer;
+            }
+            .form-control:focus, .datatable-input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #fe8686;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(253, 97, 13, 0.25);
+            }
+        </style>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand" href="dashboard.html"><img src="assets/img/assetax-logo.png" width="80" height="70" alt="">Asse<span class="text-danger">Tax</span></a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form id="form_search" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <!-- <div class="input-group">
+                    <input class="form-control" name="keyword" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-danger me-5" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+                </div> -->
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <div class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img height="35px" width="35px" src="" alt="Profile" class="rounded-circle border border-danger user_logged_image">
+                    <span class="d-none d-md-block ps-2 user_logged_name"></span>
+                </div><!-- End Profile Image Icon -->
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav text">
+                            <div class="sb-sidenav-menu-heading">Pages</div>
+                            <a class="nav-link" href="dashboard.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <!-- <div class="sb-sidenav-menu-heading">Pages</div> -->
+                            <!-- <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a> -->
+                            <a class="nav-link" href="owners.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+                                Real Property Owners
+                            </a>
+                            <a class="nav-link" href="declaration.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
+                                Tax Declaration Form
+                            </a>
+                            <!-- Bav Admin Pages -->
+
+                            <div id="nav_admin_pages"></div>
+                            <!-- <div class="sb-sidenav-menu-heading">Admin Pages</div>
+                            <a class="nav-link" href="property.html">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                                Property
+                            </a> -->
+                            <!-- End of Nav Admin Pages -->
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <!-- My Profile -->
+                    <div class="sb-sidenav-footer">
+                        <a class="dropdown-item my-profile d-flex align-items-center mb-2" href="my-profile.html">   
+                          <i class="fa-solid fa-user"></i>
+                          &nbsp;&nbsp;My Profile
+                        </a>
+                        <!-- End My Profile -->
+  
+                        <!-- Need Help -->
+                        <a class="dropdown-item need-help d-flex align-items-center mb-2" href="pages-faq.html">
+                          <i class="bi bi-question-circle-fill"></i>
+                          &nbsp;&nbsp;Need Help?
+                        </a>
+                        <!-- End Need Help -->
+  
+                        <!-- Logout -->
+                        <a id="btn_logout" class="dropdown-item logout d-flex align-items-center" href="#">
+                          <i class="bi bi-box-arrow-right"></i>
+                          &nbsp;&nbsp;Logout
+                        </a>
+                        <!-- End Logout -->
+                      </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Property Classification</h1>
+                        <ol class="breadcrumb mb-4">
+                            <!-- <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li> -->
+                            <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="declaration.html">Tax Declaration Form</a></li> -->
+                            <li class="breadcrumb-item active">Property</li>
+                        </ol>
+
+                        
+
+                        <div class="row">
+                            <!-- Modal Btn and Form -->
+                            <div class="col-sm-12">
+                        <!-- Modal -->
+                        <div
+                        class="modal fade"
+                        id="form_modal"
+                        data-bs-backdrop="static"
+                        data-bs-keyboard="false"
+                        tabindex="-1"
+                        aria-labelledby="staticBackdropLabel"
+                        aria-hidden="true"
+                        >
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                                Property Classification Form
+                                </h1>
+                                <button
+                                id="modal_close"
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                ></button>
+                            </div>
+                            <!-- Property Form -->
+                            <form id="form_property">
+                                <!-- Modal Body -->
+                                <div class="modal-body">
+                                <!-- User Id Field -->
+                                <input type="hidden" name="id" id="id" />
+                                <input type="hidden" name="property_owner_id" id="property_owner_id">
+                                <!-- land_classification Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="land_classification_name">Property Classification</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        name="land_classification_name"
+                                        id="land_classification_name"
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <!--KInd of Property Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="assessment_level">Assessment Level</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        name="assessment_level"
+                                        id="assessment_level"
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <!-- User firstname Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="area">Area</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        name="area"
+                                        id="area"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- Market Value Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="market_value">Market Value</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        name="market_value"
+                                        id="market_value"
+                                        type="number"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- South Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="actual_use">Actual Use</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        name="actual_use"
+                                        id="actual_use"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- East Field -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="assessed_value">Assessed Value</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        name="assessed_value"
+                                        id="assessed_value"
+                                        required
+                                    ></input>
+                                    </div>
+                                </div>
+                                <!-- Image File Field -->
+                                <!-- <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="">Image</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input
+                                        class="form-control"
+                                        type="file"
+                                        name="image"
+                                        accept="image/*"
+                                        
+                                    />
+                                    </div>
+                                </div> -->
+                                <!-- Password field -->
+                                <!-- <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="password">Password</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input 
+                                        class="form-control" 
+                                        id="password" 
+                                        name="password" 
+                                        type="password" 
+                                        autocomplete=""
+                                        />
+                                    </div>
+                                </div> -->
+                                <!-- Password Confirmation field -->
+                                <!-- <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <label for="password_confirmation">Confirm Password</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                    <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" autocomplete=""/>
+                                    </div>
+                                </div> -->
+                                </div>
+                                <!-- Modal Footer -->
+                                <div class="modal-footer">
+                                <button
+                                    id="modal_close"
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    class="btn btn-cyan w-25 d-flex align-items-center justify-content-center"
+                                    type="submit"
+                                >
+                                    Submit
+                                </button>
+                                </div>
+                            </form>
+                            <!-- End Slides Form -->
+                            </div>
+                        </div>
+                        </div>
+                        <!-- End Modal -->
+        
+                        
+                            <div class="row">
+                                <div class="col-sm-1 me-auto">
+                                    <a href="property.html">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm icon-secondary">
+                                            <i class="bi bi-arrow-left" style="color: rgb(88, 88, 88);"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <!-- <div class="col-sm-2"></div> -->
+                                <div class="col-sm-2">
+                                <!-- Button trigger modal -->
+                                <button
+                                    id="modal_show"
+                                    type="button"
+                                    class="btn btn-cyan w-100"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#form_modal"
+                                >
+                                    Add Property Classification
+                                </button>
+                                <!-- End Button trigger modal  -->
+                                </div>
+                            </div>
+                        
+        
+                        <hr />
+                    </div>
+                    
+        
+                    <br />
+        
+                    <!-- Notifications -->
+                    <div class="alert alert-success d-none" role="alert"></div>
+                    <div class="alert alert-danger d-none" role="alert"></div>
+        
+                    <!-- Get All Data -->
+                    <div class="row pb-5" id="get_data">
+                    <div
+                        class="col-sm-12 d-flex justify-content-center align-items-center"
+                    >
+                        <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <b class="ms-2">Loading Data...</b>
+                    </div>
+                    </div>
+        
+                    <!-- Pagination of All Data -->
+                    <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="get_pagination"></ul>
+                    </nav>
+                    </div>
+                
+                <!-- End of Content -->
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; AsseTax 2024</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script> -->
+    </body>
+</html>

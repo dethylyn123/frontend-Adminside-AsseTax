@@ -99,17 +99,22 @@ async function getData(url = "", keyword = "") {
           <div class="text-center">
             <button id="btn_view" title="View Property" data-id="${element.id}">
                 view property
-            </button>
-            
-              <button class="btn btn-outline-secondary btn-sm dropdown-toggle my-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-              <ul class="dropdown-menu">
+            </button>`;
+
+                // Show edit and delete functionality only for Admin
+                if (localStorage.getItem("role") == "Admin") {
+                    container += `
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle my-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                    <ul class="dropdown-menu">
                   <li>
                       <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                   </li>
                   <li>
                       <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
-                  </li>
-              </ul>
+                  </li>`;
+                }
+                container += `</ul>
+              
           </div>
       </td>
   </tr>

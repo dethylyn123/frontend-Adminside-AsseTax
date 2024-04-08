@@ -121,7 +121,7 @@ async function getLoggedUser(){
     }
 };
 
-// Show Admin Pages
+// Show Nav Admin Pages
 function showNavAdminPages() {
   if (localStorage.getItem("role") == "Admin") {
    document.getElementById("nav_admin_pages").innerHTML = 
@@ -132,6 +132,7 @@ function showNavAdminPages() {
     </a>`;
   }
 }
+
 
 // // Calendar
 // function updateDate() {
