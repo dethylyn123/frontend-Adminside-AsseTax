@@ -214,8 +214,8 @@
                         <div class="row">
                             <div class="col-sm-12 mb-1">
                             <div class="float-end col-sm-2 d-flex justify-content-center mb-1">
-                            <!-- Button trigger modal -->
-                            <button
+                            <!-- Button trigger modal; Used when  you want to add a new data. -->
+                            <!-- <button
                                 id="modal_show"
                                 type="button"
                                 class="btn btn-cyan w-100"
@@ -223,8 +223,15 @@
                                 data-bs-target="#form_modal"
                             >
                                 Add Property Owner
-                            </button>
+                            </button> -->
                             <!-- End Button trigger modal  -->
+
+                            <!-- Used this instead if you don't have add functionality; Comment if you have-->
+                            <div id="modal_show"
+                            data-bs-toggle="modal"
+                            data-bs-target="#form_modal">
+                            </div>
+
                             </div>
                         </div>
                         </form>
