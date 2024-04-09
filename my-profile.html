@@ -7,9 +7,9 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Profile - AsseTax</title>
-        <!-- Favicon, uncomment soon-->
-        <!-- <link href="assets/img/favicon.png" rel="icon">
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+        <!-- Favicon-->
+        <link href="assets/img/assetax-logo.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
           <!-- Vendor CSS Files -->
@@ -22,6 +22,46 @@
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
+        <style>
+          .form-control, .datatable-input {
+          display: block;
+          width: 100%;
+          padding: 0.375rem 0.75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.0;
+          color: #212529;
+          background-color: #fff;
+          background-clip: padding-box;
+          border-top: none;
+          border-right: none;
+          border-left: none;
+          border: 1px solid #ced4da;
+          -webkit-appearance: none;
+              -moz-appearance: none;
+                  appearance: none;
+          border-radius: 0.375rem;
+          transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+          }
+          @media (prefers-reduced-motion: reduce) {
+          .form-control, .datatable-input {
+          transition: none;
+          }
+          }
+          .form-control[type=file], [type=file].datatable-input {
+          overflow: hidden;
+          }
+          .form-control[type=file]:not(:disabled):not([readonly]), [type=file].datatable-input:not(:disabled):not([readonly]) {
+          cursor: pointer;
+          }
+          .form-control:focus, .datatable-input:focus {
+          color: #212529;
+          background-color: #fff;
+          border-color: #fe8686;
+          outline: 0;
+          box-shadow: 0 0 0 0.25rem rgba(253, 97, 13, 0.25);
+          }
+      </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
@@ -53,22 +93,30 @@
                         <div class="nav text">
                             <div class="sb-sidenav-menu-heading">Pages</div>
                             <a class="nav-link" href="dashboard.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <!-- <div class="sb-sidenav-menu-heading">Pages</div> -->
-                            <!-- <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a> -->
-                            <a class="nav-link" href="owners.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
-                                Real Property Owners
-                            </a>
-                            <a class="nav-link" href="declaration.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
-                                Tax Declaration Form
-                            </a>
+                              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                              Dashboard
+                          </a>
+                          <!-- <div class="sb-sidenav-menu-heading">Pages</div> -->
+                          <!-- <a class="nav-link" href="charts.html">
+                              <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                              Charts
+                          </a> -->
+                          <a class="nav-link" href="owners.html">
+                              <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                              Real Property Owners
+                          </a>
+                          <a class="nav-link" href="assessment-sheet.html">
+                            <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
+                            Assessment Sheet
+                          </a>
+                          <a class="nav-link" href="tax-declaration.html">
+                              <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
+                              Tax Declaration Form
+                          </a>
+                          <a class="nav-link" href="tax-calculator.html">
+                            <div class="sb-nav-link-icon"><i class="bi bi-calculator"></i></div>
+                            RPT Calculator
+                          </a>
                             <!-- Admin Pages -->
                             <div id="nav_admin_pages"></div>
                             <!-- End of Admin Pages -->
@@ -360,21 +408,21 @@
                                         <div class="row mb-3">
                                           <label for="old_password" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                                           <div class="col-md-8 col-lg-9">
-                                            <input name="old_password" type="password" class="form-control" id="old_password" autocomplete="">
+                                            <input name="old_password" type="password" class="form-control" id="old_password" autocomplete="" required>
                                           </div>
                                         </div>
                     
                                         <div class="row mb-3">
                                           <label for="password" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                                           <div class="col-md-8 col-lg-9">
-                                            <input name="password" type="password" class="form-control" id="password" autocomplete="">
+                                            <input name="password" type="password" class="form-control" id="password" autocomplete="" required>
                                           </div>
                                         </div>
                     
                                         <div class="row mb-3">
                                           <label for="password_confirmation" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                                           <div class="col-md-8 col-lg-9">
-                                            <input name="password_confirmation" type="password" class="form-control" id="password_confirmation" autocomplete="">
+                                            <input name="password_confirmation" type="password" class="form-control" id="password_confirmation" autocomplete="" required>
                                           </div>
                                         </div>
                     
@@ -419,12 +467,12 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
+                            <div class="text-muted">Copyright &copy; AsseTax 2024</div>
+                            <!-- <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
                                 <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </footer>

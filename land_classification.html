@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Property - AsseTax</title>
+        <title>Property Classification - AsseTax</title>
 
         <!-- Favicon-->
         <link href="assets/img/assetax-logo.png" rel="icon">
@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="css/custom.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <script type="module" src="js/dashboard/property.js"></script>
+        <script type="module" src="js/dashboard/land_classification.js"></script>
         <script type="module" src="js/utils/utils.js"></script>
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
@@ -70,10 +70,10 @@
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form id="form_search" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
+                <!-- <div class="input-group">
                     <input class="form-control" name="keyword" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-danger me-5" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
-                </div>
+                </div> -->
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -154,12 +154,12 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Property</h1>
+                        <h1 class="mt-4">Property Classification</h1>
                         <ol class="breadcrumb mb-4">
                             <!-- <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li> -->
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
-                            <!-- <li class="breadcrumb-item"><a href="declaration.html">Tax Declaration Form</a></li> -->
-                            <li class="breadcrumb-item active">Property</li>
+                            <li class="breadcrumb-item"><a href="property.html">Property</a></li>
+                            <li class="breadcrumb-item active">Property Classification</li>
                         </ol>
 
                         
@@ -181,7 +181,7 @@
                             <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                Property Form
+                                Property Classification Form
                                 </h1>
                                 <button
                                 id="modal_close"
@@ -198,17 +198,17 @@
                                 <!-- User Id Field -->
                                 <input type="hidden" name="id" id="id" />
                                 <input type="hidden" name="property_owner_id" id="property_owner_id">
-                                <!-- PIN Field -->
+                                <!-- land_classification Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="PIN">PIN</label>
+                                        <label for="land_classification_name">Property Classification</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
                                         type="text"
-                                        name="PIN"
-                                        id="PIN"
+                                        name="land_classification_name"
+                                        id="land_classification_name"
                                         required
                                     />
                                     </div>
@@ -216,14 +216,14 @@
                                 <!--KInd of Property Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="kind_property">Property</label>
+                                        <label for="assessment_level">Assessment Level</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
                                         type="text"
-                                        name="kind_property"
-                                        id="kind_property"
+                                        name="assessment_level"
+                                        id="assessment_level"
                                         required
                                     />
                                     </div>
@@ -231,29 +231,28 @@
                                 <!-- User firstname Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="complete_address">Property Address</label>
+                                        <label for="area">Area</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
-                                        name="complete_address"
-                                        id="complete_address"
+                                        name="area"
+                                        id="area"
                                         required
                                     ></input>
                                     </div>
                                 </div>
-                                <p>Boundaries:</p>
-                                <!-- north Field -->
+                                <!-- Market Value Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="north">North</label>
+                                        <label for="market_value">Market Value</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
-                                        name="north"
-                                        id="north"
-                                        type="north"
+                                        name="market_value"
+                                        id="market_value"
+                                        type="number"
                                         required
                                     ></input>
                                     </div>
@@ -261,13 +260,13 @@
                                 <!-- South Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="south">South</label>
+                                        <label for="actual_use">Actual Use</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
-                                        name="south"
-                                        id="south"
+                                        name="actual_use"
+                                        id="actual_use"
                                         required
                                     ></input>
                                     </div>
@@ -275,27 +274,13 @@
                                 <!-- East Field -->
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <label for="east">East</label>
+                                        <label for="assessed_value">Assessed Value</label>
                                     </div>
                                     <div class="col-sm-9">
                                     <input
                                         class="form-control"
-                                        name="east"
-                                        id="east"
-                                        required
-                                    ></input>
-                                    </div>
-                                </div>
-                                <!-- West Field -->
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label for="west">West</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                    <input
-                                        class="form-control"
-                                        name="west"
-                                        id="west"
+                                        name="assessed_value"
+                                        id="assessed_value"
                                         required
                                     ></input>
                                     </div>
@@ -367,7 +352,7 @@
                         
                             <div class="row">
                                 <div class="col-sm-1 me-auto">
-                                    <a href="owners.html">
+                                    <a href="property.html">
                                         <button type="button" class="btn btn-outline-secondary btn-sm icon-secondary">
                                             <i class="bi bi-arrow-left" style="color: rgb(88, 88, 88);"></i>
                                         </button>
@@ -383,7 +368,7 @@
                                     data-bs-toggle="modal"
                                     data-bs-target="#form_modal"
                                 >
-                                    Add Property
+                                    Add Property Classification
                                 </button> -->
                                 <!-- End Button trigger modal  -->
 

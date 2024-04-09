@@ -8,6 +8,67 @@ getData();
 
 showNavAdminPages();
 
+// Show Functionality
+const showData = async (id) => {
+    // Fetch API property owner show endpoint
+    const response = await fetch(
+      backendURL + "/api/classification/" + id,  
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
+        },
+      }
+    );
+  
+    // Get response if 200-299 status code
+    if (response.ok) {
+      const json = await response.json();
+      console.log("show classification:",json);
+      // Display json response to Form tags
+      document.getElementById("land_classification_name").value = json.land_classification_name;
+      document.getElementById("assessment_level").value = json.assessment_level;
+      document.getElementById("market_value").value = json.market_value;
+  
+      // // Store id to a variable; id will be utilized for update
+      // for_update_id = json.id;
+  
+      // // Change Button Description
+      // document.querySelector("#form_owners button[type='submit']").innerHTML = "Update Info";
+  
+      // // Show Modal Form
+      // document.getElementById("modal_show").click();
+      successNotification("Successfully displayed Information", 5);
+    } 
+    // Get response if 400+ or 500+
+    else {
+      errorNotification("Unable to show!", 5);
+    }
+  };
+
+// Update Functionality
+const editAction = async (e) => {
+    
+    // Get Id from data Id attribute within the btn_delete anchor tag
+    const id = e.target.getAttribute("data-id");
+
+    // Show Functionality Function Call
+    showData(id);
+
+    // Show Modal Form
+    // document.getElementById("modal_show").click();
+}
+
+// Page Functionality
+const pageAction = async (e) => {
+    // Get url from data-url attribute within the btn_pagination anchor tag
+    const url = e.target.getAttribute("data-url");
+  
+    // Refresh card list
+    getData(url);
+  }
+
 async function getData(url = "", keyword = "") {
   // Add Loading if pagination or search is used; Remove if its not needed
   if (url != "" || keyword != "") {
@@ -36,11 +97,11 @@ async function getData(url = "", keyword = "") {
   // To cater pagination and search feature
   let queryParams = "?" + 
   (url != "" ? new URL(url).searchParams + "&" : "") + //Remove this line if not using pagination
-  (keyword != "" ? "keyword=" + keyword : "");
+  (keyword != "" ? "search=" + keyword : "");
 
   // Get Property Owner API Endpoint; Caters search
   const response = await fetch(
-    backendURL + "/api/owner" + queryParams,
+    backendURL + "/api/tax" + queryParams,
     {
       headers: {
         Accept: "application/json",
@@ -77,10 +138,10 @@ async function getData(url = "", keyword = "") {
       <table class="table table-bordered mt-3">
       <thead class="header-row">
         <tr>
-          <th>Property Owner</th>
+          <th>PIN</th>
           <th>Address</th>
-          <th>Email</th>
-          <th>Date created</th>
+          <th>Kind of Property</th>
+          <th>Land Classification</th>
           <th colspan="2">Action</th>
         </tr>
       </thead>
@@ -91,30 +152,16 @@ async function getData(url = "", keyword = "") {
 
       container += `
       <tr data-id="${element.id}">
-      <td>${element.property_owner_name}</td>
-      <td>${element.address}</td>
-      <td>${element.email}</td>
-      <td>${date}</td>
+      <td>${element.PIN}</td>
+      <td>${element.complete_address}</td>
+      <td>${element.kind_property}</td>
+      <td>${element.land_classification_name}</td>
       <td>
           <div class="text-center">
-            <button id="btn_view" title="View Property" data-id="${element.id}">
-                view property
-            </button>`;
-
-                // Show edit and delete functionality only for Admin
-                if (localStorage.getItem("role") == "Admin") {
-                    container += `
-                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle my-1" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                    <ul class="dropdown-menu">
-                  <li>
-                      <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                  </li>
-                  <li>
-                      <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
-                  </li>`;
-                }
-                container += `</ul>
-              
+            <button id="btn_edit" data-id="${element.id}">
+            select
+            </button>
+            
           </div>
       </td>
   </tr>
@@ -180,7 +227,7 @@ form_search.onsubmit = async (e) => {
 
   const formData = new FormData(form_search);
 
-  getData("", formData.get("keyword"));
+  getData("", formData.get("search"));
 };
 
 //Store and Update Functionality Combined
@@ -306,18 +353,18 @@ form_owners.onsubmit = async (e) => {
   document.querySelector("#form_owners button[type='submit']").innerHTML = "Submit";
 };
 
-const viewAction = async (e) => {
-    e.preventDefault();
+// const viewAction = async (e) => {
+//     e.preventDefault();
 
-    // Get property_owner_id from data-id attribute within the btn_view anchor tag
-    const propertyOwnerId = e.target.getAttribute("data-id");
+//     // Get property_owner_id from data-id attribute within the btn_view anchor tag
+//     const propertyOwnerId = e.target.getAttribute("data-id");
 
-    // Set propertyOwnerId in local storage
-    localStorage.setItem("propertyOwnerId", propertyOwnerId);
+//     // Set propertyOwnerId in local storage
+//     localStorage.setItem("propertyOwnerId", propertyOwnerId);
 
-    // Redirect to the new page
-    window.location.href = "property.html";
-};
+//     // Redirect to the new page
+//     window.location.href = "property.html";
+// };
 
 
 
@@ -372,72 +419,8 @@ const deleteAction = async (e) => {
   }
 };
 
-// Update Functionality
-const editAction = async (e) => {
-    
-    // Get Id from data Id attribute within the btn_delete anchor tag
-    const id = e.target.getAttribute("data-id");
-
-    // Show Functionality Function Call
-    showData(id);
-
-    // Show Modal Form
-    document.getElementById("modal_show").click();
-}
-
 // Storage of Id of chosen data to update
-let for_update_id = "";
+// let for_update_id = "";
 
-// Show Functionality
-const showData = async (id) => {
-
-  // Background lightblue the card you want to edit
-  document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
-    "lightBlue";
-
-  // Fetch API property owner edit endpoint
-  const response = await fetch(
-    backendURL + "/api/owner/" + id,  {
-    headers: {
-      Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-      "ngrok-skip-browser-warning": "69420", // Include ngrok bypass header directly
-    },
-  });
-
-  // Get response if 200-299 status code
-  if (response.ok) {
-    const json = await response.json();
-    // console.log(json);
-
-    // Store id to a variable; id will be utilize for update
-    for_update_id = json.id;
-
-    // Display json response to Form tags; make sure to set id attribute on tags (input, textarea, select)    
-    document.getElementById("property_owner_name").value = json.property_owner_name;
-    document.getElementById("address").value = json.address;
-    document.getElementById("email").value = json.email;
-
-    // Change Button Description; You can also use textContent instead of innerHTML
-    document.querySelector("#form_owners button[type='submit']").innerHTML = "Update Info";
-  } 
-  // Get response if 400+ or 500+
-  else {
-    errorNotification("Unable to show!", 10);
-
-    // Background white the card if unable to show
-    document.querySelector(`tr[data-id="${id}"]`).style.backgroundColor =
-      "white";
-  }
-};
-
-// Page Functionality
-const pageAction = async (e) => {
-  // Get url from data-url attribute within the btn_pagination anchor tag
-  const url = e.target.getAttribute("data-url");
-
-  // Refresh card list
-  getData(url);
-}
 
 export {getData};

@@ -402,6 +402,12 @@ h6 {
   background: #fff;
 }
 
+#hero1 {
+  width: 100%;
+  height: 90vh;
+  background: #fff;
+}
+
 #hero .container {
   padding-top: 72px;
 }

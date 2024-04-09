@@ -4,7 +4,8 @@ import {setRouter} from "../router/router.js";
 // Set Router
 setRouter();
 
-const backendURL = "https://0b61-103-80-142-246.ngrok-free.app/webapp-tax-advisor/public";
+
+const backendURL = "http://webapp-tax-advisor.test";
 // http://webapp-tax-advisor.test
 
 let userId;
@@ -120,7 +121,7 @@ async function getLoggedUser(){
     }
 };
 
-// Show Admin Pages
+// Show Nav Admin Pages
 function showNavAdminPages() {
   if (localStorage.getItem("role") == "Admin") {
    document.getElementById("nav_admin_pages").innerHTML = 
@@ -131,6 +132,7 @@ function showNavAdminPages() {
     </a>`;
   }
 }
+
 
 // // Calendar
 // function updateDate() {

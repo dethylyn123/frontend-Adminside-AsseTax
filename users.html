@@ -7,6 +7,11 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Users -AsseTax</title>
+        
+        <!-- Favicons -->
+        <link href="assets/img/assetax-logo.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/custom.css">
@@ -16,6 +21,46 @@
         <script type="module" src="js/utils/utils.js"></script>
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
+        <style>
+            .form-control, .datatable-input {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.0;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+                -moz-appearance: none;
+                    appearance: none;
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+            @media (prefers-reduced-motion: reduce) {
+            .form-control, .datatable-input {
+            transition: none;
+            }
+            }
+            .form-control[type=file], [type=file].datatable-input {
+            overflow: hidden;
+            }
+            .form-control[type=file]:not(:disabled):not([readonly]), [type=file].datatable-input:not(:disabled):not([readonly]) {
+            cursor: pointer;
+            }
+            .form-control:focus, .datatable-input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #fe8686;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(253, 97, 13, 0.25);
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-pink">
@@ -54,12 +99,20 @@
                                 Charts
                             </a> -->
                             <a class="nav-link" href="owners.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Real Property Owners
                             </a>
-                            <a class="nav-link" href="declaration.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <a class="nav-link" href="assessment-sheet.html">
+                              <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
+                              Assessment Sheet
+                            </a>
+                            <a class="nav-link" href="tax-declaration.html">
+                                <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
                                 Tax Declaration Form
+                            </a>
+                            <a class="nav-link" href="tax-calculator.html">
+                              <div class="sb-nav-link-icon"><i class="bi bi-calculator"></i></div>
+                              RPT Calculator
                             </a>
                             <!-- Bav Admin Pages -->
 
@@ -105,7 +158,9 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
-                            <li class="breadcrumb-item"><a href="declaration.html">Tax Declaration Form</a></li>
+                            <li class="breadcrumb-item"><a href="assessment-sheet.html">Assessment Sheet Form</a></li>
+                            <li class="breadcrumb-item"><a href="tax-declaration.html">Tax Declaration Form</a></li>
+                            <li class="breadcrumb-item"><a href="tax-calculator.html">RPT Calculator</a></li>
                             <li class="breadcrumb-item active">Users</li>
                         </ol>
 
@@ -319,12 +374,12 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
+                            <div class="text-muted">Copyright &copy; AsseTax 2024</div>
+                            <!-- <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
                                 <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </footer>

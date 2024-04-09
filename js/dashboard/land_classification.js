@@ -12,20 +12,20 @@ import {
   // Get Admin Pages
   showNavAdminPages();
   
-  // Retrieve propertyOwnerId from local storage
-  const propertyOwnerId = localStorage.getItem("propertyOwnerId");
+  // Retrieve propertyId from local storage
+  const propertyId = localStorage.getItem("propertyId");
 
-  // Check if propertyOwnerId is not null or undefined before using it
-  if (propertyOwnerId) {
-      // Do something with propertyOwnerId
-      console.log("Property Owner ID:", propertyOwnerId);
+  // Check if propertyId is not null or undefined before using it
+  if (propertyId) {
+      // Do something with propertyId
+      console.log("Property Owner ID:", propertyId);
   } else {
       console.error("Property Owner ID not found in local storage.");
   }
 
   // Sets value to the input field with id "user_id"
   if (document.getElementById("property_owner_id")) {
-    document.getElementById("property_owner_id").value = propertyOwnerId;
+    document.getElementById("property_owner_id").value = propertyId;
   }
 
   // Get All Data
@@ -51,7 +51,7 @@ import {
       (keyword != "" ? "keyword=" + keyword : "");
   
     // Get Carousel API Endpoint; Caters search
-    const response = await fetch(backendURL + "/api/owner/property/" + propertyOwnerId + queryParams, {
+    const response = await fetch(backendURL + "/api/property/classification/" + propertyId + queryParams, {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -65,46 +65,41 @@ import {
       const json = await response.json();
       console.log("json response:",json);
 
-     // Check if json.property.data is an array before iterating
-     if (Array.isArray(json.property.data)) {
+     // Check if json.land_classifications.data is an array before iterating
+    if (Array.isArray(json.land_classifications.data)) {
       let container = "";
 
-      if (json.property.data.length > 0) {
-        json.property.data.forEach((element) => {
+      if (json.land_classifications.data.length > 0) {
+        json.land_classifications.data.forEach((element) => {
         const date = new Date(element.created_at).toLocaleString();
 
   
         container += `<div class="col-sm-6">
-        <div class="card w-100 mt-3" data-id="${element.PIN}">
+        <div class="card w-100 mt-3" data-id="${element.id}">
             <div class="row">
                 
                 <div class="col-sm-12">
                     <div class="card-body">
                         <div class="dropdown float-end">
+                            
+                            ${localStorage.getItem("role") === "Admin" ? `
                             <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item text-success border-0" href="#" id="btn_view" data-id="${element.PIN}"><i class="bi bi-eye-fill"></i> View Property Classification</a>
+                                    <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                 </li>
-                                ${localStorage.getItem("role") === "Admin" ? `
-                                                <li>
-                                                    <a class="dropdown-item text-success" href="#" id="btn_edit" data-id="${element.PIN}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.PIN}"><i class="fa-solid fa-trash"></i> Delete</a>
-                                                </li>` : ''}
+                                <li>
+                                    <a class="dropdown-item text-danger" href="#" id="btn_delete" data-id="${element.id}"><i class="fa-solid fa-trash"></i> Delete</a>
+                                </li>` : ''}
                             </ul>
                         </div>
                         <div class="pt-5">
-                            <h6 class="card-text"><b>PIN:</b> ${element.PIN}</h6>
-                            <h6 class="card-text"><b>Property:</b> ${element.kind_property}</h6>
-                            <h6 class="card-text"><b>Property Address:</b> ${element.complete_address}</h6>
-                            <br>
-                            <h6 class="card-text"><b>Boundaries</b></h6>
-                            <small class="card-text">North:</b> ${element.north}</small><br/>
-                            <small class="card-text">South:</b> ${element.south}</small><br/>
-                            <small class="card-text">East:</b> ${element.east}</small><br/>
-                            <small class="card-text">West:</b> ${element.west}</small>
+                            <h6 class="card-text"><b>Land Classification:</b> ${element.land_classification_name}</h6>
+                            <h6 class="card-text"><b>Assessment Level:</b> ${element.assessment_level}</h6>
+                            <h6 class="card-text"><b>Area:</b> ${element.area.toLocaleString()}</h6>
+                            <h6 class="card-text"><b>Market Value:</b> ${element.market_value.toLocaleString('en-US', {minimumFractionDigits: 2})}</h6>
+                            <h6 class="card-text"><b>Actual Use:</b> ${element.actual_use}</h6>
+                            <h6 class="card-text"><b>Assessed Value:</b> ${element.assessed_value.toLocaleString('en-US', {minimumFractionDigits: 2})}</h6>
                         </div>
                         <h6 class="card-subtitle text-body-secondary mt-5 pt-5">
                             <small><b>Date created:</b> ${date}</small>
@@ -129,11 +124,6 @@ import {
         element.addEventListener("click", deleteAction);
       });
 
-      // Assign click event on Delete Btns
-      document.querySelectorAll("#btn_view").forEach((element) => {
-        element.addEventListener("click", viewAction);
-      });
-
     } else {
       // Display a message when no results are found
       document.getElementById("get_data").innerHTML = `<div class="text-center mt-4">
@@ -141,10 +131,10 @@ import {
         </div>`;
     }
   
-      // Check if json.property.links are defined before iterating
-      if (json.property.links) {
+      // Check if json.land_classifications.links are defined before iterating
+        if (json.land_classifications.links) {
         let pagination = "";
-        json.property.links.forEach((element) => {
+        json.land_classifications.links.forEach((element) => {
           pagination += `<li class="page-item">
             <a class="page-link
               ${element.url == null ? " disabled" : ""}
@@ -212,7 +202,7 @@ errorNotification("HTTP-Error: " + response.status);
     // Check if for_update_id is empty, if empty then it's create, else it's update
     if (for_update_id == "") {
       // Fetch API User Item Store Endpoint
-      response = await fetch(backendURL + "/api/property", {
+      response = await fetch(backendURL + "/api/classification", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -227,7 +217,7 @@ errorNotification("HTTP-Error: " + response.status);
       // Add Method Spoofing to cater Image upload coz you are using FormData; Comment if no Image upload
       // formData.append("_method", "PUT");
       // Fetch API User Item Update Endpoint
-      response = await fetch(backendURL + "/api/property/" + for_update_id, {
+      response = await fetch(backendURL + "/api/classification/" + for_update_id, {
         method: "PUT", // Change to PUT/PATCH if no Image Upload
         headers: {
           Accept: "application/json",
@@ -253,7 +243,7 @@ errorNotification("HTTP-Error: " + response.status);
       successNotification(
         "Successfully " +
           (for_update_id == "" ? "created" : "updated") +
-          " property.",
+          " property classification.",
         10
       );
   
@@ -280,22 +270,11 @@ errorNotification("HTTP-Error: " + response.status);
     document.querySelector("#form_property button[type='submit']").innerHTML =
       "Submit";
   };
-
-  const viewAction = async (e) => {
-    e.preventDefault();
-
-    // Get property_owner_id from data-id attribute within the btn_view anchor tag
-    const propertyId = e.target.getAttribute("data-id");
-
-    // Set propertyOwnerId in local storage
-    localStorage.setItem("propertyId", propertyId);
-
-    // Redirect to the new page
-    window.location.href = "land_classification.html";
-};
   
   // Delete Functionality
   const deleteAction = async (e) => {
+
+      
 
       // Get Id from data-id attribute within the btn_delete anchor tag
       const id = e.target.getAttribute("data-id");
@@ -308,7 +287,7 @@ errorNotification("HTTP-Error: " + response.status);
       if (confirm("Are you sure you want to delete?")) {
   
       // Fetch API User Item Delete Endpoint
-      const response = await fetch(backendURL + "/api/property/" + id, {
+      const response = await fetch(backendURL + "/api/classification/" + id, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -323,7 +302,7 @@ errorNotification("HTTP-Error: " + response.status);
         // const json = await response.json();
         // console.log(json);
   
-        successNotification("Successfully deleted property.", 10);
+        successNotification("Successfully deleted property classification.", 10);
   
         // Remove the Card from the list
         document.querySelector(`.card[data-id="${id}"]`).remove();
@@ -361,7 +340,7 @@ errorNotification("HTTP-Error: " + response.status);
       "blue";
   
     // Fetch API User Item Show Endpoint
-    const response = await fetch(backendURL + "/api/property/" + id, {
+    const response = await fetch(backendURL + "/api/classification/" + id, {
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -375,16 +354,15 @@ errorNotification("HTTP-Error: " + response.status);
       // console.log(json);
   
       // Store id to a variable; id will be utilize for update
-      for_update_id = json.PIN;
+      for_update_id = json.id;
   
       // Display json response to Form tags; make sure to set id attrbute on tags (input, textarea, select)
-      document.getElementById("PIN").value = json.PIN;
-      document.getElementById("kind_property").value = json.kind_property;
-      document.getElementById("complete_address").value = json.complete_address;
-      document.getElementById("north").value = json.north;
-      document.getElementById("south").value = json.south;
-      document.getElementById("east").value = json.east;
-      document.getElementById("west").value = json.west;
+      document.getElementById("land_classification_name").value = json.land_classification_name;
+      document.getElementById("assessment_level").value = json.assessment_level;
+      document.getElementById("area").value = json.area;
+      document.getElementById("market_value").value = json.market_value;
+      document.getElementById("actual_use").value = json.actual_use;
+      document.getElementById("assessed_value").value = json.assessed_value;
   
       // Change Button Text using textContent; either innerHTML or textContent is fine here
       document.querySelector("#form_property button[type='submit']").innerHTML =

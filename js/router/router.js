@@ -28,8 +28,7 @@ function setRouter() {
                 window.location.pathname = "/dashboard.html";
             }
             break;
-        default:
-            break;
+        
 
     }
 }

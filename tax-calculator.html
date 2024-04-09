@@ -6,13 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Tax Declaration Form - AsseTax</title>
+        <title>RPT Calculator - AsseTax</title>
+
+        <!-- Favicons -->
+        <link href="assets/img/assetax-logo.png" rel="icon">
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/custom.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <script type="module" src="js/dashboard/declaration.js"></script>
+        <script type="module" src="js/dashboard/tax-calculator.js"></script>
         <!-- <script type="module" src="js/utils/utils.js"></script> -->
         <script src="js/utils/scripts.js" defer></script>
         <!-- <script type="module" src="js/dashboard/owners.js"></script> -->
@@ -24,10 +30,10 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form id="form_search" class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
+                    <input class="form-control" name="search" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-danger me-5" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
                 </div>
             </form>
             <!-- Navbar-->
@@ -54,12 +60,20 @@
                                 Charts
                             </a> -->
                             <a class="nav-link" href="owners.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Real Property Owners
                             </a>
-                            <a class="nav-link" href="declaration.html">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <a class="nav-link" href="assessment-sheet.html">
+                              <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
+                              Assessment Sheet
+                            </a>
+                            <a class="nav-link" href="tax-declaration.html">
+                                <div class="sb-nav-link-icon"><i class="bi bi-layout-text-sidebar-reverse"></i></div>
                                 Tax Declaration Form
+                            </a>
+                            <a class="nav-link" href="tax-calculator.html">
+                              <div class="sb-nav-link-icon"><i class="bi bi-calculator"></i></div>
+                              RPT Calculator
                             </a>
                             <!-- Admin Pages -->
                             <div id="nav_admin_pages"></div>
@@ -95,17 +109,63 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tax Declaration Form</h1>
+                        <h1 class="mt-4">RPT Calculator</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="owners.html">Property Owners</a></li>
-                            <li class="breadcrumb-item active">Tax Declaration Form</li>
+                            <li class="breadcrumb-item"><a href="assessment-sheet.html">Assessment Sheet Form</a></li>
+                            <li class="breadcrumb-item"><a href="tax-declaration.html">Tax Declaration Form</a></li>
+                            <li class="breadcrumb-item active">RPT Calculator</li>
                         </ol>
                         <!-- Notification -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="alert alert-danger d-none" role="alert"></div>
                             <div class="alert alert-success d-none" role="alert"></div>
+                        </div> -->
+
+                        <!-- Search Form -->
+                        <!-- <form id="form_search">
+                            <div class="row">
+                                <div class="col-sm-12 mb-1">
+                                <div class="float-end col-sm-2 d-flex justify-content-center mb-1">
+                                Button trigger modal
+                                <button
+                                    id="modal_show"
+                                    type="button"
+                                    class="btn btn-cyan w-100"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#form_modal"
+                                >
+                                    Add Property Owner
+                                </button>
+                                End Button trigger modal 
+                                </div>
+                            </div>
+                            </form> -->
+                        <!-- End of Search Form -->
+
+                            <hr />
+
+                        <!-- Get All Data -->
+                        <div class="row" id="get_data">
+                            <div class="col-sm-12 d-flex justify-content-center align-items-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <b class="ms-2">Loading Data...</b>
+                            </div>
                         </div>
+
+                        <!-- Pagination of All Data -->
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="get_pagination"></ul>
+                            </nav>
+                        </div>
+                        
+                        <!-- Notification -->
+                        <div class="alert alert-danger d-none" role="alert"></div>
+                        <div class="alert alert-success d-none" role="alert"></div>
 
                         <!-- form hidden; Added form data fro user_id display image in dashboard; Uncomment if necessary -->
                         <!-- <form id="form_owners">
@@ -115,12 +175,12 @@
                         </form> -->
                         
                         
-                        <div class="container text-dark">
+                        <div class="container text-dark" style="border: 1px solid rgb(128, 128, 128); border-radius: 10px;">
                             <!-- Form Declaration -->
-                            <form id="form_declaration" class="row g-3 mt-5">
+                            <form id="form_declaration" class="row g-3 mt-0">
                                 <!-- <input type="hidden" name="property_id" id="property_id"/>
                                 <input type="hidden" name="property_owner_id" id="property_owner_id"/> -->
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-md-3">
                                         <label for="property_id" class="form-label">Property ID</label>
                                         <input type="text" class="form-control" name="property_id" id="property_id" required>
@@ -130,35 +190,35 @@
                                         <input type="text" class="form-control" name="property_owner_id" id="property_owner_id" required>
                                     </div>
                                 </div>
-                                <hr>
+                                <hr> -->
                                 <div class="col-md-6">
                                     <label for="land_classification_name" class="form-label">Land Classification Name</label>
-                                    <input type="text" class="form-control" name="land_classification_name" id="land_classification_name" required>
+                                    <input type="text" class="form-control" id="land_classification_name" name="land_classification_name" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="fair_market_value" class="form-label">Fair Market Value</label>
-                                    <input type="text" class="form-control" id="fair_market_value" name="fair_market_value" required>
+                                    <input type="number" class="form-control" id="market_value" name="fair_market_value" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="assessment_level" class="form-label">Assessment Level</label>
-                                    <input type="text" class="form-control" id="assessment_level" name="assessment_level" required>
+                                    <input type="number" class="form-control" id="assessment_level" name="assessment_level" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="area_type" class="form-label">Area Type</label>
                                     <select id="area_type" class="form-select" name="area_type" required>
-                                        <option selected>Choose...</option>
-                                        <option>Province</option>
+                                        <option disabled>Select Area Type</option>
+                                        <option selected>Province</option>
                                         <option>City</option>
-                                        <option>Municipality within Metro Manila</option>
+                                        <!-- <option>Municipality within Metro Manila</option> -->
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="basic_property_tax" class="form-label">Basic Property Tax</label>
-                                    <input type="text" class="form-control" id="basic_property_tax" name="basic_property_tax" required>
+                                    <input type="number" class="form-control" id="basic_property_tax" name="basic_property_tax" value="1" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="special_education_fund" class="form-label">Special Education Fund</label>
-                                    <input type="text" class="form-control" id="special_education_fund" name="special_education_fund" required>
+                                    <input type="number" class="form-control" id="special_education_fund" name="special_education_fund" value="1" required>
                                 </div>
                                 <!-- <div class="col-12">
                                 <div class="form-check">
@@ -168,14 +228,22 @@
                                     </label>
                                 </div>
                                 </div> -->
-                                <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-cyan mx-auto d-block col-4">Calculate</button>
+                                <div class="row">
+                                    <div class="col-md-12 mt-4 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-cyan me-3">Calculate</button>
+                                    <!-- </div>
+                                    <div class="col-md-6 mt-4"> -->
+                                        <button type="reset" class="btn btn-cyan">Reset</button>
+                                    </div>
                                 </div>
 
                                 <!-- Assessed Value and Real Property Tax -->
-                                <div class="text-center">
-                                    <p id="assessed_value_output"></p>
-                                    <p id="real_property_tax_output"></p>                     
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-6 out-put">
+                                        <p id="assessed_value_output"></p>
+                                        <p id="real_property_tax_output"></p>                     
+                                    </div>
                                 </div>
                             </form>
                             <!-- End of Form Declaration -->
@@ -185,12 +253,12 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
+                            <div class="text-muted">Copyright &copy; AsseTax 2024</div>
+                            <!-- <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
                                 <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </footer>
