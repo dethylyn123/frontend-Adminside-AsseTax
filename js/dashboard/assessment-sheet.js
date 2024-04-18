@@ -183,117 +183,117 @@ document.addEventListener("DOMContentLoaded", function () {
             unitValueInput.value = "230"; // Set unit value for C-4
             break;
           case "UPLR-1":
-            unitValueInput.value = "36300";
+            unitValueInput.value = "36,300";
           case "UPLR-2":
-            unitValueInput.value = "29100";
+            unitValueInput.value = "29,100";
             break;
           case "UPLR-3":
-            unitValueInput.value = "21800";
+            unitValueInput.value = "21,800";
             break;
           case "UPLR-4":
-            unitValueInput.value = "14500";
+            unitValueInput.value = "14,500";
             break;
           case "COCO-1":
-            unitValueInput.value = "57200";
+            unitValueInput.value = "57,200";
           case "COCO-2":
-            unitValueInput.value = "45800";
+            unitValueInput.value = "45,800";
             break;
           case "COCO-3":
-            unitValueInput.value = "34300";
+            unitValueInput.value = "34,300";
             break;
           case "COCO-4":
-            unitValueInput.value = "22800";
+            unitValueInput.value = "22,800";
             break;
           case "CORN-1":
-            unitValueInput.value = "59600";
+            unitValueInput.value = "59,600";
           case "CORN-2":
-            unitValueInput.value = "47700";
+            unitValueInput.value = "47,700";
             break;
           case "CORN-3":
-            unitValueInput.value = "35800";
+            unitValueInput.value = "35,800";
             break;
           case "CORN-4":
-            unitValueInput.value = "23900";
+            unitValueInput.value = "23,900";
             break;
           case "COFE-1":
-            unitValueInput.value = "72300";
+            unitValueInput.value = "72,300";
           case "COFE-2":
-            unitValueInput.value = "58000";
+            unitValueInput.value = "58,000";
             break;
           case "COFE-3":
-            unitValueInput.value = "43300";
+            unitValueInput.value = "43,300";
             break;
           case "COFE-4":
-            unitValueInput.value = "29000";
+            unitValueInput.value = "29,000";
             break;
           case "ABA-1":
-            unitValueInput.value = "42400";
+            unitValueInput.value = "42,400";
           case "ABA-2":
-            unitValueInput.value = "33900";
+            unitValueInput.value = "33,900";
             break;
           case "ABA-3":
-            unitValueInput.value = "25400";
+            unitValueInput.value = "25,400";
             break;
           case "ABA-4":
-            unitValueInput.value = "16900";
+            unitValueInput.value = "16,900";
             break;
           case "OR-1":
-            unitValueInput.value = "53300";
+            unitValueInput.value = "53,300";
           case "OR-2":
-            unitValueInput.value = "42600";
+            unitValueInput.value = "42,600";
             break;
           case "OR-3":
-            unitValueInput.value = "32000";
+            unitValueInput.value = "32,000";
             break;
           case "OR-4":
-            unitValueInput.value = "21300";
+            unitValueInput.value = "21,300";
             break;
           case "BANA-1":
-            unitValueInput.value = "56500";
+            unitValueInput.value = "56,500";
           case "BANA-2":
-            unitValueInput.value = "45200";
+            unitValueInput.value = "45,200";
             break;
           case "BANA-3":
-            unitValueInput.value = "33900";
+            unitValueInput.value = "33,900";
             break;
           case "BANA-4":
-            unitValueInput.value = "22600";
+            unitValueInput.value = "22,600";
             break;
           case "CRC-1":
-            unitValueInput.value = "57100";
+            unitValueInput.value = "57,100";
           case "CRC-2":
-            unitValueInput.value = "45700";
+            unitValueInput.value = "45,700";
             break;
           case "CRC-3":
-            unitValueInput.value = "34200";
+            unitValueInput.value = "34,200";
             break;
           case "CRC-4":
-            unitValueInput.value = "22800";
+            unitValueInput.value = "22,800";
             break;
           case "CACAO-1":
-            unitValueInput.value = "87700";
+            unitValueInput.value = "87,700";
           case "CACAO-2":
-            unitValueInput.value = "70100";
+            unitValueInput.value = "70,100";
             break;
           case "CACAO-3":
-            unitValueInput.value = "52600";
+            unitValueInput.value = "52,600";
             break;
           case "CACAO-4":
-            unitValueInput.value = "35100";
+            unitValueInput.value = "35,100";
             break;
           case "RUB-1":
-            unitValueInput.value = "85900";
+            unitValueInput.value = "85,900";
           case "RUB-2":
-            unitValueInput.value = "68700";
+            unitValueInput.value = "68,700";
             break;
           case "RUB-3":
-            unitValueInput.value = "51500";
+            unitValueInput.value = "51,500";
             break;
           case "RUB-4":
-            unitValueInput.value = "34300";
+            unitValueInput.value = "34,300";
             break;
           case "PT":
-            unitValueInput.value = "22500";
+            unitValueInput.value = "22,500";
             break;
           default:
             unitValueInput.value = "";
@@ -308,11 +308,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle area and unit value inputs
     function handleInput(input, index) {
       input.addEventListener("input", function () {
-        const area = parseFloat(areaInputs[index].value);
-        const unitValue = parseFloat(unitValueInputs[index].value);
+        // Get the current value of the area input
+        let areaValue = input.value;
+        // Remove non-digit characters and add commas to the numeric part
+        areaValue = areaValue.replace(/[^\dha\ sqm]/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // Update the value of the area input
+        input.value = areaValue;
+        
+        // Parse the area value to float for calculations
+        const area = parseFloat(areaValue.replace(/,/g, ''));
+        
+        const unitValue = parseFloat(unitValueInputs[index].value.replace(/,/g, ''));
         const baseMarketValue = area * unitValue;
         if (!isNaN(baseMarketValue)) {
-          baseMarketValueInputs[index].value = baseMarketValue.toFixed(2);
+          baseMarketValueInputs[index].value = baseMarketValue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else {
           baseMarketValueInputs[index].value = "";
         }
@@ -329,13 +338,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateTotalBaseMarketValue() {
     let totalBaseMarketValue = 0;
     baseMarketValueInputs.forEach((input) => {
-      const value = parseFloat(input.value);
+      const valueWithoutCommas = input.value.replace(/,/g, '');
+      const value = parseFloat(valueWithoutCommas);
       if (!isNaN(value)) {
         totalBaseMarketValue += value;
       }
     });
     totalBaseMarketValueOutputs.forEach((output) => {
-      output.textContent = totalBaseMarketValue.toFixed(2);
+      output.textContent = totalBaseMarketValue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     });
   }
 
@@ -373,75 +383,45 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calculateAssessedValue() {
-    const assessedValueOutput = document.getElementById(
-      "assessed-value-output"
-    );
-
+    const assessedValueOutput = document.getElementById("assessed-value-output");
+    const totalAssessedValueOutput = document.getElementById("total-assessed-value-output");
+  
     function handleInput(input, index) {
       input.addEventListener("input", function () {
-        const adjustmentMarketValue = parseFloat(
-          adjustmentMarketValueInputs[index].value
-        );
+        let adjustedValue = input.value.replace(/[^\d.]/g, ''); // Remove non-digit characters except '.'
+  
+        // Remove decimal places
+        adjustedValue = adjustedValue.split('.')[0];
+  
+        // Format value with commas
+        adjustedValue = parseFloat(adjustedValue).toLocaleString('en-US');
+  
+        // Set the formatted value
+        input.value = adjustedValue;
+  
+        // Set cursor position to the end
+        input.selectionStart = input.selectionEnd = input.value.length;
+  
+        const adjustmentMarketValue = parseFloat(adjustedValue.replace(/,/g, '')); // Remove commas from adjusted value
         const assessmentLevel = parseFloat(assessmentLevelInputs[index].value);
-
+  
         if (!isNaN(adjustmentMarketValue) && !isNaN(assessmentLevel)) {
-          const assessedValue = adjustmentMarketValue * assessmentLevel;
-          assessedValueOutput.textContent = assessedValue.toFixed(2);
+          const assessedValue = (adjustmentMarketValue * assessmentLevel) / 100;
+          assessedValueOutput.value = assessedValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format assessed value with commas and 2 decimal places
+  
+          totalAssessedValueOutput.value = assessedValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format total assessed value with commas and 2 decimal places
         }
       });
     }
-
-    function calculateAssessedValue() {
-      const adjustmentMarketValueInputs = document.querySelectorAll(
-        ".adjustment-market-value"
-      );
-      const assessmentLevelInputs = document.querySelectorAll(
-        ".assessment-level-input"
-      );
-      const assessedValueOutput = document.getElementById(
-        "assessed-value-output"
-      );
-
-      const totalAssessedValueOutput = document.getElementById(
-        "total-assessed-value-output"
-      );
-
-      // Assessed Value Output
-      function handleInput(input, index) {
-        input.addEventListener("input", function () {
-          const adjustmentMarketValue = parseFloat(input.value);
-          const assessmentLevel = parseFloat(
-            assessmentLevelInputs[index].value
-          );
-
-          if (!isNaN(adjustmentMarketValue) && !isNaN(assessmentLevel)) {
-            const assessedValue =
-              (adjustmentMarketValue * assessmentLevel) / 100;
-            assessedValueOutput.value = assessedValue.toFixed(2);
-
-            totalAssessedValueOutput.value = assessedValue.toFixed(2);
-          }
-        });
-      }
-
-      // Add event listeners to adjustment market value inputs
-      adjustmentMarketValueInputs.forEach((input, index) => {
-        handleInput(input, index);
-      });
-
-      // Add event listeners to assessment level inputs
-      assessmentLevelInputs.forEach((input, index) => {
-        handleInput(input, index);
-      });
-    }
-
-    calculateAssessedValue();
-
+  
+    const adjustmentMarketValueInputs = document.querySelectorAll(".adjustment-market-value");
+    const assessmentLevelInputs = document.querySelectorAll(".assessment-level-input");
+  
     // Add event listeners to adjustment market value inputs
     adjustmentMarketValueInputs.forEach((input, index) => {
       handleInput(input, index);
     });
-
+  
     // Add event listeners to assessment level inputs
     assessmentLevelInputs.forEach((input, index) => {
       handleInput(input, index);
@@ -476,12 +456,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to update the total value
     function updateTotal() {
-        var total = 0;
-        inputs.forEach(function(input) {
-            total += parseFloat(input.value) || 0;
-        });
-        totalInput.value = total.toFixed(2);
-    }
+    inputs.forEach(function(input) {
+        var cursorPosition = input.selectionStart; // Save cursor position
+        var formattedValue = input.value.replace(/,/g, '').replace(/[^\d.]/g, ''); // Remove non-digit characters except '.'
+
+        // Clear input if no digits or decimal points are present
+        if (!formattedValue.match(/\d|\.+/)) {
+            input.value = '';
+            return;
+        }
+
+        var parsedValue = parseFloat(formattedValue).toFixed(2); // Convert to floating point with 2 decimal places
+        var formattedString = parseFloat(parsedValue).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }); // Format input value with commas and 2 decimal places
+        var newCursorPosition = cursorPosition + (formattedString.length - input.value.length); // Adjust cursor position
+
+        input.value = formattedString; // Set formatted value
+
+        // Ensure ".00" at the very right side
+        if (newCursorPosition === formattedString.length && input.value.indexOf('.') === -1) {
+            input.value += ".00";
+            newCursorPosition += 3; // Move cursor to the end
+        }
+
+        // Restore cursor position
+        input.setSelectionRange(newCursorPosition, newCursorPosition);
+    });
+
+    var total = Array.from(inputs).reduce(function(acc, input) {
+      var formattedValue = input.value.replace(/[,.]/g, ''); // Remove commas and decimal points
+      var parsedValue = parseInt(formattedValue, 10) || 0; // Convert to integer, default to 0 if NaN
+      return acc + parsedValue;
+  }, 0);
+  
+  // Convert the total back to a decimal with two decimal places
+  total = total / 100;
+  
+  // Display the total in the totalInput field
+  totalInput.value = total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    
+}
+  
 
     // Add event listeners to each input
     inputs.forEach(function(input) {
@@ -491,6 +508,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Calculate the initial total value
     updateTotal();
 });
+
+
+
 
 // End Other Improvements
 
@@ -504,9 +524,37 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateTotal() {
       var total = 0;
       inputs.forEach(function(input) {
-          total += parseFloat(input.value) || 0;
+          var cursorPosition = input.selectionStart; // Save cursor position
+          var formattedValue = input.value.replace(/,/g, '').replace(/[^\d.]/g, ''); // Remove non-digit characters except '.'
+
+          // Clear input if no digits or decimal points are present
+          if (!formattedValue.match(/\d|\.+/)) {
+              input.value = '';
+              return;
+          }
+
+          var parsedValue = parseFloat(formattedValue).toFixed(2); // Convert to floating point with 2 decimal places
+          var formattedString = parseFloat(parsedValue).toLocaleString('en-US', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+          }); // Format input value with commas and 2 decimal places
+          var newCursorPosition = cursorPosition + (formattedString.length - input.value.length); // Adjust cursor position
+
+          input.value = formattedString; // Set formatted value
+
+          // Ensure ".00" at the very right side
+          if (newCursorPosition === formattedString.length && input.value.indexOf('.') === -1) {
+              input.value += ".00";
+              newCursorPosition += 3; // Move cursor to the end
+          }
+
+          // Restore cursor position
+          input.setSelectionRange(newCursorPosition, newCursorPosition);
+
+          total += parseFloat(parsedValue) || 0; // Add parsed value to the total
       });
-      totalInput.value = total.toFixed(2);
+
+      totalInput.value = total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format total with commas and 2 decimal places
   }
 
   // Add event listeners to each input
@@ -516,4 +564,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Calculate the initial total value
   updateTotal();
+});
+
+// Add commas and decimal places in the value-adjustment field
+document.addEventListener('DOMContentLoaded', function() {
+  var valueAdjustmentInput = document.querySelector('.value-adjustment');
+
+  function formatInputValue(input) {
+      var cursorPosition = input.selectionStart;
+      var unformattedValue = input.value.replace(/,/g, ''); // Remove commas
+      var parsedValue = parseFloat(unformattedValue) || 0;
+      var formattedValue = parsedValue.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0}); // Set maximumFractionDigits to 0 to remove decimal point
+      input.value = formattedValue;
+      var newPosition = cursorPosition + (formattedValue.length - unformattedValue.length);
+      input.setSelectionRange(newPosition, newPosition);
+  }
+
+  valueAdjustmentInput.addEventListener('input', function() {
+      formatInputValue(valueAdjustmentInput);
+  });
 });

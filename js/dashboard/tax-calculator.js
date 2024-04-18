@@ -26,10 +26,14 @@ const showData = async (id) => {
     if (response.ok) {
       const json = await response.json();
       console.log("show classification:",json);
+
+      // Format the market value with commas
+      const formattedMarketValue = json.market_value.toLocaleString('en-US');
+
       // Display json response to Form tags
       document.getElementById("land_classification_name").value = json.land_classification_name;
       document.getElementById("assessment_level").value = json.assessment_level;
-      document.getElementById("market_value").value = json.market_value;
+      document.getElementById("market_value").value = formattedMarketValue;
   
       // // Store id to a variable; id will be utilized for update
       // for_update_id = json.id;

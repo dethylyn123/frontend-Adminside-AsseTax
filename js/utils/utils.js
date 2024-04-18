@@ -5,7 +5,7 @@ import {setRouter} from "../router/router.js";
 setRouter();
 
 
-const backendURL = "https://750e-143-44-193-132.ngrok-free.app/webapp-tax-advisor/public";
+const backendURL = "http://webapp-tax-advisor.test";
 // http://webapp-tax-advisor.test
 
 let userId;

@@ -157,7 +157,8 @@ form_declaration.onsubmit = async (e) => {
     const formData = new FormData(form_declaration);
 
     // Calculate assessed value
-    const fairMarketValue = parseFloat(formData.get('fair_market_value'));
+    const fairMarketValue = parseFloat(formData.get('fair_market_value').replace(/,/g, ''));
+
     const assessmentLevel = parseFloat(formData.get('assessment_level')) / 100; // Convert to decimal
     const assessedValue = fairMarketValue * assessmentLevel;
 

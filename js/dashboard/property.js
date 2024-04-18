@@ -84,7 +84,7 @@ import {
                             <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item text-success border-0" href="#" id="btn_view" data-id="${element.PIN}"><i class="bi bi-eye-fill"></i> View Property Classification</a>
+                                    <a class="dropdown-item text-primary border-0 no-hover-btn-view" href="#" id="btn_view" data-id="${element.PIN}"><i class="bi bi-eye-fill"></i> View Property Classification</a>
                                 </li>
                                 ${localStorage.getItem("role") === "Admin" ? `
                                                 <li>

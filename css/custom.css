@@ -92,6 +92,10 @@ a button.icon-secondary:hover i {
     text-align: center;
 }
 
+.no-hover-btn-view:hover {
+    background-color: rgb(242, 252, 242) !important;
+}
+
 
 /* Report Section- Nice Admin Template*/
 /*--------------------------------------------------------------
